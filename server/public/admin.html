@@ -3,39 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>عزومة Azumaa Delivery - لوحة التحكم الإدارية</title>
+  <title>لوحة تحكم عزومة Azumaa Admin Panel</title>
   <!-- Bootstrap 5 RTL -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- FontAwesome 6 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <!-- Cairo Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
-      --sidebar-bg: linear-gradient(180deg, #ff5e62 0%, #ff9966 100%);
-      --body-bg: #f4f6f9;
-      --card-bg: #ffffff;
-      --text-main: #2c3e50;
-      --text-muted: #7f8c8d;
-      --primary-color: #ff5e62;
+      --sidebar-gradient: linear-gradient(180deg, #ff5e62 0%, #ff9966 100%);
+      --bg-body: #f4f6f9;
+      --card-border: #e9ecef;
+      --primary-orange: #ff5e62;
     }
-    
+
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: var(--body-bg);
-      color: var(--text-main);
-      min-height: 100vh;
+      background-color: var(--bg-body);
+      color: #333333;
       margin: 0;
+      min-height: 100vh;
     }
 
     /* Sidebar Styling */
     .sidebar {
-      background: var(--sidebar-bg);
+      background: var(--sidebar-gradient);
       min-height: 100vh;
       color: #ffffff;
-      padding: 1rem 0;
-      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       height: 100vh;
@@ -44,58 +43,78 @@
 
     .sidebar-brand {
       padding: 1rem 1.5rem;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
       margin-bottom: 1rem;
     }
 
     .sidebar .nav-link {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.95);
       font-weight: 600;
       font-size: 0.95rem;
-      padding: 0.8rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
       gap: 12px;
-      border-radius: 0;
-      transition: all 0.2s ease;
+      transition: all 0.2s ease-in-out;
     }
 
     .sidebar .nav-link:hover, .sidebar .nav-link.active {
       background: rgba(255, 255, 255, 0.25);
       color: #ffffff;
       padding-right: 2rem;
-      font-weight: 700;
+      font-weight: 800;
     }
 
-    /* Main Container */
+    /* Main Container & DataCards */
     .main-content {
-      padding: 2rem;
+      padding: 1.8rem;
     }
 
-    /* Card & Table Styling matching PHP DataTables */
     .data-card {
-      background: var(--card-bg);
+      background: #ffffff;
       border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
       margin-bottom: 2rem;
-      border: 1px solid #e9ecef;
+      border: 1px solid var(--card-border);
     }
 
-    .data-table-header {
+    .page-header-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #2c3e50;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+    }
+
+    /* DataTables Layout Controls */
+    .dt-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
       gap: 1rem;
     }
 
+    .dt-search input {
+      border-radius: 4px;
+      border: 1px solid #ced4da;
+      padding: 0.4rem 0.75rem;
+    }
+
+    /* Table Styling matching PHP Screens */
     .table-custom {
       width: 100%;
       border-collapse: separate;
@@ -106,24 +125,24 @@
       background-color: #f8f9fa;
       color: #495057;
       font-weight: 700;
-      padding: 1rem;
+      padding: 0.85rem;
       border-bottom: 2px solid #dee2e6;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .table-custom td {
-      padding: 0.9rem 1rem;
+      padding: 0.8rem 0.85rem;
       vertical-align: middle;
       border-bottom: 1px solid #e9ecef;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
-    /* Stat Cards */
+    /* Stat Cards matching Screen 1 & 15 */
     .stat-box {
       background: #ffffff;
-      border-radius: 12px;
+      border-radius: 10px;
       padding: 1.25rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
       border-right: 5px solid #ff5e62;
       transition: transform 0.2s;
     }
@@ -134,24 +153,35 @@
 
     .stat-title {
       font-size: 0.85rem;
-      color: var(--text-muted);
+      color: #7f8c8d;
       font-weight: 600;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
 
     .stat-value {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: #2c3e50;
     }
 
-    /* Custom Action Buttons */
+    /* Buttons matching PHP Screenshots */
+    .btn-php-submit {
+      background: #007bff;
+      color: #fff;
+      font-weight: 700;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+    }
+    .btn-php-submit:hover { background: #0056b3; }
+
     .btn-action-edit {
       background: transparent;
       border: 1px solid #007bff;
       color: #007bff;
       border-radius: 4px;
-      padding: 4px 8px;
+      padding: 3px 7px;
+      font-size: 0.82rem;
     }
     .btn-action-edit:hover { background: #007bff; color: #fff; }
 
@@ -160,7 +190,8 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      padding: 4px 10px;
+      padding: 3px 8px;
+      font-size: 0.82rem;
     }
     .btn-action-delete:hover { background: #c0392b; }
 
@@ -169,7 +200,8 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      padding: 5px 12px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
     }
 
     .btn-action-green {
@@ -177,14 +209,15 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      padding: 5px 12px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
     }
 
     /* Login Modal Overlay */
     #loginOverlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(5px);
       z-index: 9999;
       display: flex;
@@ -197,11 +230,11 @@
 
   <!-- Login Modal Overlay -->
   <div id="loginOverlay">
-    <div class="card shadow-lg border-0 p-4 style-modal" style="width: 420px; border-radius: 16px; background: #fff;">
+    <div class="card shadow-lg border-0 p-4" style="width: 420px; border-radius: 14px; background: #fff;">
       <div class="text-center mb-4">
-        <i class="fa-solid fa-store text-danger display-4 mb-2"></i>
+        <i class="fa-solid fa-utensils text-danger display-4 mb-2"></i>
         <h3 class="fw-bold text-dark">لوحة تحكم عزومة Azumaa</h3>
-        <p class="text-muted small">يرجى تسجيل الدخول لمتابعة العمل</p>
+        <p class="text-muted small">سجل الدخول لإدارة النظام الكامل</p>
       </div>
       <form id="loginForm">
         <div class="mb-3">
@@ -221,33 +254,33 @@
   <div class="container-fluid">
     <div class="row">
 
-      <!-- Left Sidebar -->
+      <!-- Left Sidebar (PHP Style) -->
       <div class="col-md-3 col-lg-2 sidebar">
         <div class="sidebar-brand">
-          <i class="fa-solid fa-utensils"></i>
-          <span>عزومة Admin</span>
+          <i class="fa-solid fa-store"></i>
+          <span>عزومة Azumaa</span>
         </div>
         <nav class="nav flex-column">
-          <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> لوحة القيادة</a>
-          <a class="nav-link" href="#" onclick="showTab('customers')"><i class="fa-solid fa-users"></i> إدارة العملاء</a>
-          <a class="nav-link" href="#" onclick="showTab('pending-orders')"><i class="fa-solid fa-clock-rotate-left"></i> الطلبات المعلقة</a>
-          <a class="nav-link" href="#" onclick="showTab('completed-orders')"><i class="fa-solid fa-circle-check"></i> الطلبات المكتملة</a>
-          <a class="nav-link" href="#" onclick="showTab('categories')"><i class="fa-solid fa-list-check"></i> الأقسام الرئيسية</a>
-          <a class="nav-link" href="#" onclick="showTab('subcategories')"><i class="fa-solid fa-layer-group"></i> الأقسام الفرعية</a>
-          <a class="nav-link" href="#" onclick="showTab('products')"><i class="fa-solid fa-basket-shopping"></i> قائمة المنتجات</a>
-          <a class="nav-link" href="#" onclick="showTab('riders')"><i class="fa-solid fa-motorcycle"></i> إدارة السائقين</a>
-          <a class="nav-link" href="#" onclick="showTab('areas')"><i class="fa-solid fa-map-location-dot"></i> المناطق والتوصيل</a>
-          <a class="nav-link" href="#" onclick="showTab('timeslots')"><i class="fa-solid fa-business-time"></i> فترات التوصيل</a>
-          <a class="nav-link" href="#" onclick="showTab('banners')"><i class="fa-solid fa-image"></i> البنرات الإعلانية</a>
-          <a class="nav-link" href="#" onclick="showTab('coupons')"><i class="fa-solid fa-ticket"></i> أكواد الخصم (الكوبونات)</a>
-          <a class="nav-link" href="#" onclick="showTab('home-sections')"><i class="fa-solid fa-table-cells-large"></i> أقسام الرئيسية</a>
-          <a class="nav-link" href="#" onclick="showTab('notifications')"><i class="fa-solid fa-bell"></i> الإشعارات الترويجية</a>
-          <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> التقييمات والشكاوى</a>
-          <a class="nav-link" href="#" onclick="showTab('country-codes')"><i class="fa-solid fa-globe"></i> أكواد الدول</a>
-          <a class="nav-link" href="#" onclick="showTab('payment-gateways')"><i class="fa-solid fa-credit-card"></i> بوابات الدفع</a>
-          <a class="nav-link" href="#" onclick="showTab('settings')"><i class="fa-solid fa-gears"></i> إعدادات النظام</a>
-          <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> الملف الشخصي</a>
-          <a class="nav-link text-warning mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</a>
+          <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+          <a class="nav-link" href="#" onclick="showTab('category')"><i class="fa-solid fa-list-check"></i> Category</a>
+          <a class="nav-link" href="#" onclick="showTab('subcategory')"><i class="fa-solid fa-layer-group"></i> Sub Category</a>
+          <a class="nav-link" href="#" onclick="showTab('product')"><i class="fa-solid fa-basket-shopping"></i> Product</a>
+          <a class="nav-link" href="#" onclick="showTab('area')"><i class="fa-solid fa-map-location-dot"></i> Area</a>
+          <a class="nav-link" href="#" onclick="showTab('timeslot')"><i class="fa-solid fa-clock"></i> Timeslot</a>
+          <a class="nav-link" href="#" onclick="showTab('delivery-boy')"><i class="fa-solid fa-motorcycle"></i> Delivery Boy</a>
+          <a class="nav-link" href="#" onclick="showTab('banner')"><i class="fa-solid fa-image"></i> Banner</a>
+          <a class="nav-link" href="#" onclick="showTab('home-section')"><i class="fa-solid fa-table-cells-large"></i> Home Section</a>
+          <a class="nav-link" href="#" onclick="showTab('notification')"><i class="fa-solid fa-bell"></i> Notification</a>
+          <a class="nav-link" href="#" onclick="showTab('customer')"><i class="fa-solid fa-users"></i> Customer</a>
+          <a class="nav-link" href="#" onclick="showTab('pending-order')"><i class="fa-solid fa-box-open"></i> Pending Order</a>
+          <a class="nav-link" href="#" onclick="showTab('complete-order')"><i class="fa-solid fa-circle-check"></i> Complete Order</a>
+          <a class="nav-link" href="#" onclick="showTab('coupon')"><i class="fa-solid fa-ticket"></i> Coupon</a>
+          <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> Ratings & Feedback</a>
+          <a class="nav-link" href="#" onclick="showTab('country-code')"><i class="fa-solid fa-globe"></i> Country Code</a>
+          <a class="nav-link" href="#" onclick="showTab('payment-gateway')"><i class="fa-solid fa-credit-card"></i> Payment Gateway</a>
+          <a class="nav-link" href="#" onclick="showTab('setting')"><i class="fa-solid fa-gears"></i> Setting</a>
+          <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> Update Profile</a>
+          <a class="nav-link text-warning mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
         </nav>
       </div>
 
@@ -256,504 +289,659 @@
 
         <!-- Header Topbar -->
         <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
-          <h4 class="fw-bold m-0 text-dark" id="pageTitle">لوحة القيادة الإحصائية</h4>
+          <h4 class="fw-bold m-0 text-dark" id="headerTitle">DASHBOARD OVERVIEW</h4>
           <div class="d-flex align-items-center gap-3">
-            <span class="badge bg-danger p-2" style="background:#ff5e62 !important;">المشرف العام (Super Admin)</span>
-            <button class="btn btn-outline-secondary btn-sm" onclick="logout()"><i class="fa-solid fa-sign-out"></i> خروج</button>
+            <span class="badge bg-danger p-2" style="background:#ff5e62 !important;">Super Admin</span>
+            <button class="btn btn-outline-secondary btn-sm" onclick="logout()"><i class="fa-solid fa-sign-out"></i> Logout</button>
           </div>
         </div>
 
-        <!-- TAB 1: DASHBOARD (14 STAT CARDS) -->
-        <div id="tab-dashboard" class="tab-page">
-          <div class="row g-3 mb-4" id="statsGrid">
-            <!-- Dynamically populated stat cards -->
-          </div>
+        <!-- 1. DASHBOARD (SCREENS 1 & 15) -->
+        <div id="page-dashboard" class="page-view">
+          <div class="row g-3 mb-4" id="statsCardsGrid"></div>
         </div>
 
-        <!-- TAB 2: CUSTOMERS -->
-        <div id="tab-customers" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">قائمة العملاء المسجلين (USER LIST)</h5>
-              <input type="text" class="form-control style-search" style="width:250px" placeholder="بحث عن عميل..." onkeyup="filterTable(this, 'customersTable')">
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="customersTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>الاسم</th>
-                    <th>الإيميل</th>
-                    <th>كود الدولة</th>
-                    <th>رقم الهاتف</th>
-                    <th>كلمة المرور</th>
-                    <th>الحالة الحالية</th>
-                    <th>رصيد المحفظة</th>
-                    <th>الإجراءات</th>
-                  </tr>
-                </thead>
-                <tbody id="customersTableBody"></tbody>
-              </table>
+        <!-- 2. CATEGORY MODULE (SCREENS 7, 8, 9) -->
+        <div id="page-category" class="page-view d-none">
+          <!-- View 1: List -->
+          <div id="category-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>CATEGORY LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('category', 'add')"><i class="fa-solid fa-plus"></i> Add New Category</button>
+              </div>
+              <div class="dt-controls">
+                <div>Show <select class="form-select-sm d-inline-block style-select" style="width:70px"><option>10</option><option>25</option><option>50</option></select> entries</div>
+                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'categoryTable')"></div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="categoryTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Category Name</th><th>Person Image</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="categoryTableBody"></tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-
-        <!-- TAB 3: PENDING ORDERS -->
-        <div id="tab-pending-orders" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">الطلبات المعلقة (PENDING ORDERS)</h5>
-              <input type="text" class="form-control" style="width:250px" placeholder="بحث برقم الطلب..." onkeyup="filterTable(this, 'pendingOrdersTable')">
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="pendingOrdersTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>التاريخ</th>
-                    <th>رقم الطلب</th>
-                    <th>اسم السائق</th>
-                    <th>حالة الإسناد</th>
-                    <th>حالة التوصيل</th>
-                    <th>حالة الطلب</th>
-                    <th>معاينة</th>
-                    <th>إسناد سائق</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="pendingOrdersTableBody"></tbody>
-              </table>
+          <!-- View 2: Add Form (Screen 7) -->
+          <div id="category-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD CATEGORY</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('category', 'list')">Category List</button>
+              </div>
+              <form onsubmit="submitCategory(event)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Category Name</label>
+                  <input type="text" id="cat_name_input" class="form-control" required placeholder="Enter Category Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Category Image (URL or Path)</label>
+                  <input type="text" id="cat_img_input" class="form-control" required placeholder="https://... or images/cat.png">
+                </div>
+                <button type="submit" class="btn btn-php-submit">Add Category</button>
+              </form>
             </div>
           </div>
         </div>
 
-        <!-- TAB 4: COMPLETED ORDERS -->
-        <div id="tab-completed-orders" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">الطلبات المكتملة (COMPLETED ORDERS)</h5>
-              <input type="text" class="form-control" style="width:250px" placeholder="بحث..." onkeyup="filterTable(this, 'completedOrdersTable')">
+        <!-- 3. SUBCATEGORY MODULE (SCREENS 33 & 34) -->
+        <div id="page-subcategory" class="page-view d-none">
+          <!-- View 1: List (Screen 34) -->
+          <div id="subcategory-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>SUBCATEGORY LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('subcategory', 'add')"><i class="fa-solid fa-plus"></i> Add Sub Category</button>
+              </div>
+              <div class="dt-controls">
+                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'subcatTable')"></div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="subcatTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Category Name</th><th>SubCategory Name</th><th>SubCategory Image</th><th>Total Product</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="subcatTableBody"></tbody>
+                </table>
+              </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="completedOrdersTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>التاريخ</th>
-                    <th>رقم الطلب</th>
-                    <th>اسم العميل</th>
-                    <th>اسم السائق</th>
-                    <th>إجمالي الفاتورة</th>
-                    <th>توقيع العميل</th>
-                    <th>حالة الطلب</th>
-                    <th>معاينة</th>
-                  </tr>
-                </thead>
-                <tbody id="completedOrdersTableBody"></tbody>
-              </table>
+          </div>
+          <!-- View 2: Add Form (Screen 33) -->
+          <div id="subcategory-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD SUB CATEGORY</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('subcategory', 'list')">SubCategory List</button>
+              </div>
+              <form onsubmit="submitSubcategory(event)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">SELECT A CATEGORY</label>
+                  <select id="subcat_cat_select" class="form-select" required></select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">SUBCATEGORY NAME</label>
+                  <input type="text" id="subcat_name_input" class="form-control" required placeholder="Enter Subcategory Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">SUBCATEGORY IMAGE</label>
+                  <input type="text" id="subcat_img_input" class="form-control" required placeholder="https://...">
+                </div>
+                <button type="submit" class="btn btn-php-submit">Add SubCategory</button>
+              </form>
             </div>
           </div>
         </div>
 
-        <!-- TAB 5: CATEGORIES -->
-        <div id="tab-categories" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">الأقسام الرئيسية (CATEGORIES)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddCategoryModal()"><i class="fa-solid fa-plus"></i> إضافة قسم جديد</button>
+        <!-- 4. PRODUCT MODULE (SCREENS 28 & 29) -->
+        <div id="page-product" class="page-view d-none">
+          <!-- View 1: List (Screen 29) -->
+          <div id="product-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>PRODUCT LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('product', 'add')"><i class="fa-solid fa-plus"></i> Add Product</button>
+              </div>
+              <div class="dt-controls">
+                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'productTable')"></div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="productTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Product Name</th><th>Category Name</th><th>SubCategory Name</th><th>Product Description</th><th>Price</th><th>Stock</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="productTableBody"></tbody>
+                </table>
+              </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="categoriesTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>اسم القسم</th>
-                    <th>صورة القسم</th>
-                    <th>عدد الأقسام الفرعية</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="categoriesTableBody"></tbody>
-              </table>
+          </div>
+          <!-- View 2: Add Form (Screen 28) -->
+          <div id="product-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD PRODUCT</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('product', 'list')">Product List</button>
+              </div>
+              <form onsubmit="submitProduct(event)">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">PRODUCT NAME</label>
+                    <input type="text" id="p_name" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">SELLER NAME</label>
+                    <input type="text" id="p_sname" class="form-control" value="Azumaa Store">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">SELECT CATEGORY</label>
+                    <select id="p_cat" class="form-select" required></select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">SELECT SUBCATEGORY</label>
+                    <select id="p_subcat" class="form-select" required></select>
+                  </div>
+                  <div class="col-md-12">
+                    <label class="form-label fw-bold">SHORT DESCRIPTION</label>
+                    <textarea id="p_desc" class="form-control" rows="2"></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">PRODUCT PRICE (Types e.g. 1kg$;2kg)</label>
+                    <input type="text" id="p_gms" class="form-control" value="1kg" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">PRODUCT PRICE (Prices e.g. 10$;20)</label>
+                    <input type="text" id="p_price" class="form-control" value="10" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold">STOCK QUANTITY</label>
+                    <input type="number" id="p_stock" class="form-control" value="100" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold">DISCOUNT %</label>
+                    <input type="number" id="p_discount" class="form-control" value="0">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-bold">MAIN IMAGE URL</label>
+                    <input type="text" id="p_img" class="form-control" required placeholder="https://...">
+                  </div>
+                  <div class="col-md-12 text-end mt-3">
+                    <button type="submit" class="btn btn-php-submit">Add Product</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
-        <!-- TAB 6: SUBCATEGORIES -->
-        <div id="tab-subcategories" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">الأقسام الفرعية (SUB CATEGORIES)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddSubCategoryModal()"><i class="fa-solid fa-plus"></i> إضافة قسم فرعي</button>
+        <!-- 5. AREA MODULE (SCREENS 2 & 4) -->
+        <div id="page-area" class="page-view d-none">
+          <!-- View 1: List (Screen 4) -->
+          <div id="area-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>AREA LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('area', 'add')"><i class="fa-solid fa-plus"></i> Add Area</button>
+              </div>
+              <div class="dt-controls">
+                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'areaTable')"></div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="areaTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Area Name</th><th>Delivery Charge</th><th>Status</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="areaTableBody"></tbody>
+                </table>
+              </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="subcategoriesTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>القسم الرئيسي</th>
-                    <th>اسم القسم الفرعي</th>
-                    <th>الصورة</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="subcategoriesTableBody"></tbody>
-              </table>
+          </div>
+          <!-- View 2: Add Form (Screen 2) -->
+          <div id="area-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD AREA</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('area', 'list')">Area List</button>
+              </div>
+              <form onsubmit="submitArea(event)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">AREA NAME</label>
+                  <input type="text" id="area_name_input" class="form-control" required placeholder="Enter Area Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">DELIVERY CHARGE (NUMBERS ONLY)</label>
+                  <input type="number" step="0.01" id="area_charge_input" class="form-control" required placeholder="Enter Delivery Charge">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">STATUS</label>
+                  <select id="area_status_input" class="form-select">
+                    <option value="Published">Published</option>
+                    <option value="Unpublished">Unpublished</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-php-submit">Add Area</button>
+              </form>
             </div>
           </div>
         </div>
 
-        <!-- TAB 7: PRODUCTS -->
-        <div id="tab-products" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">قائمة المنتجات (PRODUCTS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddProductModal()"><i class="fa-solid fa-plus"></i> إضافة منتج جديد</button>
+        <!-- 6. TIMESLOT MODULE (SCREENS 35 & 36) -->
+        <div id="page-timeslot" class="page-view d-none">
+          <!-- View 1: List (Screen 36) -->
+          <div id="timeslot-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>TIMESLOT LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('timeslot', 'add')"><i class="fa-solid fa-plus"></i> Add Timeslot</button>
+              </div>
+              <div class="dt-controls">
+                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'timeslotTable')"></div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="timeslotTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Timeslot Min Time</th><th>Timeslot Max Time</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="timeslotTableBody"></tbody>
+                </table>
+              </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="productsTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>اسم المنتج</th>
-                    <th>القسم</th>
-                    <th>السعر والتفريعات</th>
-                    <th>المخزون</th>
-                    <th>الخصم</th>
-                    <th>الصورة</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="productsTableBody"></tbody>
-              </table>
+          </div>
+          <!-- View 2: Add Form (Screen 35) -->
+          <div id="timeslot-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD TIMESLOT</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('timeslot', 'list')">Timeslot List</button>
+              </div>
+              <form onsubmit="submitTimeslot(event)">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">MIN TIME (e.g. 09:00)</label>
+                    <input type="text" id="ts_min_input" class="form-control" required placeholder="09:00">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">MAX TIME (e.g. 10:30)</label>
+                    <input type="text" id="ts_max_input" class="form-control" required placeholder="10:30">
+                  </div>
+                  <div class="col-md-12 text-end">
+                    <button type="submit" class="btn btn-php-submit">Add Timeslot</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
-        <!-- TAB 8: RIDERS (DELIVERY BOYS) -->
-        <div id="tab-riders" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">إدارة سائقي التوصيل (DELIVERY BOYS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddRiderModal()"><i class="fa-solid fa-plus"></i> إضافة سائق جديد</button>
+        <!-- 7. DELIVERY BOY MODULE (SCREENS 16 & 17) -->
+        <div id="page-delivery-boy" class="page-view d-none">
+          <!-- View 1: List (Screen 17) -->
+          <div id="delivery-boy-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>DELIVERY BOY LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('delivery-boy', 'add')"><i class="fa-solid fa-plus"></i> Add Delivery Boy</button>
+              </div>
+              <div class="dt-controls">
+                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'riderTable')"></div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="riderTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Name</th><th>Mobile</th><th>Email</th><th>Status</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="riderTableBody"></tbody>
+                </table>
+              </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="ridersTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>الاسم</th>
-                    <th>الهاتف</th>
-                    <th>الإيميل</th>
-                    <th>المنطقة</th>
-                    <th>الحالة</th>
-                    <th>طلبات مرفوضة</th>
-                    <th>مقبولة</th>
-                    <th>مكتملة</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="ridersTableBody"></tbody>
-              </table>
+          </div>
+          <!-- View 2: Add Form (Screen 16) -->
+          <div id="delivery-boy-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD DELIVERY BOY</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('delivery-boy', 'list')">Delivery Boy List</button>
+              </div>
+              <form onsubmit="submitRider(event)">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">DELIVERY BOY NAME</label>
+                    <input type="text" id="r_name_input" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">DELIVERY BOY MOBILE (NUMBERS ONLY)</label>
+                    <input type="text" id="r_mobile_input" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">DELIVERY BOY EMAIL</label>
+                    <input type="email" id="r_email_input" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">DELIVERY BOY PASSWORD</label>
+                    <input type="password" id="r_pass_input" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">DELIVERY BOY AREA</label>
+                    <select id="r_area_select" class="form-select"></select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">DELIVERY BOY ADDRESS</label>
+                    <input type="text" id="r_address_input" class="form-control">
+                  </div>
+                  <div class="col-md-12 text-end">
+                    <button type="submit" class="btn btn-php-submit">Add Delivery Boy</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
-        <!-- TAB 9: AREAS -->
-        <div id="tab-areas" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">إدارة المناطق وسعر التوصيل (AREAS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddAreaModal()"><i class="fa-solid fa-plus"></i> إضافة منطقة جديد</button>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="areasTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>اسم المنطقة</th>
-                    <th>رسوم التوصيل</th>
-                    <th>الحالة</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="areasTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 10: TIMESLOTS -->
-        <div id="tab-timeslots" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">فترات التوصيل (TIMESLOTS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddTimeslotModal()"><i class="fa-solid fa-plus"></i> إضافة فترة توصيل</button>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="timeslotsTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>من وقت (Min Time)</th>
-                    <th>إلى وقت (Max Time)</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="timeslotsTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 11: BANNERS -->
-        <div id="tab-banners" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">البنرات الإعلانية (BANNERS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddBannerModal()"><i class="fa-solid fa-plus"></i> إضافة بنر جديد</button>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="bannersTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>معاينة الصورة</th>
-                    <th>القسم المرتبط</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="bannersTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 12: COUPONS -->
-        <div id="tab-coupons" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">أكواد الخصم (COUPONS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddCouponModal()"><i class="fa-solid fa-plus"></i> إضافة كوبون جديد</button>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="couponsTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>الصورة</th>
-                    <th>كود الخصم</th>
-                    <th>عنوان الكوبون</th>
-                    <th>قيمة الخصم</th>
-                    <th>الحد الأدنى للطلب</th>
-                    <th>تاريخ الانتهاء</th>
-                    <th>الحالة</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="couponsTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 13: HOME SECTIONS -->
-        <div id="tab-home-sections" class="tab-page d-none">
-          <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">أقسام الشاشة الرئيسية (HOME SECTIONS)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddHomeSectionModal()"><i class="fa-solid fa-plus"></i> إضافة قسم رئيسي جديد</button>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom" id="homeSectionsTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>العنوان</th>
-                    <th>القسم الرئيسي</th>
-                    <th>القسم الفرعي</th>
-                    <th>إجراء</th>
-                  </tr>
-                </thead>
-                <tbody id="homeSectionsTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 14: NOTIFICATIONS -->
-        <div id="tab-notifications" class="tab-page d-none">
+        <!-- 8. BANNER MODULE -->
+        <div id="page-banner" class="page-view d-none">
           <div class="data-card mb-4">
-            <h5 class="fw-bold mb-3">إرسال إشعار ترويجي جديد (PUSH NOTIFICATION)</h5>
-            <form id="sendNotificationForm">
+            <div class="page-header-title"><span>ADD BANNER</span></div>
+            <form onsubmit="submitBanner(event)">
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label class="form-label fw-bold">عنوان الإشعار</label>
-                  <input type="text" id="notiTitle" class="form-control" required placeholder="مثال: خصم 50% بمناسبة اليوم الوطني!">
+                  <label class="form-label fw-bold">BANNER IMAGE URL</label>
+                  <input type="text" id="b_img_input" class="form-control" required placeholder="https://...">
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label fw-bold">رابط الصورة (اختياري)</label>
-                  <input type="text" id="notiImg" class="form-control" placeholder="https://...">
-                </div>
-                <div class="col-md-12">
-                  <label class="form-label fw-bold">نص الإشعار</label>
-                  <textarea id="notiMsg" class="form-control" rows="3" required placeholder="اكتب نص الإشعار هنا..."></textarea>
+                  <label class="form-label fw-bold">SELECT CATEGORY (OPTIONAL)</label>
+                  <select id="b_cat_select" class="form-select"></select>
                 </div>
                 <div class="col-md-12 text-end">
-                  <button type="submit" class="btn btn-danger style-btn" style="background:#ff5e62"><i class="fa-solid fa-paper-plane me-1"></i> إرسال الإشعار الآن</button>
+                  <button type="submit" class="btn btn-php-submit">Add Banner</button>
                 </div>
               </div>
             </form>
           </div>
           <div class="data-card">
-            <h5 class="fw-bold mb-3">سجل الإشعارات المراد إرسالها</h5>
+            <div class="page-header-title"><span>BANNER LIST</span></div>
             <div class="table-responsive">
-              <table class="table table-custom" id="notificationsTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>العنوان</th>
-                    <th>النص</th>
-                    <th>التاريخ</th>
-                  </tr>
-                </thead>
-                <tbody id="notificationsTableBody"></tbody>
+              <table class="table table-custom align-middle" id="bannerTable">
+                <thead><tr><th>Sr No.</th><th>Banner Image</th><th>Category Name</th><th>Action</th></tr></thead>
+                <tbody id="bannerTableBody"></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- TAB 15: RATINGS & FEEDBACK -->
-        <div id="tab-ratings" class="tab-page d-none">
+        <!-- 9. HOME SECTION MODULE (SCREENS 19 & 20) -->
+        <div id="page-home-section" class="page-view d-none">
+          <!-- View 1: List (Screen 20) -->
+          <div id="home-section-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>HOME SECTION LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('home-section', 'add')"><i class="fa-solid fa-plus"></i> Add Home Section</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="homeSectionTable">
+                  <thead><tr><th>Sr No.</th><th>Title</th><th>Category Name</th><th>SubCategory Name</th><th>Status</th><th>Action</th></tr></thead>
+                  <tbody id="homeSectionTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- View 2: Add Form (Screen 19) -->
+          <div id="home-section-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD HOME SECTION</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('home-section', 'list')">Home Section List</button>
+              </div>
+              <form onsubmit="submitHomeSection(event)">
+                <div class="mb-3"><label class="form-label fw-bold">SECTION TITLE</label><input type="text" id="hs_title_input" class="form-control" required placeholder="e.g. Popular Products"></div>
+                <div class="mb-3"><label class="form-label fw-bold">SELECT CATEGORY</label><select id="hs_cat_select" class="form-select" required></select></div>
+                <div class="mb-3"><label class="form-label fw-bold">SELECT SUBCATEGORY</label><select id="hs_subcat_select" class="form-select" required></select></div>
+                <button type="submit" class="btn btn-php-submit">Add Home Section</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. NOTIFICATION MODULE (SCREENS 22 & 23) -->
+        <div id="page-notification" class="page-view d-none">
+          <!-- View 1: List (Screen 23) -->
+          <div id="notification-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>NOTIFICATION LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('notification', 'add')"><i class="fa-solid fa-plus"></i> Add Notification</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="notificationTable">
+                  <thead><tr><th>Sr No.</th><th>Title</th><th>Message</th><th>Date</th><th>Action</th></tr></thead>
+                  <tbody id="notificationTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- View 2: Add Form (Screen 22) -->
+          <div id="notification-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD NOTIFICATION</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('notification', 'list')">Notification List</button>
+              </div>
+              <form onsubmit="submitNotification(event)">
+                <div class="mb-3"><label class="form-label fw-bold">TITLE</label><input type="text" id="n_title_input" class="form-control" required placeholder="Enter Title"></div>
+                <div class="mb-3"><label class="form-label fw-bold">MESSAGE</label><textarea id="n_msg_input" class="form-control" rows="3" required placeholder="Enter Message"></textarea></div>
+                <div class="mb-3"><label class="form-label fw-bold">IMAGE URL (OPTIONAL)</label><input type="text" id="n_img_input" class="form-control" placeholder="https://..."></div>
+                <button type="submit" class="btn btn-php-submit">Send Notification</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. CUSTOMER MODULE (SCREENS 37 & 38) -->
+        <div id="page-customer" class="page-view d-none">
           <div class="data-card">
-            <h5 class="fw-bold mb-3">تقييمات العملاء للطلبات (CUSTOMER RATINGS)</h5>
+            <div class="page-header-title"><span>USER LIST</span></div>
+            <div class="dt-controls">
+              <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+              <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'userTable')"></div>
+            </div>
             <div class="table-responsive">
-              <table class="table table-custom" id="ratingsTable">
+              <table class="table table-custom align-middle" id="userTable">
                 <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>اسم العميل</th>
-                    <th>رقم الطلب</th>
-                    <th>التقييم</th>
-                    <th>التعليق</th>
-                  </tr>
+                  <tr><th>Sr No.</th><th>Name</th><th>Email</th><th>Country Code</th><th>Mobile</th><th>password</th><th>Current_Status</th><th>Wallet Balance</th><th>Status</th><th>Action</th></tr>
                 </thead>
-                <tbody id="ratingsTableBody"></tbody>
+                <tbody id="userTableBody"></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- TAB 16: COUNTRY CODES -->
-        <div id="tab-country-codes" class="tab-page d-none">
+        <!-- 12. PENDING ORDER MODULE (SCREENS 5 & 10 & 24) -->
+        <div id="page-pending-order" class="page-view d-none">
           <div class="data-card">
-            <div class="data-table-header">
-              <h5 class="fw-bold">أكواد الدول المعتمدة (COUNTRY CODES)</h5>
-              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddCountryCodeModal()"><i class="fa-solid fa-plus"></i> إضافة كود دولة</button>
+            <div class="page-header-title"><span>PENDING ORDER LIST</span></div>
+            <div class="dt-controls">
+              <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
+              <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'pendingTable')"></div>
             </div>
             <div class="table-responsive">
-              <table class="table table-custom" id="countryCodesTable">
+              <table class="table table-custom align-middle" id="pendingTable">
                 <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>كود الدولة</th>
-                    <th>الحالة</th>
-                    <th>إجراء</th>
-                  </tr>
+                  <tr><th>Sr No.</th><th>Date</th><th>Order ID</th><th>Delivery Boy Name</th><th>Delivery Boy Assign Status</th><th>Delivery Boy Delivery Status</th><th>Status</th><th>Preview</th><th>Assign?</th><th>Action</th></tr>
                 </thead>
-                <tbody id="countryCodesTableBody"></tbody>
+                <tbody id="pendingTableBody"></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- TAB 17: PAYMENT GATEWAYS -->
-        <div id="tab-payment-gateways" class="tab-page d-none">
+        <!-- 13. COMPLETE ORDER MODULE -->
+        <div id="page-complete-order" class="page-view d-none">
           <div class="data-card">
-            <h5 class="fw-bold mb-4">بوابات الدفع الإلكتروني (PAYMENT GATEWAYS LIST)</h5>
+            <div class="page-header-title"><span>COMPLETE ORDER LIST</span></div>
             <div class="table-responsive">
-              <table class="table table-custom align-middle" id="paymentGatewaysTable">
+              <table class="table table-custom align-middle" id="completeTable">
                 <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>اسم بوابة الدفع</th>
-                    <th>الصورة</th>
-                    <th>عنوان المفتاح Credentials Title</th>
-                    <th>قيمة المفتاح Credentials Value</th>
-                    <th>الحالة الحالية</th>
-                    <th>إجراء Edit</th>
-                  </tr>
+                  <tr><th>Sr No.</th><th>Date</th><th>Order ID</th><th>Customer Name</th><th>Delivery Boy Name</th><th>Total Amount</th><th>Customer Sign</th><th>Status</th><th>Preview</th></tr>
                 </thead>
-                <tbody id="paymentGatewaysTableBody"></tbody>
+                <tbody id="completeTableBody"></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- TAB 18: SYSTEM SETTINGS -->
-        <div id="tab-settings" class="tab-page d-none">
+        <!-- 14. COUPON MODULE (SCREENS 6 & 21) -->
+        <div id="page-coupon" class="page-view d-none">
+          <!-- View 1: List (Screen 21) -->
+          <div id="coupon-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>COUPON LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('coupon', 'add')"><i class="fa-solid fa-plus"></i> Add Coupon</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="couponTable">
+                  <thead>
+                    <tr><th>Sr No.</th><th>Coupon Image</th><th>Coupon Code</th><th>Coupon Title</th><th>Min Order Amount</th><th>Discount Value</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr>
+                  </thead>
+                  <tbody id="couponTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- View 2: Add Form (Screen 6) -->
+          <div id="coupon-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD COUPON</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('coupon', 'list')">Coupon List</button>
+              </div>
+              <form onsubmit="submitCoupon(event)">
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label fw-bold">COUPON CODE</label><input type="text" id="cp_code_input" class="form-control" required placeholder="e.g. AZUMAA50"></div>
+                  <div class="col-md-6"><label class="form-label fw-bold">COUPON TITLE</label><input type="text" id="cp_title_input" class="form-control" required placeholder="Title"></div>
+                  <div class="col-md-6"><label class="form-label fw-bold">DISCOUNT VALUE</label><input type="number" id="cp_val_input" class="form-control" required placeholder="10"></div>
+                  <div class="col-md-6"><label class="form-label fw-bold">MIN ORDER AMOUNT</label><input type="number" id="cp_min_input" class="form-control" required placeholder="50"></div>
+                  <div class="col-md-6"><label class="form-label fw-bold">EXPIRY DATE</label><input type="date" id="cp_date_input" class="form-control" required></div>
+                  <div class="col-md-6"><label class="form-label fw-bold">COUPON IMAGE URL</label><input type="text" id="cp_img_input" class="form-control" placeholder="https://..."></div>
+                  <div class="col-md-12"><label class="form-label fw-bold">COUPON DESCRIPTION</label><textarea id="cp_desc_input" class="form-control" rows="3"></textarea></div>
+                  <div class="col-md-12 text-end"><button type="submit" class="btn btn-php-submit">Add Coupon</button></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15. RATINGS & FEEDBACK (SCREENS 14 & 18) -->
+        <div id="page-ratings" class="page-view d-none">
+          <div class="data-card mb-4">
+            <div class="page-header-title"><span>ORDER RATE LIST (Screen 14)</span></div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="rateTable">
+                <thead><tr><th>Sr No.</th><th>Customer Name</th><th>Rate Star</th><th>Comment</th><th>Action</th></tr></thead>
+                <tbody id="rateTableBody"></tbody>
+              </table>
+            </div>
+          </div>
           <div class="data-card">
-            <h5 class="fw-bold mb-4">إعدادات النظام العامة (GENERAL SETTINGS)</h5>
-            <form id="settingsForm">
+            <div class="page-header-title"><span>FEEDBACK LIST (Screen 18)</span></div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="feedbackTable">
+                <thead><tr><th>Sr No.</th><th>Mobile</th><th>Rate Star</th><th>Feedback Text</th><th>Action</th></tr></thead>
+                <tbody id="feedbackTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16. COUNTRY CODE MODULE (SCREENS 12 & 13) -->
+        <div id="page-country-code" class="page-view d-none">
+          <!-- View 1: List (Screen 13) -->
+          <div id="country-code-list-view">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>COUNTRY CODE LIST</span>
+                <button class="btn btn-sm btn-primary" onclick="showSubView('country-code', 'add')"><i class="fa-solid fa-plus"></i> Add Country Code</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-custom align-middle" id="ccTable">
+                  <thead><tr><th>Sr No.</th><th>Country Code</th><th>Status</th><th>Action</th></tr></thead>
+                  <tbody id="ccTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- View 2: Add Form (Screen 12) -->
+          <div id="country-code-add-view" class="d-none">
+            <div class="data-card">
+              <div class="page-header-title">
+                <span>ADD COUNTRY CODE</span>
+                <button class="btn btn-sm btn-secondary" onclick="showSubView('country-code', 'list')">Country Code List</button>
+              </div>
+              <form onsubmit="submitCountryCode(event)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">LINK COUNTRY CODE (e.g. +966, +91)</label>
+                  <input type="text" id="cc_code_input" class="form-control" required placeholder="+966">
+                </div>
+                <button type="submit" class="btn btn-php-submit">Add Country Code</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17. PAYMENT GATEWAY MODULE (SCREENS 26 & 27) -->
+        <div id="page-payment-gateway" class="page-view d-none">
+          <div class="data-card">
+            <div class="page-header-title"><span>PAYMENT GATEWAY LIST</span></div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="gwTable">
+                <thead><tr><th>Sr No.</th><th>Payment Gateway Name</th><th>Pay.Gateway Image</th><th>credintals Title</th><th>credintals Value</th><th>Current Status</th><th>Action</th></tr></thead>
+                <tbody id="gwTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18. SETTING MODULE (SCREEN 32) -->
+        <div id="page-setting" class="page-view d-none">
+          <div class="data-card">
+            <div class="page-header-title"><span>UPDATE SETTING</span></div>
+            <form onsubmit="submitSetting(event)">
               <div class="row g-3">
-                <div class="col-md-4">
-                  <label class="form-label fw-bold">اسم التطبيق/الموقع</label>
-                  <input type="text" id="set_title" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label fw-bold">العملة (Currency)</label>
-                  <input type="text" id="set_currency" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label fw-bold">المنطقة الزمنية (Timezone)</label>
-                  <input type="text" id="set_timezone" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">الحد الأدنى للطلب (Min Order)</label>
-                  <input type="number" id="set_o_min" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">نسبة الضريبة (Tax %)</label>
-                  <input type="number" id="set_tax" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">OneSignal Key (User App)</label>
-                  <input type="text" id="set_one_key" class="form-control">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">OneSignal Hash/Rest Key (User App)</label>
-                  <input type="text" id="set_one_hash" class="form-control">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">OneSignal Key (Rider App)</label>
-                  <input type="text" id="set_r_key" class="form-control">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">OneSignal Hash/Rest Key (Rider App)</label>
-                  <input type="text" id="set_r_hash" class="form-control">
-                </div>
-                <div class="col-md-12 text-end mt-4">
-                  <button type="submit" class="btn btn-danger style-btn px-4" style="background:#ff5e62">حفظ الإعدادات</button>
-                </div>
+                <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL APP ID</label><input type="text" id="s_one_key" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL REST API KEY</label><input type="text" id="s_one_hash" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL APP ID</label><input type="text" id="s_r_key" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL REST API KEY</label><input type="text" id="s_r_hash" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label fw-bold">CURRENCY</label><input type="text" id="s_currency" class="form-control" value="$"></div>
+                <div class="col-md-3"><label class="form-label fw-bold">MIN ORDER PRICE</label><input type="number" id="s_o_min" class="form-control" value="10"></div>
+                <div class="col-md-3"><label class="form-label fw-bold">TAX %</label><input type="number" id="s_tax" class="form-control" value="5"></div>
+                <div class="col-md-3"><label class="form-label fw-bold">TIMEZONE</label><input type="text" id="s_timezone" class="form-control" value="Asia/Riyadh"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">WEBSITE TITLE</label><input type="text" id="s_title" class="form-control" value="Azumaa Delivery"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">LOGO URL</label><input type="text" id="s_logo" class="form-control" placeholder="https://..."></div>
+                <div class="col-md-12 text-end mt-4"><button type="submit" class="btn btn-php-submit">Save Settings</button></div>
               </div>
             </form>
           </div>
         </div>
 
-        <!-- TAB 19: ADMIN PROFILE -->
-        <div id="tab-profile" class="tab-page d-none">
-          <div class="data-card style-form-card" style="max-width: 500px;">
-            <h5 class="fw-bold mb-4">تغيير بيانات المدير (ADMIN PROFILE)</h5>
-            <form id="profileForm">
+        <!-- 19. PROFILE MODULE (SCREENS 30 & 31) -->
+        <div id="page-profile" class="page-view d-none">
+          <div class="data-card style-form-card" style="max-width: 550px;">
+            <div class="page-header-title"><span>UPDATE PROFILE</span></div>
+            <form onsubmit="submitProfile(event)">
               <div class="mb-3">
-                <label class="form-label fw-bold">اسم المستخدم الحالي</label>
-                <input type="text" id="profUser" class="form-control" required>
+                <label class="form-label fw-bold">USERNAME</label>
+                <input type="text" id="prof_user" class="form-control" value="admin" required>
               </div>
               <div class="mb-4">
-                <label class="form-label fw-bold">كلمة المرور الجديدة</label>
-                <input type="password" id="profPass" class="form-control" required>
+                <label class="form-label fw-bold">PASSWORD</label>
+                <input type="password" id="prof_pass" class="form-control" required placeholder="Enter new password">
               </div>
-              <button type="submit" class="btn btn-danger w-100 style-btn" style="background:#ff5e62">تحديث كلمة المرور</button>
+              <button type="submit" class="btn btn-php-submit">Update Profile</button>
             </form>
           </div>
         </div>
@@ -762,39 +950,39 @@
     </div>
   </div>
 
-  <!-- Shared Bootstrap Modals -->
-  <div class="modal fade" id="actionModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+  <!-- Shared Action Modal -->
+  <div class="modal fade" id="sharedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title fw-bold" id="actionModalTitle">نموذج</h5>
+          <h5 class="modal-title fw-bold" id="sharedModalTitle">Modal</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body" id="actionModalBody"></div>
+        <div class="modal-body" id="sharedModalBody"></div>
       </div>
     </div>
   </div>
 
   <!-- JS Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+
   <script>
-    const API_BASE = '/admin';
-    let modalInstance = null;
+    const API = '/admin';
+    let sharedModalInstance = null;
 
     document.addEventListener('DOMContentLoaded', () => {
-      modalInstance = new bootstrap.Modal(document.getElementById('actionModal'));
+      sharedModalInstance = new bootstrap.Modal(document.getElementById('sharedModal'));
       loadDashboard();
     });
 
-    // Login Handle
+    // Login Form Submit
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const username = document.getElementById('adminUser').value;
       const password = document.getElementById('adminPass').value;
 
       try {
-        const res = await fetch(`${API_BASE}/login`, {
+        const res = await fetch(`${API}/login`, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({ username, password })
@@ -804,10 +992,10 @@
           document.getElementById('loginOverlay').style.display = 'none';
           loadDashboard();
         } else {
-          alert(data.message || 'خطأ في بيانات الدخول');
+          alert(data.message || 'Login failed');
         }
       } catch (err) {
-        alert('تعذر الاتصال بالخادم: ' + err.message);
+        alert('Server connection error: ' + err.message);
       }
     });
 
@@ -815,145 +1003,102 @@
       document.getElementById('loginOverlay').style.display = 'flex';
     }
 
-    // Tab Switcher
-    function showTab(tabName) {
-      document.querySelectorAll('.tab-page').forEach(el => el.classList.add('d-none'));
-      document.querySelectorAll('.sidebar .nav-link').forEach(el => el.classList.remove('active'));
+    // Top Level Tab Navigation
+    function showTab(pageId) {
+      document.querySelectorAll('.page-view').forEach(p => p.classList.add('d-none'));
+      document.querySelectorAll('.sidebar .nav-link').forEach(n => n.classList.remove('active'));
 
-      const targetTab = document.getElementById(`tab-${tabName}`);
-      if (targetTab) targetTab.classList.remove('d-none');
+      const page = document.getElementById(`page-${pageId}`);
+      if (page) page.classList.remove('d-none');
 
-      // Highlight active nav
-      event.target.closest('.nav-link').classList.add('active');
+      if (event && event.target) {
+        const link = event.target.closest('.nav-link');
+        if (link) link.classList.add('active');
+      }
 
-      // Update Title & Load Data
-      switch (tabName) {
-        case 'dashboard':
-          document.getElementById('pageTitle').innerText = 'لوحة القيادة الإحصائية';
-          loadDashboard();
-          break;
-        case 'customers':
-          document.getElementById('pageTitle').innerText = 'إدارة العملاء والمحفظة';
-          loadCustomers();
-          break;
-        case 'pending-orders':
-          document.getElementById('pageTitle').innerText = 'الطلبات المعلقة';
-          loadOrders('Pending', 'pendingOrdersTableBody');
-          break;
-        case 'completed-orders':
-          document.getElementById('pageTitle').innerText = 'الطلبات المكتملة';
-          loadOrders('Completed', 'completedOrdersTableBody');
-          break;
-        case 'categories':
-          document.getElementById('pageTitle').innerText = 'إدارة الأقسام الرئيسية';
-          loadCategories();
-          break;
-        case 'subcategories':
-          document.getElementById('pageTitle').innerText = 'إدارة الأقسام الفرعية';
-          loadSubcategories();
-          break;
-        case 'products':
-          document.getElementById('pageTitle').innerText = 'إدارة المنتجات والمخزون';
-          loadProducts();
-          break;
-        case 'riders':
-          document.getElementById('pageTitle').innerText = 'إدارة سائقي التوصيل';
-          loadRiders();
-          break;
-        case 'areas':
-          document.getElementById('pageTitle').innerText = 'إدارة المناطق وتكلفة التوصيل';
-          loadAreas();
-          break;
-        case 'timeslots':
-          document.getElementById('pageTitle').innerText = 'فترات التوصيل المتاحة';
-          loadTimeslots();
-          break;
-        case 'banners':
-          document.getElementById('pageTitle').innerText = 'البنرات الإعلانية';
-          loadBanners();
-          break;
-        case 'coupons':
-          document.getElementById('pageTitle').innerText = 'كوبونات الخصم';
-          loadCoupons();
-          break;
-        case 'home-sections':
-          document.getElementById('pageTitle').innerText = 'أقسام الواجهة الرئيسية';
-          loadHomeSections();
-          break;
-        case 'notifications':
-          document.getElementById('pageTitle').innerText = 'إرسال الإشعارات الترويجية';
-          loadNotifications();
-          break;
-        case 'ratings':
-          document.getElementById('pageTitle').innerText = 'تقييمات العملاء للطلبات';
-          loadRatings();
-          break;
-        case 'country-codes':
-          document.getElementById('pageTitle').innerText = 'أكواد الدول المعتمدة';
-          loadCountryCodes();
-          break;
-        case 'payment-gateways':
-          document.getElementById('pageTitle').innerText = 'بوابات الدفع الإلكترونية';
-          loadPaymentGateways();
-          break;
-        case 'settings':
-          document.getElementById('pageTitle').innerText = 'إعدادات النظام العامة';
-          loadSettings();
-          break;
-        case 'profile':
-          document.getElementById('pageTitle').innerText = 'تغيير بيانات الحساب الشخصي';
-          break;
+      // Update Header Title
+      document.getElementById('headerTitle').innerText = pageId.toUpperCase().replace('-', ' ');
+
+      // Default to List view for subview pages
+      showSubView(pageId, 'list');
+
+      // Load specific data
+      switch (pageId) {
+        case 'dashboard': loadDashboard(); break;
+        case 'category': loadCategories(); break;
+        case 'subcategory': loadSubcategories(); break;
+        case 'product': loadProducts(); break;
+        case 'area': loadAreas(); break;
+        case 'timeslot': loadTimeslots(); break;
+        case 'delivery-boy': loadRiders(); break;
+        case 'banner': loadBanners(); break;
+        case 'home-section': loadHomeSections(); break;
+        case 'notification': loadNotifications(); break;
+        case 'customer': loadUsers(); break;
+        case 'pending-order': loadOrders('Pending', 'pendingTableBody'); break;
+        case 'complete-order': loadOrders('Completed', 'completeTableBody'); break;
+        case 'coupon': loadCoupons(); break;
+        case 'ratings': loadRatings(); break;
+        case 'country-code': loadCountryCodes(); break;
+        case 'payment-gateway': loadPaymentGateways(); break;
+        case 'setting': loadSettings(); break;
+        case 'profile': loadProfile(); break;
       }
     }
 
-    // Helper: Table Search Filter
+    // Toggle List vs Add View inside a Page
+    function showSubView(pageId, type) {
+      const listView = document.getElementById(`${pageId}-list-view`);
+      const addView = document.getElementById(`${pageId}-add-view`);
+      if (listView && addView) {
+        if (type === 'add') {
+          listView.classList.add('d-none');
+          addView.classList.remove('d-none');
+        } else {
+          addView.classList.add('d-none');
+          listView.classList.remove('d-none');
+        }
+      }
+    }
+
     function filterTable(input, tableId) {
-      const term = input.value.toLowerCase();
-      const rows = document.querySelectorAll(`#${tableId} tbody tr`);
-      rows.forEach(r => {
-        r.style.display = r.innerText.toLowerCase().includes(term) ? '' : 'none';
+      const val = input.value.toLowerCase();
+      document.querySelectorAll(`#${tableId} tbody tr`).forEach(r => {
+        r.style.display = r.innerText.toLowerCase().includes(val) ? '' : 'none';
       });
     }
 
-    // 1. DASHBOARD LOAD (14 STAT CARDS)
+    // 1. DASHBOARD
     async function loadDashboard() {
-      try {
-        const res = await fetch(`${API_BASE}/stats`);
-        const data = await res.json();
-        if (!data.success) return;
-
-        const s = data.stats;
-        const grid = document.getElementById('statsGrid');
-        grid.innerHTML = `
-          ${renderStatBox('إجمالي الأقسام', s.totalCategories, 'fa-list', '#ff5e62')}
-          ${renderStatBox('إجمالي الأقسام الفرعية', s.totalSubCategories, 'fa-layer-group', '#20c997')}
-          ${renderStatBox('إجمالي المنتجات', s.totalProducts, 'fa-basket-shopping', '#007bff')}
-          ${renderStatBox('إجمالي المناطق', s.totalAreas, 'fa-map-marked-alt', '#fd7e14')}
-          ${renderStatBox('إجمالي فترات التوصيل', s.totalTimeslots, 'fa-clock', '#6f42c1')}
-          ${renderStatBox('إجمالي البنرات', s.totalBanners, 'fa-image', '#e83e8c')}
-          ${renderStatBox('إجمالي العملاء', s.totalCustomers, 'fa-users', '#17a2b8')}
-          ${renderStatBox('الطلبات المعلقة', s.pendingOrders, 'fa-hourglass-half', '#ffc107')}
-          ${renderStatBox('الطلبات المكتملة', s.completedOrders, 'fa-circle-check', '#28a745')}
-          ${renderStatBox('الطلبات الملغاة', s.cancelledOrders, 'fa-ban', '#dc3545')}
-          ${renderStatBox('تقييمات العملاء', s.customerRatings, 'fa-star', '#ffc107')}
-          ${renderStatBox('إجمالي التعليقات', s.totalFeedbacks, 'fa-comments', '#6c757d')}
-          ${renderStatBox('إجمالي المبيعات', s.totalSales.toFixed(2) + ' $', 'fa-dollar-sign', '#28a745')}
-          ${renderStatBox('إجمالي السائقين', s.totalRiders, 'fa-motorcycle', '#343a40')}
-        `;
-      } catch (e) {
-        console.error(e);
-      }
+      const res = await fetch(`${API}/stats`);
+      const data = await res.json();
+      if (!data.success) return;
+      const s = data.stats;
+      const grid = document.getElementById('statsCardsGrid');
+      grid.innerHTML = `
+        ${box('Total Category', s.totalCategories, 'fa-list', '#ff5e62')}
+        ${box('Total Sub Category', s.totalSubCategories, 'fa-layer-group', '#20c997')}
+        ${box('Total Products', s.totalProducts, 'fa-basket-shopping', '#007bff')}
+        ${box('Total Area', s.totalAreas, 'fa-map-marked-alt', '#fd7e14')}
+        ${box('Total Timeslot', s.totalTimeslots, 'fa-clock', '#6f42c1')}
+        ${box('Total Banner', s.totalBanners, 'fa-image', '#e83e8c')}
+        ${box('Total Customer', s.totalCustomers, 'fa-users', '#17a2b8')}
+        ${box('Pending Orders', s.pendingOrders, 'fa-hourglass-half', '#ffc107')}
+        ${box('Completed Orders', s.completedOrders, 'fa-circle-check', '#28a745')}
+        ${box('Cancelled Orders', s.cancelledOrders, 'fa-ban', '#dc3545')}
+        ${box('Customer Rating', s.customerRatings, 'fa-star', '#ffc107')}
+        ${box('Total Feedback', s.totalFeedbacks, 'fa-comments', '#6c757d')}
+        ${box('Total Sales', s.totalSales.toFixed(2) + ' $', 'fa-dollar-sign', '#28a745')}
+        ${box('Total Delivery Boys', s.totalRiders, 'fa-motorcycle', '#343a40')}
+      `;
     }
 
-    function renderStatBox(title, value, icon, color) {
+    function box(title, val, icon, color) {
       return `
         <div class="col-md-3">
-          <div class="stat-box" style="border-right-color: ${color}">
+          <div class="stat-box" style="border-right-color:${color}">
             <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <div class="stat-title">${title}</div>
-                <div class="stat-value">${value}</div>
-              </div>
+              <div><div class="stat-title">${title}</div><div class="stat-value">${val}</div></div>
               <i class="fa-solid ${icon} fs-2" style="color:${color}"></i>
             </div>
           </div>
@@ -961,863 +1106,622 @@
       `;
     }
 
-    // 2. CUSTOMERS LOAD
-    async function loadCustomers() {
-      const res = await fetch(`${API_BASE}/customers`);
+    // 2. CATEGORY
+    async function loadCategories() {
+      const res = await fetch(`${API}/categories`);
       const data = await res.json();
-      const tbody = document.getElementById('customersTableBody');
+      const tbody = document.getElementById('categoryTableBody');
       tbody.innerHTML = '';
       if (!data.success) return;
 
-      data.customers.forEach((c, idx) => {
-        const isDeactive = c.status == 0;
+      let subcatOpts = '';
+      data.categories.forEach((c, i) => {
+        subcatOpts += `<option value="${c.id}">${c.catname}</option>`;
         tbody.innerHTML += `
           <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${c.name}</td>
-            <td>${c.email}</td>
-            <td>${c.ccode || '+91'}</td>
-            <td>${c.mobile}</td>
-            <td>${c.password || '***'}</td>
-            <td><span class="badge ${isDeactive ? 'bg-danger' : 'bg-success'}">${isDeactive ? 'Deactive' : 'Active'}</span></td>
-            <td class="fw-bold text-success">${c.wallet || 0} $</td>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${c.catname}</td>
+            <td><img src="${c.catimg}" width="45" height="45" class="rounded"></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('categories', ${c.id}, loadCategories)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+      // Populate selects in other forms
+      ['subcat_cat_select', 'p_cat', 'b_cat_select', 'hs_cat_select'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = subcatOpts;
+      });
+    }
+
+    async function submitCategory(e) {
+      e.preventDefault();
+      const catname = document.getElementById('cat_name_input').value;
+      const catimg = document.getElementById('cat_img_input').value;
+      await fetch(`${API}/categories/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ catname, catimg })
+      });
+      showSubView('category', 'list');
+      loadCategories();
+    }
+
+    // 3. SUBCATEGORY
+    async function loadSubcategories() {
+      const res = await fetch(`${API}/subcategories`);
+      const data = await res.json();
+      const tbody = document.getElementById('subcatTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      let subOpts = '';
+      data.subcategories.forEach((s, i) => {
+        subOpts += `<option value="${s.id}">${s.name}</option>`;
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${s.catname || 'Category'}</td>
+            <td class="fw-bold">${s.name}</td>
+            <td><img src="${s.img}" width="40" height="40" class="rounded"></td>
+            <td><span class="badge bg-secondary">1</span></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('subcategories', ${s.id}, loadSubcategories)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+      ['p_subcat', 'hs_subcat_select'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = subOpts;
+      });
+    }
+
+    async function submitSubcategory(e) {
+      e.preventDefault();
+      const cat_id = document.getElementById('subcat_cat_select').value;
+      const name = document.getElementById('subcat_name_input').value;
+      const img = document.getElementById('subcat_img_input').value;
+
+      await fetch(`${API}/subcategories/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ cat_id, name, img })
+      });
+      showSubView('subcategory', 'list');
+      loadSubcategories();
+    }
+
+    // 4. PRODUCT
+    async function loadProducts() {
+      const res = await fetch(`${API}/products`);
+      const data = await res.json();
+      const tbody = document.getElementById('productTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.products.forEach((p, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${p.pname}</td>
+            <td>${p.catname || ''}</td>
+            <td>${p.subcat_name || ''}</td>
+            <td>${p.psdesc || ''}</td>
+            <td class="fw-bold text-success">${p.pprice} $</td>
+            <td><span class="badge bg-info">${p.stock}</span></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('products', ${p.id}, loadProducts)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function submitProduct(e) {
+      e.preventDefault();
+      const pname = document.getElementById('p_name').value;
+      const sname = document.getElementById('p_sname').value;
+      const cid = document.getElementById('p_cat').value;
+      const sid = document.getElementById('p_subcat').value;
+      const psdesc = document.getElementById('p_desc').value;
+      const pgms = document.getElementById('p_gms').value;
+      const pprice = document.getElementById('p_price').value;
+      const stock = document.getElementById('p_stock').value;
+      const discount = document.getElementById('p_discount').value;
+      const pimg = document.getElementById('p_img').value;
+
+      await fetch(`${API}/products/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ pname, sname, cid, sid, psdesc, pgms, pprice, stock, pimg, discount })
+      });
+      showSubView('product', 'list');
+      loadProducts();
+    }
+
+    // 5. AREA
+    async function loadAreas() {
+      const res = await fetch(`${API}/areas`);
+      const data = await res.json();
+      const tbody = document.getElementById('areaTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      let areaOpts = '';
+      data.areas.forEach((a, i) => {
+        areaOpts += `<option value="${a.id}">${a.name}</option>`;
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${a.name}</td>
+            <td class="fw-bold text-success">${a.dcharge} $</td>
+            <td><span class="badge bg-success">${a.status}</span></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('areas', ${a.id}, loadAreas)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+      const el = document.getElementById('r_area_select');
+      if (el) el.innerHTML = areaOpts;
+    }
+
+    async function submitArea(e) {
+      e.preventDefault();
+      const name = document.getElementById('area_name_input').value;
+      const dcharge = document.getElementById('area_charge_input').value;
+      const status = document.getElementById('area_status_input').value;
+
+      await fetch(`${API}/areas/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, dcharge, status })
+      });
+      showSubView('area', 'list');
+      loadAreas();
+    }
+
+    // 6. TIMESLOT
+    async function loadTimeslots() {
+      const res = await fetch(`${API}/timeslots`);
+      const data = await res.json();
+      const tbody = document.getElementById('timeslotTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.timeslots.forEach((t, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${t.min_time}</td>
+            <td class="fw-bold">${t.max_time}</td>
+            <td><button class="btn-action-delete" onclick="deleteItem('timeslots', ${t.id}, loadTimeslots)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function submitTimeslot(e) {
+      e.preventDefault();
+      const min_time = document.getElementById('ts_min_input').value;
+      const max_time = document.getElementById('ts_max_input').value;
+
+      await fetch(`${API}/timeslots/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ min_time, max_time })
+      });
+      showSubView('timeslot', 'list');
+      loadTimeslots();
+    }
+
+    // 7. DELIVERY BOY / RIDER
+    async function loadRiders() {
+      const res = await fetch(`${API}/riders`);
+      const data = await res.json();
+      const tbody = document.getElementById('riderTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.riders.forEach((r, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${r.name}</td>
+            <td>${r.mobile}</td>
+            <td>${r.email}</td>
+            <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'Active' : 'Deactive'}</span></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('riders', ${r.id}, loadRiders)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function submitRider(e) {
+      e.preventDefault();
+      const name = document.getElementById('r_name_input').value;
+      const mobile = document.getElementById('r_mobile_input').value;
+      const email = document.getElementById('r_email_input').value;
+      const password = document.getElementById('r_pass_input').value;
+      const aid = document.getElementById('r_area_select').value;
+      const address = document.getElementById('r_address_input').value;
+
+      await fetch(`${API}/riders/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, mobile, email, password, aid, address })
+      });
+      showSubView('delivery-boy', 'list');
+      loadRiders();
+    }
+
+    // 8. BANNER
+    async function loadBanners() {
+      const res = await fetch(`${API}/banners`);
+      const data = await res.json();
+      const tbody = document.getElementById('bannerTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.banners.forEach((b, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td><img src="${b.bimg}" height="45" class="rounded"></td>
+            <td>${b.catname || 'General'}</td>
+            <td><button class="btn-action-delete" onclick="deleteItem('banners', ${b.id}, loadBanners)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function submitBanner(e) {
+      e.preventDefault();
+      const bimg = document.getElementById('b_img_input').value;
+      const cid = document.getElementById('b_cat_select').value;
+
+      await fetch(`${API}/banners/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ bimg, cid })
+      });
+      loadBanners();
+    }
+
+    // 9. HOME SECTION
+    async function loadHomeSections() {
+      const res = await fetch(`${API}/home-sections`);
+      const data = await res.json();
+      const tbody = document.getElementById('homeSectionTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.sections.forEach((hs, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${hs.title}</td>
+            <td>${hs.catname || ''}</td>
+            <td>${hs.subcat_name || ''}</td>
+            <td><span class="badge bg-success">Published</span></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('home-sections', ${hs.id}, loadHomeSections)"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function submitHomeSection(e) {
+      e.preventDefault();
+      const title = document.getElementById('hs_title_input').value;
+      const cid = document.getElementById('hs_cat_select').value;
+      const sid = document.getElementById('hs_subcat_select').value;
+
+      await fetch(`${API}/home-sections/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, cid, sid })
+      });
+      showSubView('home-section', 'list');
+      loadHomeSections();
+    }
+
+    // 10. NOTIFICATION
+    async function loadNotifications() {
+      const res = await fetch(`${API}/notifications`);
+      const data = await res.json();
+      const tbody = document.getElementById('notificationTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.notifications.forEach((n, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${n.title}</td>
+            <td>${n.msg}</td>
+            <td>${n.date}</td>
+            <td><span class="badge bg-info">Sent</span></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function submitNotification(e) {
+      e.preventDefault();
+      const title = document.getElementById('n_title_input').value;
+      const msg = document.getElementById('n_msg_input').value;
+      const img = document.getElementById('n_img_input').value;
+
+      await fetch(`${API}/notifications/send`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, msg, img })
+      });
+      showSubView('notification', 'list');
+      loadNotifications();
+    }
+
+    // 11. CUSTOMER / USER (SCREENS 37 & 38)
+    async function loadUsers() {
+      const res = await fetch(`${API}/customers`);
+      const data = await res.json();
+      const tbody = document.getElementById('userTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.customers.forEach((u, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="fw-bold">${u.name}</td>
+            <td>${u.email}</td>
+            <td>${u.ccode || '+91'}</td>
+            <td>${u.mobile}</td>
+            <td>${u.password || '123'}</td>
+            <td><span class="badge ${u.status == 1 ? 'bg-success' : 'bg-danger'}">${u.status == 1 ? 'Active' : 'Deactive'}</span></td>
+            <td class="fw-bold text-success">${u.wallet || 0} $</td>
+            <td><button class="btn btn-sm ${u.status == 1 ? 'btn-danger' : 'btn-success'}" onclick="toggleUserStatus(${u.id}, ${u.status == 1 ? 0 : 1})">${u.status == 1 ? 'Make Deactive' : 'Active'}</button></td>
             <td>
-              <button class="btn btn-sm ${isDeactive ? 'btn-success' : 'btn-warning'} me-1" onclick="toggleCustomerStatus(${c.id}, ${isDeactive ? 1 : 0})">${isDeactive ? 'تفعيل' : 'Make Deactive'}</button>
-              <button class="btn-action-green me-1" onclick="showAddBalanceModal(${c.id}, '${c.name}')"><i class="fa-solid fa-plus"></i> Add Balance</button>
-              <button class="btn-action-cyan me-1" onclick="viewUserAddresses(${c.id})"><i class="fa-solid fa-location-dot"></i> العناوين</button>
-              <button class="btn-action-delete" onclick="deleteCustomer(${c.id})"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn-action-green me-1" onclick="showAddBalance(${u.id}, '${u.name}')">Add Balance</button>
+              <button class="btn-action-cyan me-1" onclick="viewAddresses(${u.id})">Addresses</button>
+              <button class="btn-action-delete" onclick="deleteItem('customers', ${u.id}, loadUsers)"><i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>
         `;
       });
     }
 
-    async function toggleCustomerStatus(id, status) {
-      await fetch(`${API_BASE}/customers/status`, {
+    async function toggleUserStatus(id, status) {
+      await fetch(`${API}/customers/status`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id, status })
       });
-      loadCustomers();
+      loadUsers();
     }
 
-    async function deleteCustomer(id) {
-      if (confirm('هل أنت تأكد من حذف العميل؟')) {
-        await fetch(`${API_BASE}/customers/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadCustomers();
-      }
-    }
-
-    function showAddBalanceModal(id, name) {
-      document.getElementById('actionModalTitle').innerText = `إضافة رصيد محفظة للعميل: ${name}`;
-      document.getElementById('actionModalBody').innerHTML = `
+    function showAddBalance(id, name) {
+      document.getElementById('sharedModalTitle').innerText = `Add Balance to User: ${name}`;
+      document.getElementById('sharedModalBody').innerHTML = `
         <form onsubmit="submitAddBalance(event, ${id})">
           <div class="mb-3">
-            <label class="form-label fw-bold">القيمة المراد إضافتها (Wallet Amount)</label>
-            <input type="number" step="0.01" id="balanceAmt" class="form-control" required placeholder="مثال: 50.00">
+            <label class="form-label fw-bold">Wallet Amount</label>
+            <input type="number" step="0.01" id="bal_amt" class="form-control" required placeholder="50.00">
           </div>
-          <button type="submit" class="btn btn-success w-100 fw-bold">إضافة الرصيد الآن</button>
+          <button type="submit" class="btn btn-success w-100 fw-bold">Add Balance Now</button>
         </form>
       `;
-      modalInstance.show();
+      sharedModalInstance.show();
     }
 
     async function submitAddBalance(e, id) {
       e.preventDefault();
-      const amount = document.getElementById('balanceAmt').value;
-      await fetch(`${API_BASE}/customers/add-balance`, {
+      const amount = document.getElementById('bal_amt').value;
+      await fetch(`${API}/customers/add-balance`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id, amount })
       });
-      modalInstance.hide();
-      loadCustomers();
+      sharedModalInstance.hide();
+      loadUsers();
     }
 
-    async function viewUserAddresses(uid) {
-      const res = await fetch(`${API_BASE}/customers/addresses?uid=${uid}`);
+    async function viewAddresses(uid) {
+      const res = await fetch(`${API}/customers/addresses?uid=${uid}`);
       const data = await res.json();
-      document.getElementById('actionModalTitle').innerText = 'عناوين العميل المسجلة';
-      let html = '<ul class="list-group">';
+      document.getElementById('sharedModalTitle').innerText = 'USER ADDRESS LIST (Screen 38)';
+      let html = '<table class="table table-custom"><thead><tr><th>Sr No.</th><th>House No</th><th>Society</th><th>Area</th><th>Pincode</th><th>Landmark</th><th>Type</th></tr></thead><tbody>';
       if (data.addresses && data.addresses.length > 0) {
-        data.addresses.forEach(a => {
-          html += `<li class="list-group-item"><strong>${a.type || 'منزل'}:</strong> ${a.hno}, ${a.society}, ${a.area} (الرمز البريدي: ${a.pincode})</li>`;
+        data.addresses.forEach((a, i) => {
+          html += `<tr><td>${i+1}</td><td>${a.hno}</td><td>${a.society}</td><td>${a.area}</td><td>${a.pincode}</td><td>${a.landmark||''}</td><td>${a.type}</td></tr>`;
         });
       } else {
-        html += '<li class="list-group-item text-muted">لا توجد عناوين مسجلة بعد</li>';
+        html += '<tr><td colspan="7" class="text-center">No addresses found</td></tr>';
       }
-      html += '</ul>';
-      document.getElementById('actionModalBody').innerHTML = html;
-      modalInstance.show();
+      html += 'tbody></table>';
+      document.getElementById('sharedModalBody').innerHTML = html;
+      sharedModalInstance.show();
     }
 
-    // 3. ORDERS LOAD
+    // 12 & 13. ORDERS
     async function loadOrders(status, tbodyId) {
-      const res = await fetch(`${API_BASE}/orders?status=${status || ''}`);
+      const res = await fetch(`${API}/orders?status=${status || ''}`);
       const data = await res.json();
       const tbody = document.getElementById(tbodyId);
       tbody.innerHTML = '';
       if (!data.success) return;
 
-      data.orders.forEach((o, idx) => {
+      data.orders.forEach((o, i) => {
         if (status === 'Completed') {
           tbody.innerHTML += `
             <tr>
-              <td>${idx + 1}</td>
+              <td>${i + 1}</td>
               <td>${o.odate || ''}</td>
               <td class="fw-bold">#${o.id}</td>
-              <td>${o.name || 'عميل'}</td>
-              <td>${o.rider_name || 'غير مسند'}</td>
+              <td>${o.name || 'User'}</td>
+              <td>${o.rider_name || 'Rider'}</td>
               <td class="fw-bold text-success">${o.total} $</td>
-              <td>${o.sign ? `<img src="${o.sign}" width="50" class="rounded">` : '<span class="text-muted">لا يوجد</span>'}</td>
+              <td>${o.sign ? `<img src="${o.sign}" width="50" class="rounded">` : '<span class="text-muted">No Sign</span>'}</td>
               <td><span class="badge bg-success">Completed</span></td>
-              <td><button class="btn-action-cyan" onclick="previewOrder('${o.id}')">Preview</button></td>
+              <td><button class="btn-action-cyan" onclick="previewOrderModal('${o.id}')">Preview</button></td>
             </tr>
           `;
         } else {
           tbody.innerHTML += `
             <tr>
-              <td>${idx + 1}</td>
+              <td>${i + 1}</td>
               <td>${o.odate || ''}</td>
               <td class="fw-bold">#${o.id}</td>
-              <td>${o.rider_name || '<span class="text-muted">Not Assign</span>'}</td>
+              <td>${o.rider_name || 'Not Assign'}</td>
               <td><span class="badge bg-secondary">${o.a_status == 1 ? 'Assigned' : 'Not Assign'}</span></td>
               <td><span class="badge bg-info">${o.status}</span></td>
               <td><span class="badge bg-warning">${o.status}</span></td>
-              <td><button class="btn-action-cyan" onclick="previewOrder('${o.id}')">Preview</button></td>
-              <td><button class="btn btn-sm btn-primary" onclick="showAssignRiderModal(${o.id})">Assign Delivery Boy</button></td>
-              <td><button class="btn-action-delete" onclick="deleteOrder(${o.id})">Delete</button></td>
+              <td><button class="btn-action-cyan" onclick="previewOrderModal('${o.id}')">Preview</button></td>
+              <td><button class="btn btn-sm btn-primary" onclick="showAssignModal(${o.id})">Assign Delivery Boy</button></td>
+              <td><button class="btn-action-delete" onclick="deleteItem('orders', ${o.id}, () => loadOrders('Pending', 'pendingTableBody'))">Delete</button></td>
             </tr>
           `;
         }
       });
     }
 
-    async function showAssignRiderModal(orderId) {
-      const res = await fetch(`${API_BASE}/riders`);
+    async function showAssignModal(orderId) {
+      const res = await fetch(`${API}/riders`);
       const data = await res.json();
-      let options = data.riders.map(r => `<option value="${r.id}">${r.name} (${r.mobile})</option>`).join('');
+      let opts = data.riders.map(r => `<option value="${r.id}">${r.name} (${r.mobile})</option>`).join('');
 
-      document.getElementById('actionModalTitle').innerText = `إسناد الطلب #${orderId} لسائق`;
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAssignRider(event, ${orderId})">
+      document.getElementById('sharedModalTitle').innerText = `ASSIGN DELIVERY BOY ORDER LIST (Screen 24) - Order #${orderId}`;
+      document.getElementById('sharedModalBody').innerHTML = `
+        <form onsubmit="submitAssign(event, ${orderId})">
           <div class="mb-3">
-            <label class="form-label fw-bold">اختر السائق</label>
-            <select id="riderSelect" class="form-select">${options}</select>
+            <label class="form-label fw-bold">Select Delivery Boy</label>
+            <select id="assign_r_select" class="form-select">${opts}</select>
           </div>
-          <button type="submit" class="btn btn-primary w-100 fw-bold">تأكيد الإسناد</button>
+          <button type="submit" class="btn btn-primary w-100 fw-bold">Assign Delivery Boy Now</button>
         </form>
       `;
-      modalInstance.show();
+      sharedModalInstance.show();
     }
 
-    async function submitAssignRider(e, orderId) {
+    async function submitAssign(e, orderId) {
       e.preventDefault();
-      const rid = document.getElementById('riderSelect').value;
-      await fetch(`${API_BASE}/orders/assign`, {
+      const rid = document.getElementById('assign_r_select').value;
+      await fetch(`${API}/orders/assign`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id: orderId, rid })
       });
-      modalInstance.hide();
-      loadOrders('Pending', 'pendingOrdersTableBody');
+      sharedModalInstance.hide();
+      loadOrders('Pending', 'pendingTableBody');
     }
 
-    async function deleteOrder(id) {
-      if (confirm('هل تريد حذف الطلب؟')) {
-        await fetch(`${API_BASE}/orders/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadOrders('Pending', 'pendingOrdersTableBody');
-      }
-    }
-
-    function previewOrder(orderId) {
-      alert(`معاينة الطلب رقم #${orderId}`);
-    }
-
-    // 4. CATEGORIES
-    async function loadCategories() {
-      const res = await fetch(`${API_BASE}/categories`);
-      const data = await res.json();
-      const tbody = document.getElementById('categoriesTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.categories.forEach((c, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${c.catname}</td>
-            <td><img src="${c.catimg}" width="40" height="40" class="rounded"></td>
-            <td><span class="badge bg-secondary">${c.subcat_count || 0} أجزاء</span></td>
-            <td><button class="btn-action-delete" onclick="deleteCategory(${c.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    function showAddCategoryModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة قسم جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddCategory(event)">
-          <div class="mb-3">
-            <label class="form-label fw-bold">اسم القسم</label>
-            <input type="text" id="catName" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-bold">رابط صورة القسم</label>
-            <input type="text" id="catImg" class="form-control" placeholder="https://...">
-          </div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ القسم</button>
-        </form>
+    function previewOrderModal(orderId) {
+      document.getElementById('sharedModalTitle').innerText = `ORDER PREVIEW MODAL DETAIL (Screens 11 & 25) - #${orderId}`;
+      document.getElementById('sharedModalBody').innerHTML = `
+        <div class="p-2">
+          <h5>Order #${orderId} Overview</h5>
+          <p><strong>Payment Method:</strong> Cash On Delivery (COD)</p>
+          <p><strong>Customer Name:</strong> Azumaa Customer</p>
+          <table class="table table-bordered mt-3">
+            <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
+            <tbody><tr><td>Sample Item</td><td>1</td><td>10 $</td><td>10 $</td></tr></tbody>
+          </table>
+          <button class="btn btn-secondary mt-2" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Invoice</button>
+        </div>
       `;
-      modalInstance.show();
+      sharedModalInstance.show();
     }
 
-    async function submitAddCategory(e) {
-      e.preventDefault();
-      const catname = document.getElementById('catName').value;
-      const catimg = document.getElementById('catImg').value;
-      await fetch(`${API_BASE}/categories/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ catname, catimg })
-      });
-      modalInstance.hide();
-      loadCategories();
-    }
-
-    async function deleteCategory(id) {
-      if (confirm('حذف القسم؟')) {
-        await fetch(`${API_BASE}/categories/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadCategories();
-      }
-    }
-
-    // 5. SUBCATEGORIES
-    async function loadSubcategories() {
-      const res = await fetch(`${API_BASE}/subcategories`);
-      const data = await res.json();
-      const tbody = document.getElementById('subcategoriesTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.subcategories.forEach((s, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td>${s.catname || 'قسم'}</td>
-            <td class="fw-bold">${s.name}</td>
-            <td><img src="${s.img}" width="40" height="40" class="rounded"></td>
-            <td><button class="btn-action-delete" onclick="deleteSubcategory(${s.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    async function showAddSubCategoryModal() {
-      const res = await fetch(`${API_BASE}/categories`);
-      const data = await res.json();
-      let options = data.categories.map(c => `<option value="${c.id}">${c.catname}</option>`).join('');
-
-      document.getElementById('actionModalTitle').innerText = 'إضافة قسم فرعي جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddSubcategory(event)">
-          <div class="mb-3">
-            <label class="form-label fw-bold">القسم الرئيسي</label>
-            <select id="subCatMain" class="form-select">${options}</select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-bold">اسم القسم الفرعي</label>
-            <input type="text" id="subCatName" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-bold">رابط الصورة</label>
-            <input type="text" id="subCatImg" class="form-control" placeholder="https://...">
-          </div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ القسم الفرعي</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddSubcategory(e) {
-      e.preventDefault();
-      const cat_id = document.getElementById('subCatMain').value;
-      const name = document.getElementById('subCatName').value;
-      const img = document.getElementById('subCatImg').value;
-      await fetch(`${API_BASE}/subcategories/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ cat_id, name, img })
-      });
-      modalInstance.hide();
-      loadSubcategories();
-    }
-
-    async function deleteSubcategory(id) {
-      if (confirm('حذف؟')) {
-        await fetch(`${API_BASE}/subcategories/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadSubcategories();
-      }
-    }
-
-    // 6. PRODUCTS
-    async function loadProducts() {
-      const res = await fetch(`${API_BASE}/products`);
-      const data = await res.json();
-      const tbody = document.getElementById('productsTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.products.forEach((p, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${p.pname}</td>
-            <td>${p.catname || 'قسم'}</td>
-            <td>${p.pprice} $</td>
-            <td><span class="badge bg-info">${p.stock} قطعة</span></td>
-            <td><span class="badge bg-danger">${p.discount || 0}%</span></td>
-            <td><img src="${p.pimg}" width="40" height="40" class="rounded"></td>
-            <td><button class="btn-action-delete" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    async function showAddProductModal() {
-      const catsRes = await fetch(`${API_BASE}/categories`);
-      const cats = await catsRes.json();
-      let catOpts = cats.categories.map(c => `<option value="${c.id}">${c.catname}</option>`).join('');
-
-      document.getElementById('actionModalTitle').innerText = 'إضافة منتج جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddProduct(event)">
-          <div class="mb-2"><label class="form-label fw-bold">اسم المنتج</label><input type="text" id="prodName" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">القسم الرئيسي</label><select id="prodCat" class="form-select">${catOpts}</select></div>
-          <div class="mb-2"><label class="form-label fw-bold">الوصف القصيرة</label><input type="text" id="prodDesc" class="form-control"></div>
-          <div class="mb-2"><label class="form-label fw-bold">الأحجام (مثال: 1kg$;2kg)</label><input type="text" id="prodGms" class="form-control" value="1kg"></div>
-          <div class="mb-2"><label class="form-label fw-bold">الأسعار (مثال: 10$;20)</label><input type="text" id="prodPrice" class="form-control" value="10"></div>
-          <div class="mb-2"><label class="form-label fw-bold">الكمية المتوفرة بالمخزون</label><input type="number" id="prodStock" class="form-control" value="100"></div>
-          <div class="mb-2"><label class="form-label fw-bold">رابط الصورة الرئيسية</label><input type="text" id="prodImg" class="form-control" placeholder="https://..."></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold mt-2" style="background:#ff5e62">حفظ المنتج</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddProduct(e) {
-      e.preventDefault();
-      const pname = document.getElementById('prodName').value;
-      const cid = document.getElementById('prodCat').value;
-      const psdesc = document.getElementById('prodDesc').value;
-      const pgms = document.getElementById('prodGms').value;
-      const pprice = document.getElementById('prodPrice').value;
-      const stock = document.getElementById('prodStock').value;
-      const pimg = document.getElementById('prodImg').value;
-
-      await fetch(`${API_BASE}/products/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ pname, cid, sid: 1, psdesc, pgms, pprice, stock, pimg })
-      });
-      modalInstance.hide();
-      loadProducts();
-    }
-
-    async function deleteProduct(id) {
-      if (confirm('حذف المنتج؟')) {
-        await fetch(`${API_BASE}/products/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadProducts();
-      }
-    }
-
-    // 7. RIDERS
-    async function loadRiders() {
-      const res = await fetch(`${API_BASE}/riders`);
-      const data = await res.json();
-      const tbody = document.getElementById('ridersTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.riders.forEach((r, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${r.name}</td>
-            <td>${r.mobile}</td>
-            <td>${r.email}</td>
-            <td>${r.area_name || 'الرئيسية'}</td>
-            <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'On' : 'Off'}</span></td>
-            <td><span class="badge bg-danger">${r.reject || 0}</span></td>
-            <td><span class="badge bg-info">${r.accept || 0}</span></td>
-            <td><span class="badge bg-success">${r.complete || 0}</span></td>
-            <td><button class="btn-action-delete" onclick="deleteRider(${r.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    function showAddRiderModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة سائق جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddRider(event)">
-          <div class="mb-2"><label class="form-label fw-bold">الاسم</label><input type="text" id="rName" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">رقم الهاتف</label><input type="text" id="rMobile" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">الإيميل</label><input type="email" id="rEmail" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">كلمة المرور</label><input type="password" id="rPass" class="form-control" required></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold mt-2" style="background:#ff5e62">حفظ السائق</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddRider(e) {
-      e.preventDefault();
-      const name = document.getElementById('rName').value;
-      const mobile = document.getElementById('rMobile').value;
-      const email = document.getElementById('rEmail').value;
-      const password = document.getElementById('rPass').value;
-
-      await fetch(`${API_BASE}/riders/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name, mobile, email, password })
-      });
-      modalInstance.hide();
-      loadRiders();
-    }
-
-    async function deleteRider(id) {
-      if (confirm('حذف السائق؟')) {
-        await fetch(`${API_BASE}/riders/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadRiders();
-      }
-    }
-
-    // 8. AREAS
-    async function loadAreas() {
-      const res = await fetch(`${API_BASE}/areas`);
-      const data = await res.json();
-      const tbody = document.getElementById('areasTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.areas.forEach((a, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${a.name}</td>
-            <td class="fw-bold text-success">${a.dcharge} $</td>
-            <td><span class="badge bg-success">${a.status}</span></td>
-            <td><button class="btn-action-delete" onclick="deleteArea(${a.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    function showAddAreaModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة منطقة جديدة';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddArea(event)">
-          <div class="mb-3"><label class="form-label fw-bold">اسم المنطقة</label><input type="text" id="areaName" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label fw-bold">رسوم التوصيل (أرقام فقط)</label><input type="number" step="0.01" id="areaCharge" class="form-control" required></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ المنطقة</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddArea(e) {
-      e.preventDefault();
-      const name = document.getElementById('areaName').value;
-      const dcharge = document.getElementById('areaCharge').value;
-      await fetch(`${API_BASE}/areas/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name, dcharge })
-      });
-      modalInstance.hide();
-      loadAreas();
-    }
-
-    async function deleteArea(id) {
-      if (confirm('حذف؟')) {
-        await fetch(`${API_BASE}/areas/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadAreas();
-      }
-    }
-
-    // 9. TIMESLOTS
-    async function loadTimeslots() {
-      const res = await fetch(`${API_BASE}/timeslots`);
-      const data = await res.json();
-      const tbody = document.getElementById('timeslotsTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.timeslots.forEach((t, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${t.min_time}</td>
-            <td class="fw-bold">${t.max_time}</td>
-            <td><button class="btn-action-delete" onclick="deleteTimeslot(${t.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    function showAddTimeslotModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة فترة توصيل';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddTimeslot(event)">
-          <div class="mb-3"><label class="form-label fw-bold">وقت البداية (Min Time e.g. 09:00)</label><input type="text" id="tsMin" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label fw-bold">وقت النهاية (Max Time e.g. 10:30)</label><input type="text" id="tsMax" class="form-control" required></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ الفترة</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddTimeslot(e) {
-      e.preventDefault();
-      const min_time = document.getElementById('tsMin').value;
-      const max_time = document.getElementById('tsMax').value;
-      await fetch(`${API_BASE}/timeslots/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ min_time, max_time })
-      });
-      modalInstance.hide();
-      loadTimeslots();
-    }
-
-    async function deleteTimeslot(id) {
-      if (confirm('حذف؟')) {
-        await fetch(`${API_BASE}/timeslots/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadTimeslots();
-      }
-    }
-
-    // 10. BANNERS
-    async function loadBanners() {
-      const res = await fetch(`${API_BASE}/banners`);
-      const data = await res.json();
-      const tbody = document.getElementById('bannersTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.banners.forEach((b, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td><img src="${b.bimg}" height="50" class="rounded"></td>
-            <td>${b.catname || 'عام'}</td>
-            <td><button class="btn-action-delete" onclick="deleteBanner(${b.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    function showAddBannerModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة بنر جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddBanner(event)">
-          <div class="mb-3"><label class="form-label fw-bold">رابط صورة البنر</label><input type="text" id="banImg" class="form-control" required></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ البنر</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddBanner(e) {
-      e.preventDefault();
-      const bimg = document.getElementById('banImg').value;
-      await fetch(`${API_BASE}/banners/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ bimg })
-      });
-      modalInstance.hide();
-      loadBanners();
-    }
-
-    async function deleteBanner(id) {
-      if (confirm('حذف البنر؟')) {
-        await fetch(`${API_BASE}/banners/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadBanners();
-      }
-    }
-
-    // 11. COUPONS
+    // 14. COUPON
     async function loadCoupons() {
-      const res = await fetch(`${API_BASE}/coupons`);
+      const res = await fetch(`${API}/coupons`);
       const data = await res.json();
-      const tbody = document.getElementById('couponsTableBody');
+      const tbody = document.getElementById('couponTableBody');
       tbody.innerHTML = '';
       if (!data.success) return;
 
-      data.coupons.forEach((c, idx) => {
+      data.coupons.forEach((c, i) => {
         tbody.innerHTML += `
           <tr>
-            <td>${idx + 1}</td>
+            <td>${i + 1}</td>
             <td><img src="${c.c_img}" width="40" height="40" class="rounded"></td>
             <td class="fw-bold text-primary">${c.c_code}</td>
             <td>${c.c_title}</td>
-            <td class="fw-bold text-success">${c.c_value} $</td>
             <td>${c.min_amt} $</td>
+            <td class="fw-bold text-success">${c.c_value} $</td>
             <td>${c.cdate}</td>
             <td><span class="badge bg-success">${c.status}</span></td>
-            <td><button class="btn-action-delete" onclick="deleteCoupon(${c.id})"><i class="fa-solid fa-trash"></i></button></td>
+            <td><button class="btn-action-delete" onclick="deleteItem('coupons', ${c.id}, loadCoupons)"><i class="fa-solid fa-trash"></i></button></td>
           </tr>
         `;
       });
     }
 
-    function showAddCouponModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة كوبون خصم جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddCoupon(event)">
-          <div class="mb-2"><label class="form-label fw-bold">كود الخصم</label><input type="text" id="cpCode" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">عنوان الكوبون</label><input type="text" id="cpTitle" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">قيمة الخصم</label><input type="number" id="cpValue" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">الحد الأدنى للطلب</label><input type="number" id="cpMin" class="form-control" required></div>
-          <div class="mb-2"><label class="form-label fw-bold">تاريخ الانتهاء</label><input type="date" id="cpDate" class="form-control" required></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold mt-2" style="background:#ff5e62">حفظ الكوبون</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddCoupon(e) {
+    async function submitCoupon(e) {
       e.preventDefault();
-      const c_code = document.getElementById('cpCode').value;
-      const c_title = document.getElementById('cpTitle').value;
-      const c_value = document.getElementById('cpValue').value;
-      const min_amt = document.getElementById('cpMin').value;
-      const cdate = document.getElementById('cpDate').value;
+      const c_code = document.getElementById('cp_code_input').value;
+      const c_title = document.getElementById('cp_title_input').value;
+      const c_value = document.getElementById('cp_val_input').value;
+      const min_amt = document.getElementById('cp_min_input').value;
+      const cdate = document.getElementById('cp_date_input').value;
+      const c_img = document.getElementById('cp_img_input').value;
+      const c_desc = document.getElementById('cp_desc_input').value;
 
-      await fetch(`${API_BASE}/coupons/add`, {
+      await fetch(`${API}/coupons/add`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ c_code, c_title, c_value, min_amt, cdate })
+        body: JSON.stringify({ c_code, c_title, c_value, min_amt, cdate, c_img, c_desc })
       });
-      modalInstance.hide();
+      showSubView('coupon', 'list');
       loadCoupons();
     }
 
-    async function deleteCoupon(id) {
-      if (confirm('حذف الكوبون؟')) {
-        await fetch(`${API_BASE}/coupons/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadCoupons();
-      }
-    }
-
-    // 12. HOME SECTIONS
-    async function loadHomeSections() {
-      const res = await fetch(`${API_BASE}/home-sections`);
-      const data = await res.json();
-      const tbody = document.getElementById('homeSectionsTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.sections.forEach((s, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${s.title}</td>
-            <td>${s.catname || 'قسم'}</td>
-            <td>${s.subcat_name || 'قسم فرعي'}</td>
-            <td><button class="btn-action-delete" onclick="deleteHomeSection(${s.id})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>
-        `;
-      });
-    }
-
-    async function showAddHomeSectionModal() {
-      const catsRes = await fetch(`${API_BASE}/categories`);
-      const cats = await catsRes.json();
-      let catOpts = cats.categories.map(c => `<option value="${c.id}">${c.catname}</option>`).join('');
-
-      document.getElementById('actionModalTitle').innerText = 'إضافة قسم واجهة رئيسية';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddHomeSection(event)">
-          <div class="mb-3"><label class="form-label fw-bold">العنوان (مثل: الأكثر شائعة)</label><input type="text" id="hsTitle" class="form-control" required></div>
-          <div class="mb-3"><label class="form-label fw-bold">القسم الرئيسي</label><select id="hsCat" class="form-select">${catOpts}</select></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ القسم</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddHomeSection(e) {
-      e.preventDefault();
-      const title = document.getElementById('hsTitle').value;
-      const cid = document.getElementById('hsCat').value;
-
-      await fetch(`${API_BASE}/home-sections/add`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ title, cid, sid: 1 })
-      });
-      modalInstance.hide();
-      loadHomeSections();
-    }
-
-    async function deleteHomeSection(id) {
-      if (confirm('حذف؟')) {
-        await fetch(`${API_BASE}/home-sections/delete`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ id })
-        });
-        loadHomeSections();
-      }
-    }
-
-    // 13. NOTIFICATIONS
-    async function loadNotifications() {
-      const res = await fetch(`${API_BASE}/notifications`);
-      const data = await res.json();
-      const tbody = document.getElementById('notificationsTableBody');
-      tbody.innerHTML = '';
-      if (!data.success) return;
-
-      data.notifications.forEach((n, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${n.title}</td>
-            <td>${n.msg}</td>
-            <td>${n.date}</td>
-          </tr>
-        `;
-      });
-    }
-
-    document.getElementById('sendNotificationForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('notiTitle').value;
-      const msg = document.getElementById('notiMsg').value;
-      const img = document.getElementById('notiImg').value;
-
-      await fetch(`${API_BASE}/notifications/send`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ title, msg, img })
-      });
-      alert('تم إرسال الإشعار بنجاح!');
-      document.getElementById('sendNotificationForm').reset();
-      loadNotifications();
-    });
-
-    // 14. RATINGS
+    // 15. RATINGS & FEEDBACK (SCREENS 14 & 18)
     async function loadRatings() {
-      const res = await fetch(`${API_BASE}/ratings`);
+      const res = await fetch(`${API}/ratings`);
       const data = await res.json();
-      const tbody = document.getElementById('ratingsTableBody');
-      tbody.innerHTML = '';
+      const rBody = document.getElementById('rateTableBody');
+      const fBody = document.getElementById('feedbackTableBody');
+      rBody.innerHTML = ''; fBody.innerHTML = '';
       if (!data.success) return;
 
-      data.ratings.forEach((r, idx) => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="fw-bold">${r.user_name || 'عميل'}</td>
-            <td>#${r.oid || ''}</td>
-            <td class="text-warning"><i class="fa-solid fa-star"></i> ${r.total_star || 5}</td>
-            <td>${r.review || 'ممتاز'}</td>
-          </tr>
-        `;
+      (data.ratings || []).forEach((r, i) => {
+        rBody.innerHTML += `<tr><td>${i+1}</td><td class="fw-bold">${r.user_name || 'Customer'}</td><td class="text-warning"><i class="fa-solid fa-star"></i> ${r.total_star || 5}</td><td>${r.review || 'Great service'}</td><td><button class="btn-action-delete"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+      });
+
+      (data.feedbacks || []).forEach((f, i) => {
+        fBody.innerHTML += `<tr><td>${i+1}</td><td>${f.mobile || ''}</td><td class="text-warning"><i class="fa-solid fa-star"></i> 5</td><td>${f.msg || 'Good app'}</td><td><button class="btn-action-delete"><i class="fa-solid fa-trash"></i></button></td></tr>`;
       });
     }
 
-    // 15. COUNTRY CODES
+    // 16. COUNTRY CODE (SCREENS 12 & 13)
     async function loadCountryCodes() {
-      const res = await fetch(`${API_BASE}/country-codes`);
+      const res = await fetch(`${API}/country-codes`);
       const data = await res.json();
-      const tbody = document.getElementById('countryCodesTableBody');
+      const tbody = document.getElementById('ccTableBody');
       tbody.innerHTML = '';
       if (!data.success) return;
 
-      data.codes.forEach((c, idx) => {
+      data.codes.forEach((c, i) => {
         tbody.innerHTML += `
           <tr>
-            <td>${idx + 1}</td>
+            <td>${i + 1}</td>
             <td class="fw-bold">${c.ccode}</td>
             <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-danger'}">${c.status == 1 ? 'Active' : 'Deactive'}</span></td>
-            <td><button class="btn btn-sm btn-outline-secondary" onclick="toggleCountryCodeStatus(${c.id}, ${c.status == 1 ? 0 : 1})">تبديل الحالة</button></td>
+            <td><button class="btn btn-sm btn-outline-secondary" onclick="toggleCcStatus(${c.id}, ${c.status == 1 ? 0 : 1})">Toggle Status</button></td>
           </tr>
         `;
       });
     }
 
-    function showAddCountryCodeModal() {
-      document.getElementById('actionModalTitle').innerText = 'إضافة كود دولة جديد';
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitAddCountryCode(event)">
-          <div class="mb-3"><label class="form-label fw-bold">كود الدولة (مثال: +966 أو +972)</label><input type="text" id="ccCode" class="form-control" required></div>
-          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ الكود</button>
-        </form>
-      `;
-      modalInstance.show();
-    }
-
-    async function submitAddCountryCode(e) {
+    async function submitCountryCode(e) {
       e.preventDefault();
-      const ccode = document.getElementById('ccCode').value;
-      await fetch(`${API_BASE}/country-codes/add`, {
+      const ccode = document.getElementById('cc_code_input').value;
+      await fetch(`${API}/country-codes/add`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ ccode })
       });
-      modalInstance.hide();
+      showSubView('country-code', 'list');
       loadCountryCodes();
     }
 
-    async function toggleCountryCodeStatus(id, status) {
-      await fetch(`${API_BASE}/country-codes/status`, {
+    async function toggleCcStatus(id, status) {
+      await fetch(`${API}/country-codes/status`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id, status })
@@ -1825,114 +1729,130 @@
       loadCountryCodes();
     }
 
-    // 16. PAYMENT GATEWAYS
+    // 17. PAYMENT GATEWAY (SCREENS 26 & 27)
     async function loadPaymentGateways() {
-      const res = await fetch(`${API_BASE}/payment-gateways`);
+      const res = await fetch(`${API}/payment-gateways`);
       const data = await res.json();
-      const tbody = document.getElementById('paymentGatewaysTableBody');
+      const tbody = document.getElementById('gwTableBody');
       tbody.innerHTML = '';
       if (!data.success) return;
 
-      data.gateways.forEach((g, idx) => {
+      data.gateways.forEach((g, i) => {
         tbody.innerHTML += `
           <tr>
-            <td>${idx + 1}</td>
+            <td>${i + 1}</td>
             <td class="fw-bold">${g.title || g.name}</td>
             <td><img src="${g.img}" height="35" class="rounded"></td>
             <td>${g.cred_title || '-'}</td>
-            <td class="text-truncate" style="max-width:150px">${g.cred_value || '-'}</td>
+            <td class="text-truncate" style="max-width:140px">${g.cred_value || '-'}</td>
             <td><span class="badge ${g.status == 1 ? 'bg-success' : 'bg-secondary'}">${g.status == 1 ? 'Active' : 'Deactive'}</span></td>
-            <td><button class="btn-action-edit" onclick="showEditGatewayModal(${g.id}, '${g.title || g.name}', '${g.cred_title || ''}', '${g.cred_value || ''}', ${g.status})"><i class="fa-solid fa-pen-to-square"></i> Edit</button></td>
+            <td><button class="btn-action-edit" onclick="editGatewayModal(${g.id}, '${g.title||g.name}', '${g.cred_title||''}', '${g.cred_value||''}', ${g.status})"><i class="fa-solid fa-pen"></i> Edit</button></td>
           </tr>
         `;
       });
     }
 
-    function showEditGatewayModal(id, title, credTitle, credValue, status) {
-      document.getElementById('actionModalTitle').innerText = `تعديل بوابة الدفع: ${title}`;
-      document.getElementById('actionModalBody').innerHTML = `
-        <form onsubmit="submitEditGateway(event, ${id})">
-          <div class="mb-3"><label class="form-label fw-bold">عنوان المفتاح Credential Title</label><input type="text" id="gwTitle" class="form-control" value="${credTitle}"></div>
-          <div class="mb-3"><label class="form-label fw-bold">قيمة المفتاح Credential Value</label><input type="text" id="gwVal" class="form-control" value="${credValue}"></div>
+    function editGatewayModal(id, title, credTitle, credValue, status) {
+      document.getElementById('sharedModalTitle').innerText = `EDIT PAYMENT GATEWAY (Screen 27) - ${title}`;
+      document.getElementById('sharedModalBody').innerHTML = `
+        <form onsubmit="submitEditGw(event, ${id})">
+          <div class="mb-3"><label class="form-label fw-bold">Credentials Title</label><input type="text" id="gw_title" class="form-control" value="${credTitle}"></div>
+          <div class="mb-3"><label class="form-label fw-bold">Credentials Value</label><input type="text" id="gw_val" class="form-control" value="${credValue}"></div>
           <div class="mb-3">
-            <label class="form-label fw-bold">الحالة</label>
-            <select id="gwStatus" class="form-select">
+            <label class="form-label fw-bold">Status</label>
+            <select id="gw_status" class="form-select">
               <option value="1" ${status == 1 ? 'selected' : ''}>Active</option>
               <option value="0" ${status == 0 ? 'selected' : ''}>Deactive</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary w-100 fw-bold">تحديث البيانات</button>
+          <button type="submit" class="btn btn-primary w-100 fw-bold">Update Payment Gateway</button>
         </form>
       `;
-      modalInstance.show();
+      sharedModalInstance.show();
     }
 
-    async function submitEditGateway(e, id) {
+    async function submitEditGw(e, id) {
       e.preventDefault();
-      const title = document.getElementById('gwTitle').value;
-      const cred_value = document.getElementById('gwVal').value;
-      const status = document.getElementById('gwStatus').value;
+      const title = document.getElementById('gw_title').value;
+      const cred_value = document.getElementById('gw_val').value;
+      const status = document.getElementById('gw_status').value;
 
-      await fetch(`${API_BASE}/payment-gateways/update`, {
+      await fetch(`${API}/payment-gateways/update`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ id, title, cred_value, status })
       });
-      modalInstance.hide();
+      sharedModalInstance.hide();
       loadPaymentGateways();
     }
 
-    // 17. SYSTEM SETTINGS
+    // 18. SETTING (SCREEN 32)
     async function loadSettings() {
-      const res = await fetch(`${API_BASE}/settings`);
+      const res = await fetch(`${API}/settings`);
       const data = await res.json();
       if (!data.success) return;
       const s = data.settings;
 
-      document.getElementById('set_title').value = s.title || 'Azumaa Delivery';
-      document.getElementById('set_currency').value = s.currency || '$';
-      document.getElementById('set_timezone').value = s.timezone || 'Asia/Riyadh';
-      document.getElementById('set_o_min').value = s.o_min || 10;
-      document.getElementById('set_tax').value = s.tax || 5;
-      document.getElementById('set_one_key').value = s.one_key || '';
-      document.getElementById('set_one_hash').value = s.one_hash || '';
-      document.getElementById('set_r_key').value = s.r_key || '';
-      document.getElementById('set_r_hash').value = s.r_hash || '';
+      document.getElementById('s_title').value = s.title || 'Azumaa Delivery';
+      document.getElementById('s_currency').value = s.currency || '$';
+      document.getElementById('s_timezone').value = s.timezone || 'Asia/Riyadh';
+      document.getElementById('s_o_min').value = s.o_min || 10;
+      document.getElementById('s_tax').value = s.tax || 5;
+      document.getElementById('s_one_key').value = s.one_key || '';
+      document.getElementById('s_one_hash').value = s.one_hash || '';
+      document.getElementById('s_r_key').value = s.r_key || '';
+      document.getElementById('s_r_hash').value = s.r_hash || '';
     }
 
-    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+    async function submitSetting(e) {
       e.preventDefault();
-      const title = document.getElementById('set_title').value;
-      const currency = document.getElementById('set_currency').value;
-      const timezone = document.getElementById('set_timezone').value;
-      const o_min = document.getElementById('set_o_min').value;
-      const tax = document.getElementById('set_tax').value;
-      const user_onesignal_app_id = document.getElementById('set_one_key').value;
-      const user_onesignal_rest_key = document.getElementById('set_one_hash').value;
-      const rider_onesignal_app_id = document.getElementById('set_r_key').value;
-      const rider_onesignal_rest_key = document.getElementById('set_r_hash').value;
+      const title = document.getElementById('s_title').value;
+      const currency = document.getElementById('s_currency').value;
+      const timezone = document.getElementById('s_timezone').value;
+      const o_min = document.getElementById('s_o_min').value;
+      const tax = document.getElementById('s_tax').value;
+      const user_onesignal_app_id = document.getElementById('s_one_key').value;
+      const user_onesignal_rest_key = document.getElementById('s_one_hash').value;
+      const rider_onesignal_app_id = document.getElementById('s_r_key').value;
+      const rider_onesignal_rest_key = document.getElementById('s_r_hash').value;
 
-      await fetch(`${API_BASE}/settings/update`, {
+      await fetch(`${API}/settings/update`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ title, currency, timezone, o_min, tax, user_onesignal_app_id, user_onesignal_rest_key, rider_onesignal_app_id, rider_onesignal_rest_key })
       });
-      alert('تم حفظ إعدادات النظام بنجاح!');
-    });
+      alert('UPDATE SETTING (Screen 32) Saved successfully!');
+    }
 
-    // 18. ADMIN PROFILE FORM
-    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+    // 19. PROFILE (SCREENS 30 & 31)
+    function loadProfile() {
+      document.getElementById('prof_user').value = 'admin';
+    }
+
+    async function submitProfile(e) {
       e.preventDefault();
-      const username = document.getElementById('profUser').value;
-      const password = document.getElementById('profPass').value;
+      const username = document.getElementById('prof_user').value;
+      const password = document.getElementById('prof_pass').value;
 
-      await fetch(`${API_BASE}/profile`, {
+      await fetch(`${API}/profile`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ username, password })
       });
-      alert('تم تحديث اسم المستخدم وكلمة المرور للمدير بنجاح!');
-    });
+      alert('UPDATE PROFILE (Screens 30 & 31) Updated successfully!');
+    }
+
+    // Universal Helper: Delete Item
+    async function deleteItem(resource, id, callback) {
+      if (confirm(`Are you sure you want to delete this item?`)) {
+        await fetch(`${API}/${resource}/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        if (callback) callback();
+      }
+    }
   </script>
 </body>
 </html>
