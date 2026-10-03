@@ -1,0 +1,19 @@
+{
+  "name": "azumaa-backend",
+  "version": "1.0.0",
+  "description": "Azumaa Delivery Ecosystem Node.js Express Backend & Admin Panel with Supabase PostgreSQL Integration",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.5"
+  }
+}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عزومة Azumaa Delivery - لوحة التحكم Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .sidebar {
+      background-color: var(--card-bg);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      min-height: 100vh;
+      padding: 1.5rem 1rem;
+    }
+    .nav-link {
+      color: var(--text-muted);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    .nav-link:hover, .nav-link.active {
+      background-color: var(--primary);
+      color: #fff;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .table-dark-custom {
+      background-color: var(--card-bg);
+      color: var(--text);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .table-dark-custom th {
+      background-color: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem;
+    }
+    .table-dark-custom td {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 1rem;
+      vertical-align: middle;
+    }
+    .badge-status {
+      padding: 0.5em 0.8em;
+      border-radius: 8px;
+      font-weight: 600;
+
+    }
+    #loginOverlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Modal Overlay -->
+  <div id="loginOverlay">
+    <div class="card bg-dark border-secondary text-white p-4 style-modal" style="width: 400px; border-radius: 20px;">
+      <div class="text-center mb-4">
+        <i class="fa-solid fa-utensils text-primary display-4 mb-2"></i>
+        <h3 class="fw-bold">عزومة Azumaa Admin</h3>
+        <p class="text-muted small">تسجيل الدخول للوحة التحكم</p>
+      </div>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label class="form-label">اسم المستخدم</label>
+          <input type="text" id="adminUser" class="form-control bg-secondary text-white border-0" value="admin" required>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">كلمة المرور</label>
+          <input type="password" id="adminPass" class="form-control bg-secondary text-white border-0" value="admin@123" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">تسجيل الدخول</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 sidebar">
+        <div class="d-flex align-items-center mb-4 px-2">
+          <i class="fa-solid fa-bolt text-primary fs-3 me-2"></i>
+          <h4 class="fw-bold mb-0 me-2">عزومة Azumaa</h4>
+        </div>
+        <nav class="nav flex-column">
+          <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie me-2"></i> الرئيسية</a>
+          <a class="nav-link" href="#" onclick="showTab('orders')"><i class="fa-solid fa-box me-2"></i> الطلبات</a>
+          <a class="nav-link" href="#" onclick="showTab('products')"><i class="fa-solid fa-bag-shopping me-2"></i> المنتجات</a>
+          <a class="nav-link" href="#" onclick="showTab('riders')"><i class="fa-solid fa-motorcycle me-2"></i> السائقين</a>
+          <a class="nav-link" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket me-2 text-danger"></i> خروج</a>
+        </nav>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="col-md-9 col-lg-10 p-4">
+
+        <!-- Dashboard Tab -->
+        <div id="dashboardTab" class="tab-content">
+          <h3 class="fw-bold mb-4">نظرة عامة على النظام</h3>
+          <div class="row g-4 mb-4">
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span class="text-muted small">إجمالي الطلبات</span>
+                    <h3 id="statOrders" class="fw-bold mb-0 mt-1">0</h3>
+                  </div>
+                  <div class="stat-icon bg-primary bg-opacity-20 text-primary">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span class="text-muted small">المستخدمين</span>
+                    <h3 id="statUsers" class="fw-bold mb-0 mt-1">0</h3>
+                  </div>
+                  <div class="stat-icon bg-success bg-opacity-20 text-success">
+                    <i class="fa-solid fa-users"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span class="text-muted small">السائقين</span>
+                    <h3 id="statRiders" class="fw-bold mb-0 mt-1">0</h3>
+                  </div>
+                  <div class="stat-icon bg-warning bg-opacity-20 text-warning">
+                    <i class="fa-solid fa-motorcycle"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span class="text-muted small">الإيرادات الإجمالية</span>
+                    <h3 id="statRevenue" class="fw-bold mb-0 mt-1">0</h3>
+                  </div>
+                  <div class="stat-icon bg-info bg-opacity-20 text-info">
+                    <i class="fa-solid fa-wallet"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="ordersTab" class="tab-content d-none">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="fw-bold mb-0">إدارة الطلبات</h3>
+          </div>
+          <div class="table-dark-custom">
+            <table class="table table-dark table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>رقم الطلب</th>
+                  <th>تاريخ الطلب</th>
+                  <th>الإجمالي</th>
+                  <th>طريقة الدفع</th>
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <tr><td colspan="5" class="text-center text-muted">جاري تحميل الطلبات...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="productsTab" class="tab-content d-none">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="fw-bold mb-0">إدارة المنتجات</h3>
+          </div>
+          <div class="table-dark-custom">
+            <table class="table table-dark table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>اسم المنتج</th>
+                  <th>المتجر</th>
+                  <th>المخزون</th>
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody">
+                <tr><td colspan="5" class="text-center text-muted">جاري تحميل المنتجات...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Riders Tab -->
+        <div id="ridersTab" class="tab-content d-none">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="fw-bold mb-0">إدارة السائقين</h3>
+          </div>
+          <div class="table-dark-custom">
+            <table class="table table-dark table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>اسم السائق</th>
+                  <th>رقم الهاتف</th>
+                  <th>البريد الإلكتروني</th>
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="ridersTableBody">
+                <tr><td colspan="5" class="text-center text-muted">جاري تحميل السائقين...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('adminUser').value;
+      const password = document.getElementById('adminPass').value;
+      const res = await fetch('/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        loadDashboard();
+      } else {
+        alert(data.message);
+      }
+    });
+
+    function showTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
+      document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+      if (tab === 'dashboard') {
+        document.getElementById('dashboardTab').classList.remove('d-none');
+        loadDashboard();
+      } else if (tab === 'orders') {
+        document.getElementById('ordersTab').classList.remove('d-none');
+        loadOrders();
+      } else if (tab === 'products') {
+        document.getElementById('productsTab').classList.remove('d-none');
+        loadProducts();
+      } else if (tab === 'riders') {
+        document.getElementById('ridersTab').classList.remove('d-none');
+        loadRiders();
+      }
+    }
+
+    async function loadDashboard() {
+      const res = await fetch('/admin/stats');
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('statOrders').innerText = data.stats.totalOrders;
+        document.getElementById('statUsers').innerText = data.stats.totalUsers;
+        document.getElementById('statRiders').innerText = data.stats.totalRiders;
+        document.getElementById('statRevenue').innerText = data.stats.totalRevenue;
+      }
+    }
+
+    async function loadOrders() {
+      const res = await fetch('/admin/orders');
+      const data = await res.json();
+      const tbody = document.getElementById('ordersTableBody');
+      if (data.success && data.orders.length > 0) {
+        tbody.innerHTML = data.orders.map(o => `
+          <tr>
+            <td>${o.oid || '#' + o.id}</td>
+            <td>${o.order_date || '-'}</td>
+            <td>${o.total}</td>
+            <td>${o.p_method || 'Cash'}</td>
+            <td><span class="badge bg-primary badge-status">${o.status}</span></td>
+          </tr>
+        `).join('');
+      } else {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">لا توجد طلبات مسجلة</td></tr>`;
+      }
+    }
+
+    async function loadProducts() {
+      const res = await fetch('/admin/products');
+      const data = await res.json();
+      const tbody = document.getElementById('productsTableBody');
+      if (data.success && data.products.length > 0) {
+        tbody.innerHTML = data.products.map(p => `
+          <tr>
+            <td>${p.id}</td>
+            <td>${p.pname}</td>
+            <td>${p.sname || 'Azumaa Store'}</td>
+            <td>${p.stock}</td>
+            <td><span class="badge ${p.status == 1 ? 'bg-success' : 'bg-danger'}">${p.status == 1 ? 'نشط' : 'معطل'}</span></td>
+          </tr>
+        `).join('');
+      } else {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">لا توجد منتجات</td></tr>`;
+      }
+    }
+
+    async function loadRiders() {
+      const res = await fetch('/admin/riders');
+      const data = await res.json();
+      const tbody = document.getElementById('ridersTableBody');
+      if (data.success && data.riders.length > 0) {
+        tbody.innerHTML = data.riders.map(r => `
+          <tr>
+            <td>${r.id}</td>
+            <td>${r.name}</td>
+            <td>${r.mobile}</td>
+            <td>${r.email}</td>
+            <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'متاح' : 'غير מتاح'}</span></td>
+          </tr>
+        `).join('');
+      } else {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">لا يوجد سائقين</td></tr>`;
+      }
+    }
+
+    function logout() {
+      document.getElementById('loginOverlay').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
