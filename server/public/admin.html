@@ -559,7 +559,7 @@
               <div class="row g-3">
                 <div class="col-md-6"><label class="form-label fw-bold" data-i18n="prod_name">اسم المنتج</label><input type="text" id="p_name" class="form-control" required></div>
                 <div class="col-md-6"><label class="form-label fw-bold">اسم البائع</label><input type="text" id="p_sname" class="form-control" value="Azumaa Store"></div>
-                <div class="col-md-6"><label class="form-label fw-bold" data-i18n="select_cat">اختر القسم الرئيسي</label><select id="p_cat" class="form-select" required></select></div>
+                <div class="col-md-6"><label class="form-label fw-bold" data-i18n="select_cat">اختر القسم الرئيسي</label><select id="p_cat" class="form-select" required onchange="loadSubcatByCategory(this.value, 'p_subcat')"></select></div>
                 <div class="col-md-6"><label class="form-label fw-bold">اختر القسم الفرعي</label><select id="p_subcat" class="form-select" required></select></div>
                 <div class="col-md-12"><label class="form-label fw-bold">الوصف القصير</label><textarea id="p_desc" class="form-control" rows="2"></textarea></div>
                 <div class="col-md-6"><label class="form-label fw-bold">تفريعات/أحجام المنتج (مثال: 1kg$;2kg)</label><input type="text" id="p_gms" class="form-control" value="1kg" required></div>
@@ -729,7 +729,7 @@
             </div>
             <form onsubmit="submitHomeSection(event)">
               <div class="mb-3"><label class="form-label fw-bold">عنوان القسم</label><input type="text" id="hs_title_input" class="form-control" required></div>
-              <div class="mb-3"><label class="form-label fw-bold">القسم الرئيسي</label><select id="hs_cat_select" class="form-select" required></select></div>
+              <div class="mb-3"><label class="form-label fw-bold">القسم الرئيسي</label><select id="hs_cat_select" class="form-select" required onchange="loadSubcatByCategory(this.value, 'hs_subcat_select')"></select></div>
               <div class="mb-3"><label class="form-label fw-bold">القسم الفرعي</label><select id="hs_subcat_select" class="form-select" required></select></div>
               <button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ</button>
             </form>
@@ -1332,6 +1332,19 @@
       });
     }
 
+    // BUG#7+6 FIX: Cascade subcategory loader by selected category
+    async function loadSubcatByCategory(catId, targetSelectId) {
+      if (!catId) return;
+      const res = await fetch(`${API}/subcategories`);
+      const data = await res.json();
+      const el = document.getElementById(targetSelectId);
+      if (!el || !data.success) return;
+      const filtered = data.subcategories.filter(s => String(s.cat_id) === String(catId));
+      el.innerHTML = filtered.length
+        ? filtered.map(s => `<option value="${s.id}">${s.name}</option>`).join('')
+        : '<option value="">-- لا توجد أقسام فرعية --</option>';
+    }
+
     async function submitCategory(e) {
       e.preventDefault();
       const catname = document.getElementById('cat_name_input').value;
@@ -1474,7 +1487,7 @@
       loadAreas();
     }
 
-    // 6. TIMESLOT
+    // BUG#1 DISPLAY FIX: columns are mintime/maxtime not min_time/max_time
     async function loadTimeslots() {
       const res = await fetch(`${API}/timeslots`);
       const data = await res.json();
@@ -1486,8 +1499,8 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold text-white">${t.min_time}</td>
-            <td class="fw-bold text-white">${t.max_time}</td>
+            <td class="fw-bold text-white">${t.mintime}</td>
+            <td class="fw-bold text-white">${t.maxtime}</td>
             <td><button class="btn-action-delete" onclick="deleteItem('timeslots', ${t.id}, loadTimeslots)"><i class="fa-solid fa-trash"></i></button></td>
           </tr>
         `;
@@ -1508,7 +1521,7 @@
       loadTimeslots();
     }
 
-    // 7. DELIVERY BOY
+    // BUG#10 RIDER STATUS FIX: Add toggle status + delete buttons
     async function loadRiders() {
       const res = await fetch(`${API}/riders`);
       const data = await res.json();
@@ -1524,10 +1537,24 @@
             <td>${r.mobile}</td>
             <td>${r.email}</td>
             <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'Active' : 'Deactive'}</span></td>
-            <td><button class="btn-action-delete" onclick="deleteItem('riders', ${r.id}, loadRiders)"><i class="fa-solid fa-trash"></i></button></td>
+            <td>
+              <button class="btn-action-edit" onclick="toggleRiderStatus(${r.id}, ${r.status == 1 ? 0 : 1})">
+                <i class="fa-solid fa-toggle-${r.status == 1 ? 'on' : 'off'}"></i> ${r.status == 1 ? 'Deactivate' : 'Activate'}
+              </button>
+              <button class="btn-action-delete" onclick="deleteItem('riders', ${r.id}, loadRiders)"><i class="fa-solid fa-trash"></i></button>
+            </td>
           </tr>
         `;
       });
+    }
+
+    async function toggleRiderStatus(id, status) {
+      await fetch(`${API}/riders/status`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, status })
+      });
+      loadRiders();
     }
 
     async function submitRider(e) {
@@ -1749,10 +1776,10 @@
           tbody.innerHTML += `
             <tr>
               <td>${i + 1}</td>
-              <td>${o.odate || ''}</td>
+              <td>${o.odate || o.order_date || ''}</td>
               <td class="fw-bold text-white">#${o.id}</td>
-              <td>${o.name || 'User'}</td>
-              <td>${o.rider_name || 'Rider'}</td>
+              <td class="fw-bold text-white">${o.customer_name || o.name || 'Customer'}</td>
+              <td>${o.rider_name || 'N/A'}</td>
               <td class="fw-bold text-success">${o.total} $</td>
               <td>${o.sign ? `<img src="${o.sign}" width="50" class="rounded">` : '<span class="text-muted">No Sign</span>'}</td>
               <td><span class="badge bg-success">Completed</span></td>
@@ -1763,14 +1790,14 @@
           tbody.innerHTML += `
             <tr>
               <td>${i + 1}</td>
-              <td>${o.odate || ''}</td>
+              <td>${o.odate || o.order_date || ''}</td>
               <td class="fw-bold text-white">#${o.id}</td>
               <td>${o.rider_name || 'Not Assign'}</td>
               <td><span class="badge bg-secondary">${o.a_status == 1 ? 'Assigned' : 'Not Assign'}</span></td>
               <td><span class="badge bg-info">${o.status}</span></td>
-              <td><span class="badge bg-warning">${o.status}</span></td>
+              <td><span class="badge bg-warning">${o.r_status || o.status}</span></td>
               <td><button class="btn-action-cyan" onclick="previewOrderModal('${o.id}')">Preview</button></td>
-              <td><button class="btn btn-sm btn-primary" onclick="showAssignModal(${o.id})">Assign Delivery Boy</button></td>
+              <td><button class="btn btn-sm btn-primary" onclick="showAssignModal(${o.id})">Assign Rider</button></td>
               <td><button class="btn-action-delete" onclick="deleteItem('orders', ${o.id}, () => loadOrders('Pending', 'pendingTableBody'))">Delete</button></td>
             </tr>
           `;
@@ -1808,24 +1835,62 @@
       loadOrders('Pending', 'pendingTableBody');
     }
 
-    function previewOrderModal(orderId) {
-      document.getElementById('sharedModalTitle').innerText = `ORDER PREVIEW MODAL DETAIL - #${orderId}`;
-      document.getElementById('sharedModalBody').innerHTML = `
-        <div class="p-2">
-          <h5>Order #${orderId} Overview</h5>
-          <p><strong>Payment Method:</strong> Cash On Delivery (COD)</p>
-          <p><strong>Customer Name:</strong> Azumaa Customer</p>
-          <table class="table table-bordered mt-3 text-white">
-            <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
-            <tbody><tr><td>Sample Item</td><td>1</td><td>10 $</td><td>10 $</td></tr></tbody>
-          </table>
-          <button class="btn btn-secondary mt-2" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Invoice</button>
-        </div>
-      `;
+    // BUG#4 FIX: Real Order Preview (fetches actual order data)
+    async function previewOrderModal(orderId) {
+      document.getElementById('sharedModalTitle').innerText = `ORDER PREVIEW - #${orderId}`;
+      document.getElementById('sharedModalBody').innerHTML = '<div class="text-center p-4"><div class="spinner-border text-primary"></div></div>';
       sharedModalInstance.show();
+
+      try {
+        const res = await fetch(`${API}/orders/${orderId}`);
+        const data = await res.json();
+        if (!data.success) {
+          document.getElementById('sharedModalBody').innerHTML = '<div class="alert alert-danger">Failed to load order</div>';
+          return;
+        }
+        const o = data.order;
+        let itemRows = (o.items || []).map(item => `<tr><td>${item.name}</td><td>${item.type}</td><td>${item.qty}</td><td>${item.price}</td></tr>`).join('');
+        document.getElementById('sharedModalBody').innerHTML = `
+          <div class="row g-2 mb-3">
+            <div class="col-6"><strong>Order #:</strong> ${o.id}</div>
+            <div class="col-6"><strong>Status:</strong> <span class="badge bg-info">${o.status}</span></div>
+            <div class="col-6"><strong>Customer:</strong> ${o.customer_name || 'N/A'}</div>
+            <div class="col-6"><strong>Mobile:</strong> ${o.customer_mobile || 'N/A'}</div>
+            <div class="col-6"><strong>Rider:</strong> ${o.rider_name || 'Not Assigned'}</div>
+            <div class="col-6"><strong>Payment:</strong> ${o.p_method || 'COD'}</div>
+            <div class="col-6"><strong>Date:</strong> ${o.odate || o.order_date || ''}</div>
+            <div class="col-6"><strong>Total:</strong> <span class="text-success fw-bold">${o.total} $</span></div>
+            <div class="col-12"><strong>Delivery:</strong> ${[o.hno, o.society, o.delivery_area, o.pincode].filter(Boolean).join(', ') || 'N/A'}</div>
+          </div>
+          <table class="table table-custom">
+            <thead><tr><th>Product</th><th>Type</th><th>Qty</th><th>Price</th></tr></thead>
+            <tbody>${itemRows || '<tr><td colspan="4" class="text-center text-muted">No items</td></tr>'}</tbody>
+          </table>
+          <div class="d-flex gap-2 mt-3">
+            ${o.status !== 'Completed' ? `<button class="btn btn-success" onclick="updateOrderStatus(${o.id}, 'Completed')">Mark Completed</button>` : ''}
+            ${o.status !== 'Cancelled' ? `<button class="btn btn-danger" onclick="updateOrderStatus(${o.id}, 'Cancelled')">Cancel Order</button>` : ''}
+            <button class="btn btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print</button>
+          </div>
+        `;
+      } catch (err) {
+        document.getElementById('sharedModalBody').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+      }
+    }
+
+    async function updateOrderStatus(orderId, status) {
+      await fetch(`${API}/orders/status`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id: orderId, status })
+      });
+      sharedModalInstance.hide();
+      // Refresh the current orders tab
+      loadOrders('Pending', 'pendingTableBody');
+      loadOrders('Completed', 'completeTableBody');
     }
 
     // 14. COUPON
+    // BUG#3 COUPON DISPLAY FIX: use ctitle field (correct DB column)
     async function loadCoupons() {
       const res = await fetch(`${API}/coupons`);
       const data = await res.json();
@@ -1834,16 +1899,17 @@
       if (!data.success) return;
 
       data.coupons.forEach((c, i) => {
+        const titleVal = c.ctitle || c.c_title || '';
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td><img src="${c.c_img}" width="40" height="40" class="rounded"></td>
+            <td>${c.c_img ? `<img src="${c.c_img}" width="40" height="40" class="rounded">` : '<span class="text-muted">-</span>'}</td>
             <td class="fw-bold text-primary">${c.c_code}</td>
-            <td class="text-white">${c.c_title}</td>
+            <td class="fw-bold text-white">${titleVal}</td>
             <td>${c.min_amt} $</td>
             <td class="fw-bold text-success">${c.c_value} $</td>
-            <td>${c.cdate}</td>
-            <td><span class="badge bg-success">${c.status}</span></td>
+            <td>${c.cdate || ''}</td>
+            <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-secondary'}">${c.status == 1 ? 'Active' : 'Inactive'}</span></td>
             <td><button class="btn-action-delete" onclick="deleteItem('coupons', ${c.id}, loadCoupons)"><i class="fa-solid fa-trash"></i></button></td>
           </tr>
         `;
@@ -1887,7 +1953,7 @@
       });
     }
 
-    // 16. COUNTRY CODE
+    // BUG#6 COUNTRY CODE DELETE FIX: Add delete button + refreshing toggle status
     async function loadCountryCodes() {
       const res = await fetch(`${API}/country-codes`);
       const data = await res.json();
@@ -1898,10 +1964,17 @@
       data.codes.forEach((c, i) => {
         tbody.innerHTML += `
           <tr>
-            <td class="text-white">${i + 1}</td>
+            <td>${i + 1}</td>
             <td class="fw-bold text-white">${c.ccode}</td>
-            <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-danger'}">${c.status == 1 ? 'Active' : 'Deactive'}</span></td>
-            <td><button class="btn btn-sm btn-outline-secondary text-white fw-bold" onclick="toggleCcStatus(${c.id}, ${c.status == 1 ? 0 : 1})">تبديل الحالة</button></td>
+            <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-danger'}">${c.status == 1 ? 'Active' : 'Inactive'}</span></td>
+            <td>
+              <button class="btn-action-edit" onclick="toggleCcStatus(${c.id}, ${c.status == 1 ? 0 : 1})">
+                <i class="fa-solid fa-toggle-${c.status == 1 ? 'on' : 'off'}"></i>
+              </button>
+              <button class="btn-action-delete" onclick="deleteItem('country-codes', ${c.id}, loadCountryCodes)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
           </tr>
         `;
       });
@@ -1986,6 +2059,7 @@
     }
 
     // 18. SETTING
+    // BUG#9 FIX: Add logo field to loadSettings
     async function loadSettings() {
       const res = await fetch(`${API}/settings`);
       const data = await res.json();
@@ -2001,6 +2075,9 @@
       document.getElementById('s_one_hash').value = s.one_hash || '';
       document.getElementById('s_r_key').value = s.r_key || '';
       document.getElementById('s_r_hash').value = s.r_hash || '';
+      // BUG#9: Added logo field
+      const logoEl = document.getElementById('s_logo');
+      if (logoEl) logoEl.value = s.logo || '';
     }
 
     async function submitSetting(e) {

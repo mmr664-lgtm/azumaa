@@ -143,10 +143,17 @@ router.get('/customers/addresses', async (req, res) => {
 // 4. ORDER MANAGEMENT
 // ----------------------------------------------------
 
+// BUG#5+8 FIX: JOIN with user table to get customer name; alias order_date as odate
 router.get('/orders', async (req, res) => {
   const { status } = req.query;
   try {
-    let sql = 'SELECT o.*, r.name as rider_name FROM orders o LEFT JOIN rider r ON o.rid = r.id';
+    let sql = `SELECT o.*, 
+      r.name as rider_name, 
+      u.name as customer_name,
+      o.order_date as odate
+    FROM orders o 
+    LEFT JOIN rider r ON o.rid = r.id
+    LEFT JOIN "user" u ON o.uid = u.id`;
     const params = [];
     if (status) {
       params.push(status);
@@ -156,6 +163,46 @@ router.get('/orders', async (req, res) => {
 
     const { rows } = await db.query(sql, params);
     res.json({ success: true, orders: rows });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// BUG#4 FIX: Real Order Preview endpoint
+router.get('/orders/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const orderRes = await db.query(
+      `SELECT o.*, r.name as rider_name, u.name as customer_name, u.mobile as customer_mobile,
+       o.order_date as odate, a.hno, a.society, a.area as delivery_area, a.pincode, a.landmark
+       FROM orders o
+       LEFT JOIN rider r ON o.rid = r.id
+       LEFT JOIN "user" u ON o.uid = u.id
+       LEFT JOIN address a ON o.address_id = a.id
+       WHERE o.id = $1`, [id]
+    );
+    if (orderRes.rows.length === 0) {
+      return res.json({ success: false, message: 'Order not found' });
+    }
+    const order = orderRes.rows[0];
+    // Parse product names and prices from pipe-separated strings
+    const pnames = String(order.pname || '').split('$;');
+    const pprice = String(order.pprice || '').split('$;');
+    const ptype  = String(order.ptype || '').split('$;');
+    const qty    = String(order.qty || '').split('$;');
+    const items  = pnames.map((n, i) => ({ name: n, type: ptype[i]||'', price: pprice[i]||'0', qty: qty[i]||'1' }));
+    res.json({ success: true, order: { ...order, items } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Update Order Status (from admin panel)
+router.post('/orders/status', async (req, res) => {
+  const { id, status } = req.body;
+  try {
+    await db.query('UPDATE orders SET status = $1 WHERE id = $2', [status, id]);
+    res.json({ success: true, message: `Order status updated to ${status}` });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -383,9 +430,10 @@ router.get('/timeslots', async (req, res) => {
 });
 
 router.post('/timeslots/add', async (req, res) => {
+  // BUG#1 FIX: DB columns are mintime/maxtime (no underscore)
   const { min_time, max_time } = req.body;
   try {
-    await db.query('INSERT INTO timeslot (min_time, max_time) VALUES ($1, $2)', [min_time, max_time]);
+    await db.query('INSERT INTO timeslot (mintime, maxtime) VALUES ($1, $2)', [min_time, max_time]);
     res.json({ success: true, message: "Timeslot added successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -435,9 +483,10 @@ router.post('/banners/delete', async (req, res) => {
   }
 });
 
+// BUG#2+3 FIX: Correct table name is tbl_coupon, column is ctitle (not c_title)
 router.get('/coupons', async (req, res) => {
   try {
-    const { rows } = await db.query('SELECT * FROM coupon ORDER BY id DESC');
+    const { rows } = await db.query('SELECT * FROM tbl_coupon ORDER BY id DESC');
     res.json({ success: true, coupons: rows });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -448,8 +497,9 @@ router.post('/coupons/add', async (req, res) => {
   const { c_img, cdate, c_code, c_title, status, min_amt, c_value, c_desc } = req.body;
   try {
     await db.query(
-      'INSERT INTO coupon (c_img, cdate, c_code, c_title, status, min_amt, c_value, c_desc) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-      [c_img || 'website/thump.png', cdate, c_code, c_title, status || 'Active', min_amt || 0, c_value, c_desc || '']
+      // ctitle is correct column name in tbl_coupon (no underscore)
+      'INSERT INTO tbl_coupon (c_img, cdate, c_code, ctitle, status, min_amt, c_value, c_desc) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+      [c_img || 'website/thump.png', cdate, c_code, c_title, status || 1, min_amt || 0, c_value, c_desc || '']
     );
     res.json({ success: true, message: "Coupon added successfully" });
   } catch (err) {
@@ -460,7 +510,7 @@ router.post('/coupons/add', async (req, res) => {
 router.post('/coupons/delete', async (req, res) => {
   const { id } = req.body;
   try {
-    await db.query('DELETE FROM coupon WHERE id = $1', [id]);
+    await db.query('DELETE FROM tbl_coupon WHERE id = $1', [id]);
     res.json({ success: true, message: "Coupon deleted successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
