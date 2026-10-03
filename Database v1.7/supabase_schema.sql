@@ -489,165 +489,112 @@ CREATE TABLE "tbl_sale_item" (
 ) ;
 
 --
--- Indexes for dumped tables
 --
 
-ALTER TABLE "tbl_sale"
-  ADD PRIMARY KEY ("id");
 
 
-ALTER TABLE "tbl_sale_item"
-  ADD PRIMARY KEY ("id");
---
--- Indexes for table "address"
---
-ALTER TABLE "address"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "admin"
 --
-ALTER TABLE "admin"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "area_db"
 --
-ALTER TABLE "area_db"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "banner"
 --
-ALTER TABLE "banner"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "category"
 --
-ALTER TABLE "category"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "code"
 --
-ALTER TABLE "code"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "feedback"
 --
-ALTER TABLE "feedback"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "home"
 --
-ALTER TABLE "home"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "main_setting"
 --
-ALTER TABLE "main_setting"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "noti"
 --
-ALTER TABLE "noti"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "orders"
 --
-ALTER TABLE "orders"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "payment_list"
 --
-ALTER TABLE "payment_list"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "product"
 --
-ALTER TABLE "product"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "rate_order"
 --
-ALTER TABLE "rate_order"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "rider"
 --
-ALTER TABLE "rider"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "rnoti"
 --
-ALTER TABLE "rnoti"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "setting"
 --
-ALTER TABLE "setting"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "subcategory"
 --
-ALTER TABLE "subcategory"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "tbl_coupon"
 --
-ALTER TABLE "tbl_coupon"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "template"
 --
-ALTER TABLE "template"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "timeslot"
 --
-ALTER TABLE "timeslot"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "uread"
 --
-ALTER TABLE "uread"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "user"
 --
-ALTER TABLE "user"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- Indexes for table "wallet_report"
 --
-ALTER TABLE "wallet_report"
-  ADD PRIMARY KEY ("id");
+
 
 --
--- AUTO_INCREMENT for dumped tables
+--
+
+
+--
 --
 
 --
--- AUTO_INCREMENT for table "address"
 --
 
 
@@ -656,95 +603,72 @@ ALTER TABLE "wallet_report"
   
 
 --
--- AUTO_INCREMENT for table "admin"
 --
 
 --
--- AUTO_INCREMENT for table "area_db"
 --
 
 --
--- AUTO_INCREMENT for table "banner"
 --
 
 --
--- AUTO_INCREMENT for table "category"
 --
 
 --
--- AUTO_INCREMENT for table "code"
 --
 
 --
--- AUTO_INCREMENT for table "feedback"
 --
 
 --
--- AUTO_INCREMENT for table "home"
 --
 
 --
--- AUTO_INCREMENT for table "main_setting"
 --
 
 --
--- AUTO_INCREMENT for table "noti"
 --
 
 --
--- AUTO_INCREMENT for table "orders"
 --
 
 --
--- AUTO_INCREMENT for table "payment_list"
 --
 
 --
--- AUTO_INCREMENT for table "product"
 --
 
 --
--- AUTO_INCREMENT for table "rate_order"
 --
 
 --
--- AUTO_INCREMENT for table "rider"
 --
 
 --
--- AUTO_INCREMENT for table "rnoti"
 --
 
 --
--- AUTO_INCREMENT for table "setting"
 --
 
 --
--- AUTO_INCREMENT for table "subcategory"
 --
 
 --
--- AUTO_INCREMENT for table "tbl_coupon"
 --
 
 --
--- AUTO_INCREMENT for table "template"
 --
 
 --
--- AUTO_INCREMENT for table "timeslot"
 --
 
 --
--- AUTO_INCREMENT for table "uread"
 --
 
 --
--- AUTO_INCREMENT for table "user"
 --
 
 --
--- AUTO_INCREMENT for table "wallet_report"
 --
 
 
