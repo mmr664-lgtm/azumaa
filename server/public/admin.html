@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم عزومة Azumaa Admin Panel - Dark Theme</title>
+  <title>لوحة تحكم عزومة Azumaa Admin Panel</title>
   <!-- Bootstrap 5 RTL -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- FontAwesome 6 -->
@@ -28,21 +28,18 @@
       --input-border: rgba(255, 255, 255, 0.15);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: 'Cairo', sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Flex Layout - Clean RTL Flow with Zero Overlap */
+    /* Flex Layout - Clean LTR/RTL Flow with Zero Overlap */
     .app-wrapper {
       display: flex;
       width: 100vw;
@@ -54,7 +51,7 @@
       width: 260px;
       min-width: 260px;
       background-color: var(--card-bg);
-      border-left: 1px solid var(--card-border);
+      border-inline-end: 1px solid var(--card-border);
       height: 100vh;
       position: sticky;
       top: 0;
@@ -76,9 +73,7 @@
       margin-bottom: 1rem;
     }
 
-    .sidebar-brand i {
-      color: var(--primary);
-    }
+    .sidebar-brand i { color: var(--primary); }
 
     .sidebar .nav-link {
       color: var(--text-muted);
@@ -123,6 +118,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     /* Cards & Container */
@@ -233,13 +230,8 @@
       border-radius: 18px;
     }
 
-    .modal-header {
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .btn-close {
-      filter: invert(1);
-    }
+    .modal-header { border-bottom: 1px solid var(--card-border); }
+    .btn-close { filter: invert(1); }
 
     /* Action Buttons */
     .btn-primary-dark {
@@ -270,7 +262,6 @@
       padding: 4px 10px;
       font-size: 0.85rem;
     }
-    .btn-action-delete:hover { opacity: 0.9; }
 
     .btn-action-green {
       background: var(--accent-green);
@@ -294,7 +285,7 @@
     #loginOverlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(8px);
       z-index: 9999;
       display: flex;
@@ -311,52 +302,52 @@
       <div class="text-center mb-4">
         <i class="fa-solid fa-utensils text-primary display-4 mb-2"></i>
         <h3 class="fw-bold text-white">عزومة Azumaa Admin</h3>
-        <p class="text-muted small">تسجيل الدخول للوحة التحكم الداكنة</p>
+        <p class="text-muted small" data-i18n="login_sub">تسجيل الدخول للوحة التحكم الداكنة</p>
       </div>
       <form id="loginForm">
         <div class="mb-3">
-          <label class="form-label fw-bold">اسم المستخدم (Username)</label>
+          <label class="form-label fw-bold" data-i18n="username">اسم المستخدم (Username)</label>
           <input type="text" id="adminUser" class="form-control" value="admin" required>
         </div>
         <div class="mb-4">
-          <label class="form-label fw-bold">كلمة المرور (Password)</label>
+          <label class="form-label fw-bold" data-i18n="password">كلمة المرور (Password)</label>
           <input type="password" id="adminPass" class="form-control" value="1234567aA" required>
         </div>
-        <button type="submit" class="btn btn-primary-dark w-100 py-2.5 fw-bold">تسجيل الدخول</button>
+        <button type="submit" class="btn btn-primary-dark w-100 py-2.5 fw-bold" data-i18n="login_btn">تسجيل الدخول</button>
       </form>
     </div>
   </div>
 
   <!-- App Main Wrapper -->
-  <div class="app-wrapper" dir="rtl">
+  <div class="app-wrapper" id="appWrapper" dir="rtl">
 
-    <!-- Right Sidebar (Dark Theme RTL) -->
+    <!-- Sidebar Navigation -->
     <div class="sidebar">
       <div class="sidebar-brand">
         <i class="fa-solid fa-bolt"></i>
         <span>عزومة Azumaa</span>
       </div>
       <nav class="nav flex-column">
-        <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-        <a class="nav-link" href="#" onclick="showTab('category')"><i class="fa-solid fa-list-check"></i> Category</a>
-        <a class="nav-link" href="#" onclick="showTab('subcategory')"><i class="fa-solid fa-layer-group"></i> Sub Category</a>
-        <a class="nav-link" href="#" onclick="showTab('product')"><i class="fa-solid fa-basket-shopping"></i> Product</a>
-        <a class="nav-link" href="#" onclick="showTab('area')"><i class="fa-solid fa-map-location-dot"></i> Area</a>
-        <a class="nav-link" href="#" onclick="showTab('timeslot')"><i class="fa-solid fa-clock"></i> Timeslot</a>
-        <a class="nav-link" href="#" onclick="showTab('delivery-boy')"><i class="fa-solid fa-motorcycle"></i> Delivery Boy</a>
-        <a class="nav-link" href="#" onclick="showTab('banner')"><i class="fa-solid fa-image"></i> Banner</a>
-        <a class="nav-link" href="#" onclick="showTab('home-section')"><i class="fa-solid fa-table-cells-large"></i> Home Section</a>
-        <a class="nav-link" href="#" onclick="showTab('notification')"><i class="fa-solid fa-bell"></i> Notification</a>
-        <a class="nav-link" href="#" onclick="showTab('customer')"><i class="fa-solid fa-users"></i> Customer</a>
-        <a class="nav-link" href="#" onclick="showTab('pending-order')"><i class="fa-solid fa-box-open"></i> Pending Order</a>
-        <a class="nav-link" href="#" onclick="showTab('complete-order')"><i class="fa-solid fa-circle-check"></i> Complete Order</a>
-        <a class="nav-link" href="#" onclick="showTab('coupon')"><i class="fa-solid fa-ticket"></i> Coupon</a>
-        <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> Ratings & Feedback</a>
-        <a class="nav-link" href="#" onclick="showTab('country-code')"><i class="fa-solid fa-globe"></i> Country Code</a>
-        <a class="nav-link" href="#" onclick="showTab('payment-gateway')"><i class="fa-solid fa-credit-card"></i> Payment Gateway</a>
-        <a class="nav-link" href="#" onclick="showTab('setting')"><i class="fa-solid fa-gears"></i> Setting</a>
-        <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> Update Profile</a>
-        <a class="nav-link text-danger mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</a>
+        <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="nav_dashboard">لوحة القيادة</span></a>
+        <a class="nav-link" href="#" onclick="showTab('category')"><i class="fa-solid fa-list-check"></i> <span data-i18n="nav_category">الأقسام الرئيسية</span></a>
+        <a class="nav-link" href="#" onclick="showTab('subcategory')"><i class="fa-solid fa-layer-group"></i> <span data-i18n="nav_subcategory">الأقسام الفرعية</span></a>
+        <a class="nav-link" href="#" onclick="showTab('product')"><i class="fa-solid fa-basket-shopping"></i> <span data-i18n="nav_product">المنتجات</span></a>
+        <a class="nav-link" href="#" onclick="showTab('area')"><i class="fa-solid fa-map-location-dot"></i> <span data-i18n="nav_area">المناطق</span></a>
+        <a class="nav-link" href="#" onclick="showTab('timeslot')"><i class="fa-solid fa-clock"></i> <span data-i18n="nav_timeslot">فترات التوصيل</span></a>
+        <a class="nav-link" href="#" onclick="showTab('delivery-boy')"><i class="fa-solid fa-motorcycle"></i> <span data-i18n="nav_delivery_boy">السائقون</span></a>
+        <a class="nav-link" href="#" onclick="showTab('banner')"><i class="fa-solid fa-image"></i> <span data-i18n="nav_banner">البنرات</span></a>
+        <a class="nav-link" href="#" onclick="showTab('home-section')"><i class="fa-solid fa-table-cells-large"></i> <span data-i18n="nav_home_section">أقسام الرئيسية</span></a>
+        <a class="nav-link" href="#" onclick="showTab('notification')"><i class="fa-solid fa-bell"></i> <span data-i18n="nav_notification">الإشعارات</span></a>
+        <a class="nav-link" href="#" onclick="showTab('customer')"><i class="fa-solid fa-users"></i> <span data-i18n="nav_customer">العملاء</span></a>
+        <a class="nav-link" href="#" onclick="showTab('pending-order')"><i class="fa-solid fa-box-open"></i> <span data-i18n="nav_pending_order">الطلبات المعلقة</span></a>
+        <a class="nav-link" href="#" onclick="showTab('complete-order')"><i class="fa-solid fa-circle-check"></i> <span data-i18n="nav_complete_order">الطلبات المكتملة</span></a>
+        <a class="nav-link" href="#" onclick="showTab('coupon')"><i class="fa-solid fa-ticket"></i> <span data-i18n="nav_coupon">الكوبونات</span></a>
+        <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> <span data-i18n="nav_ratings">التقييمات والشكاوى</span></a>
+        <a class="nav-link" href="#" onclick="showTab('country-code')"><i class="fa-solid fa-globe"></i> <span data-i18n="nav_country_code">أكواد الدول</span></a>
+        <a class="nav-link" href="#" onclick="showTab('payment-gateway')"><i class="fa-solid fa-credit-card"></i> <span data-i18n="nav_payment_gateway">بوابات الدفع</span></a>
+        <a class="nav-link" href="#" onclick="showTab('setting')"><i class="fa-solid fa-gears"></i> <span data-i18n="nav_setting">إعدادات النظام</span></a>
+        <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> <span data-i18n="nav_profile">تحديث الملف الشخصي</span></a>
+        <a class="nav-link text-danger mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="nav_logout">تسجيل الخروج</span></a>
       </nav>
     </div>
 
@@ -365,10 +356,18 @@
 
       <!-- Top Header Bar -->
       <div class="top-header">
-        <h4 class="fw-bold m-0 text-white" id="headerTitle">DASHBOARD OVERVIEW</h4>
+        <h4 class="fw-bold m-0 text-white" id="headerTitle">لوحة القيادة الإحصائية</h4>
         <div class="d-flex align-items-center gap-3">
+          <!-- Dynamic Language Switcher (العربية / English) -->
+          <div class="d-flex align-items-center gap-1">
+            <i class="fa-solid fa-globe text-muted me-1"></i>
+            <select id="langSelector" class="form-select form-select-sm text-white border-secondary bg-dark" style="width: 140px;" onchange="changeLanguage(this.value)">
+              <option value="ar">🇸🇦 العربية</option>
+              <option value="en">🇬🇧 English</option>
+            </select>
+          </div>
           <span class="badge bg-primary px-3 py-2 fw-bold" style="border-radius: 8px;">Super Admin</span>
-          <button class="btn btn-outline-secondary btn-sm text-white border-secondary" onclick="logout()"><i class="fa-solid fa-sign-out"></i> خروج</button>
+          <button class="btn btn-outline-secondary btn-sm text-white border-secondary" onclick="logout()"><i class="fa-solid fa-sign-out"></i> <span data-i18n="logout_btn">خروج</span></button>
         </div>
       </div>
 
@@ -382,16 +381,12 @@
         <div id="category-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>CATEGORY LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('category', 'add')"><i class="fa-solid fa-plus"></i> Add New Category</button>
-            </div>
-            <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap gap-2">
-              <div>إظهار <select class="form-select-sm d-inline-block style-select" style="width:70px"><option>10</option><option>25</option></select> مدخلات</div>
-              <div>بحث: <input type="text" class="form-control-sm d-inline-block" style="width:200px" onkeyup="filterTable(this, 'categoryTable')"></div>
+              <span data-i18n="cat_list_title">قائمة الأقسام الرئيسية</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('category', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_new_cat">إضافة قسم جديد</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="categoryTable">
-                <thead><tr><th>#</th><th>Category Name</th><th>Person Image</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th data-i18n="cat_name">اسم القسم</th><th data-i18n="image">الصورة</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="categoryTableBody"></tbody>
               </table>
             </div>
@@ -400,19 +395,19 @@
         <div id="category-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD CATEGORY</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('category', 'list')">Category List</button>
+              <span data-i18n="add_cat_title">إضافة قسم جديد</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('category', 'list')" data-i18n="back_list">قائمة الأقسام</button>
             </div>
             <form onsubmit="submitCategory(event)">
               <div class="mb-3">
-                <label class="form-label fw-bold">Category Name</label>
-                <input type="text" id="cat_name_input" class="form-control" required placeholder="Enter Category Name">
+                <label class="form-label fw-bold" data-i18n="cat_name">اسم القسم</label>
+                <input type="text" id="cat_name_input" class="form-control" required placeholder="أدخل اسم القسم">
               </div>
               <div class="mb-3">
-                <label class="form-label fw-bold">Category Image (URL or Path)</label>
-                <input type="text" id="cat_img_input" class="form-control" required placeholder="https://... or images/cat.png">
+                <label class="form-label fw-bold" data-i18n="cat_img">صورة القسم (رابط URL)</label>
+                <input type="text" id="cat_img_input" class="form-control" required placeholder="https://...">
               </div>
-              <button type="submit" class="btn btn-primary-dark">Add Category</button>
+              <button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ القسم</button>
             </form>
           </div>
         </div>
@@ -423,12 +418,12 @@
         <div id="subcategory-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>SUBCATEGORY LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('subcategory', 'add')"><i class="fa-solid fa-plus"></i> Add Sub Category</button>
+              <span data-i18n="subcat_list_title">قائمة الأقسام الفرعية</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('subcategory', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_subcat">إضافة قسم فرعي</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="subcatTable">
-                <thead><tr><th>#</th><th>Category Name</th><th>SubCategory Name</th><th>Image</th><th>Total Product</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th data-i18n="cat_name">القسم الرئيسي</th><th data-i18n="subcat_name">القسم الفرعي</th><th data-i18n="image">الصورة</th><th>المنتجات</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="subcatTableBody"></tbody>
               </table>
             </div>
@@ -437,23 +432,23 @@
         <div id="subcategory-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD SUB CATEGORY</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('subcategory', 'list')">SubCategory List</button>
+              <span data-i18n="add_subcat_title">إضافة قسم فرعي جديد</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('subcategory', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitSubcategory(event)">
               <div class="mb-3">
-                <label class="form-label fw-bold">SELECT A CATEGORY</label>
+                <label class="form-label fw-bold" data-i18n="select_cat">اختر القسم الرئيسي</label>
                 <select id="subcat_cat_select" class="form-select" required></select>
               </div>
               <div class="mb-3">
-                <label class="form-label fw-bold">SUBCATEGORY NAME</label>
+                <label class="form-label fw-bold" data-i18n="subcat_name">اسم القسم الفرعي</label>
                 <input type="text" id="subcat_name_input" class="form-control" required>
               </div>
               <div class="mb-3">
-                <label class="form-label fw-bold">SUBCATEGORY IMAGE</label>
+                <label class="form-label fw-bold" data-i18n="image">رابط الصورة</label>
                 <input type="text" id="subcat_img_input" class="form-control" required>
               </div>
-              <button type="submit" class="btn btn-primary-dark">Add SubCategory</button>
+              <button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ</button>
             </form>
           </div>
         </div>
@@ -464,12 +459,12 @@
         <div id="product-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>PRODUCT LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('product', 'add')"><i class="fa-solid fa-plus"></i> Add Product</button>
+              <span data-i18n="product_list_title">قائمة المنتجات</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('product', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_product">إضافة منتج جديد</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="productTable">
-                <thead><tr><th>#</th><th>Product Name</th><th>Category</th><th>SubCategory</th><th>Description</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th data-i18n="prod_name">اسم المنتج</th><th data-i18n="cat_name">القسم</th><th data-i18n="subcat_name">القسم الفرعي</th><th>الوصف</th><th>السعر</th><th>المخزون</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="productTableBody"></tbody>
               </table>
             </div>
@@ -478,22 +473,22 @@
         <div id="product-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD PRODUCT</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('product', 'list')">Product List</button>
+              <span data-i18n="add_prod_title">إضافة منتج جديد</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('product', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitProduct(event)">
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label fw-bold">PRODUCT NAME</label><input type="text" id="p_name" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">SELLER NAME</label><input type="text" id="p_sname" class="form-control" value="Azumaa Store"></div>
-                <div class="col-md-6"><label class="form-label fw-bold">SELECT CATEGORY</label><select id="p_cat" class="form-select" required></select></div>
-                <div class="col-md-6"><label class="form-label fw-bold">SELECT SUBCATEGORY</label><select id="p_subcat" class="form-select" required></select></div>
-                <div class="col-md-12"><label class="form-label fw-bold">SHORT DESCRIPTION</label><textarea id="p_desc" class="form-control" rows="2"></textarea></div>
-                <div class="col-md-6"><label class="form-label fw-bold">PRICE TYPES (e.g. 1kg$;2kg)</label><input type="text" id="p_gms" class="form-control" value="1kg" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">PRICES (e.g. 10$;20)</label><input type="text" id="p_price" class="form-control" value="10" required></div>
-                <div class="col-md-4"><label class="form-label fw-bold">STOCK QUANTITY</label><input type="number" id="p_stock" class="form-control" value="100" required></div>
-                <div class="col-md-4"><label class="form-label fw-bold">DISCOUNT %</label><input type="number" id="p_discount" class="form-control" value="0"></div>
-                <div class="col-md-4"><label class="form-label fw-bold">MAIN IMAGE URL</label><input type="text" id="p_img" class="form-control" required></div>
-                <div class="col-md-12 text-end mt-3"><button type="submit" class="btn btn-primary-dark">Add Product</button></div>
+                <div class="col-md-6"><label class="form-label fw-bold" data-i18n="prod_name">اسم المنتج</label><input type="text" id="p_name" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">اسم البائع</label><input type="text" id="p_sname" class="form-control" value="Azumaa Store"></div>
+                <div class="col-md-6"><label class="form-label fw-bold" data-i18n="select_cat">اختر القسم الرئيسي</label><select id="p_cat" class="form-select" required></select></div>
+                <div class="col-md-6"><label class="form-label fw-bold">اختر القسم الفرعي</label><select id="p_subcat" class="form-select" required></select></div>
+                <div class="col-md-12"><label class="form-label fw-bold">الوصف القصير</label><textarea id="p_desc" class="form-control" rows="2"></textarea></div>
+                <div class="col-md-6"><label class="form-label fw-bold">تفريعات/أحجام المنتج (مثال: 1kg$;2kg)</label><input type="text" id="p_gms" class="form-control" value="1kg" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">الأسعار (مثال: 10$;20)</label><input type="text" id="p_price" class="form-control" value="10" required></div>
+                <div class="col-md-4"><label class="form-label fw-bold">الكمية بالمخزون</label><input type="number" id="p_stock" class="form-control" value="100" required></div>
+                <div class="col-md-4"><label class="form-label fw-bold">نسبة الخصم %</label><input type="number" id="p_discount" class="form-control" value="0"></div>
+                <div class="col-md-4"><label class="form-label fw-bold">رابط الصورة الرئيسية</label><input type="text" id="p_img" class="form-control" required></div>
+                <div class="col-md-12 text-end mt-3"><button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ المنتج</button></div>
               </div>
             </form>
           </div>
@@ -505,12 +500,12 @@
         <div id="area-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>AREA LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('area', 'add')"><i class="fa-solid fa-plus"></i> Add Area</button>
+              <span data-i18n="area_list_title">قائمة المناطق والتوصيل</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('area', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_area">إضافة منطقة جديد</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="areaTable">
-                <thead><tr><th>#</th><th>Area Name</th><th>Delivery Charge</th><th>Status</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th>اسم المنطقة</th><th>تكلفة التوصيل</th><th data-i18n="status">الحالة</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="areaTableBody"></tbody>
               </table>
             </div>
@@ -519,20 +514,20 @@
         <div id="area-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD AREA</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('area', 'list')">Area List</button>
+              <span data-i18n="add_area_title">إضافة منطقة جديدة</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('area', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitArea(event)">
-              <div class="mb-3"><label class="form-label fw-bold">AREA NAME</label><input type="text" id="area_name_input" class="form-control" required></div>
-              <div class="mb-3"><label class="form-label fw-bold">DELIVERY CHARGE</label><input type="number" step="0.01" id="area_charge_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">اسم المنطقة</label><input type="text" id="area_name_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">تكلفة التوصيل (أرقام)</label><input type="number" step="0.01" id="area_charge_input" class="form-control" required></div>
               <div class="mb-3">
-                <label class="form-label fw-bold">STATUS</label>
+                <label class="form-label fw-bold" data-i18n="status">الحالة</label>
                 <select id="area_status_input" class="form-select">
                   <option value="Published">Published</option>
                   <option value="Unpublished">Unpublished</option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary-dark">Add Area</button>
+              <button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ</button>
             </form>
           </div>
         </div>
@@ -543,12 +538,12 @@
         <div id="timeslot-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>TIMESLOT LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('timeslot', 'add')"><i class="fa-solid fa-plus"></i> Add Timeslot</button>
+              <span data-i18n="timeslot_list_title">فترات التوصيل</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('timeslot', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_ts">إضافة فترة جديدة</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="timeslotTable">
-                <thead><tr><th>#</th><th>Timeslot Min Time</th><th>Timeslot Max Time</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th>الوقت الأدنى</th><th>الوقت الأقصى</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="timeslotTableBody"></tbody>
               </table>
             </div>
@@ -557,14 +552,14 @@
         <div id="timeslot-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD TIMESLOT</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('timeslot', 'list')">Timeslot List</button>
+              <span data-i18n="add_ts_title">إضافة فترة توصيل جديدة</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('timeslot', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitTimeslot(event)">
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label fw-bold">MIN TIME (e.g. 09:00)</label><input type="text" id="ts_min_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">MAX TIME (e.g. 10:30)</label><input type="text" id="ts_max_input" class="form-control" required></div>
-                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Timeslot</button></div>
+                <div class="col-md-6"><label class="form-label fw-bold">من وقت (Min Time)</label><input type="text" id="ts_min_input" class="form-control" required placeholder="09:00"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">إلى وقت (Max Time)</label><input type="text" id="ts_max_input" class="form-control" required placeholder="10:30"></div>
+                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ</button></div>
               </div>
             </form>
           </div>
@@ -576,12 +571,12 @@
         <div id="delivery-boy-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>DELIVERY BOY LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('delivery-boy', 'add')"><i class="fa-solid fa-plus"></i> Add Delivery Boy</button>
+              <span data-i18n="rider_list_title">قائمة السائقين</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('delivery-boy', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_rider">إضافة سائق جديد</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="riderTable">
-                <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Email</th><th>Status</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th>الاسم</th><th>الهاتف</th><th>الإيميل</th><th data-i18n="status">الحالة</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="riderTableBody"></tbody>
               </table>
             </div>
@@ -590,18 +585,18 @@
         <div id="delivery-boy-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD DELIVERY BOY</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('delivery-boy', 'list')">Delivery Boy List</button>
+              <span data-i18n="add_rider_title">إضافة سائق توصيل جديد</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('delivery-boy', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitRider(event)">
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY NAME</label><input type="text" id="r_name_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY MOBILE</label><input type="text" id="r_mobile_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY EMAIL</label><input type="email" id="r_email_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY PASSWORD</label><input type="password" id="r_pass_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY AREA</label><select id="r_area_select" class="form-select"></select></div>
-                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY ADDRESS</label><input type="text" id="r_address_input" class="form-control"></div>
-                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Delivery Boy</button></div>
+                <div class="col-md-6"><label class="form-label fw-bold">اسم السائق</label><input type="text" id="r_name_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">رقم الهاتف</label><input type="text" id="r_mobile_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">البريد الإلكتروني</label><input type="email" id="r_email_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">كلمة المرور</label><input type="password" id="r_pass_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">المنطقة</label><select id="r_area_select" class="form-select"></select></div>
+                <div class="col-md-6"><label class="form-label fw-bold">العنوان التفصيلي</label><input type="text" id="r_address_input" class="form-control"></div>
+                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ السائق</button></div>
               </div>
             </form>
           </div>
@@ -611,20 +606,20 @@
       <!-- 8. BANNER MODULE -->
       <div id="page-banner" class="page-view d-none">
         <div class="data-card mb-4">
-          <div class="page-title"><span>ADD BANNER</span></div>
+          <div class="page-title"><span data-i18n="add_banner_title">إضافة بنر إعلاني جديد</span></div>
           <form onsubmit="submitBanner(event)">
             <div class="row g-3">
-              <div class="col-md-6"><label class="form-label fw-bold">BANNER IMAGE URL</label><input type="text" id="b_img_input" class="form-control" required></div>
-              <div class="col-md-6"><label class="form-label fw-bold">SELECT CATEGORY (OPTIONAL)</label><select id="b_cat_select" class="form-select"></select></div>
-              <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Banner</button></div>
+              <div class="col-md-6"><label class="form-label fw-bold">رابط صورة البنر</label><input type="text" id="b_img_input" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label fw-bold">القسم المرتبط (اختياري)</label><select id="b_cat_select" class="form-select"></select></div>
+              <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ البنر</button></div>
             </div>
           </form>
         </div>
         <div class="data-card">
-          <div class="page-title"><span>BANNER LIST</span></div>
+          <div class="page-title"><span data-i18n="banner_list_title">قائمة البنرات الإعلانية</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="bannerTable">
-              <thead><tr><th>#</th><th>Banner Image</th><th>Category Name</th><th>Action</th></tr></thead>
+              <thead><tr><th>#</th><th>الصورة</th><th>القسم</th><th data-i18n="action">الإجراء</th></tr></thead>
               <tbody id="bannerTableBody"></tbody>
             </table>
           </div>
@@ -637,11 +632,11 @@
           <div class="data-card">
             <div class="page-title">
               <span>HOME SECTION LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('home-section', 'add')"><i class="fa-solid fa-plus"></i> Add Home Section</button>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('home-section', 'add')"><i class="fa-solid fa-plus"></i> إضافة قسم جديد</button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="homeSectionTable">
-                <thead><tr><th>#</th><th>Title</th><th>Category Name</th><th>SubCategory Name</th><th>Status</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th>العنوان</th><th>القسم الرئيسي</th><th>القسم الفرعي</th><th data-i18n="status">الحالة</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="homeSectionTableBody"></tbody>
               </table>
             </div>
@@ -651,13 +646,13 @@
           <div class="data-card">
             <div class="page-title">
               <span>ADD HOME SECTION</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('home-section', 'list')">Home Section List</button>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('home-section', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitHomeSection(event)">
-              <div class="mb-3"><label class="form-label fw-bold">SECTION TITLE</label><input type="text" id="hs_title_input" class="form-control" required></div>
-              <div class="mb-3"><label class="form-label fw-bold">SELECT CATEGORY</label><select id="hs_cat_select" class="form-select" required></select></div>
-              <div class="mb-3"><label class="form-label fw-bold">SELECT SUBCATEGORY</label><select id="hs_subcat_select" class="form-select" required></select></div>
-              <button type="submit" class="btn btn-primary-dark">Add Home Section</button>
+              <div class="mb-3"><label class="form-label fw-bold">عنوان القسم</label><input type="text" id="hs_title_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">القسم الرئيسي</label><select id="hs_cat_select" class="form-select" required></select></div>
+              <div class="mb-3"><label class="form-label fw-bold">القسم الفرعي</label><select id="hs_subcat_select" class="form-select" required></select></div>
+              <button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ</button>
             </form>
           </div>
         </div>
@@ -669,11 +664,11 @@
           <div class="data-card">
             <div class="page-title">
               <span>NOTIFICATION LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('notification', 'add')"><i class="fa-solid fa-plus"></i> Add Notification</button>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('notification', 'add')"><i class="fa-solid fa-plus"></i> إرسال إشعار</button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="notificationTable">
-                <thead><tr><th>#</th><th>Title</th><th>Message</th><th>Date</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th>العنوان</th><th>الرسالة</th><th>التاريخ</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="notificationTableBody"></tbody>
               </table>
             </div>
@@ -683,13 +678,13 @@
           <div class="data-card">
             <div class="page-title">
               <span>ADD NOTIFICATION</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('notification', 'list')">Notification List</button>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('notification', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitNotification(event)">
-              <div class="mb-3"><label class="form-label fw-bold">TITLE</label><input type="text" id="n_title_input" class="form-control" required></div>
-              <div class="mb-3"><label class="form-label fw-bold">MESSAGE</label><textarea id="n_msg_input" class="form-control" rows="3" required></textarea></div>
-              <div class="mb-3"><label class="form-label fw-bold">IMAGE URL (OPTIONAL)</label><input type="text" id="n_img_input" class="form-control"></div>
-              <button type="submit" class="btn btn-primary-dark">Send Notification</button>
+              <div class="mb-3"><label class="form-label fw-bold">عنوان الإشعار</label><input type="text" id="n_title_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">نص الرسالة</label><textarea id="n_msg_input" class="form-control" rows="3" required></textarea></div>
+              <div class="mb-3"><label class="form-label fw-bold">رابط صورة الإشعار</label><input type="text" id="n_img_input" class="form-control"></div>
+              <button type="submit" class="btn btn-primary-dark">إرسال الإشعار الان</button>
             </form>
           </div>
         </div>
@@ -698,11 +693,11 @@
       <!-- 11. CUSTOMER MODULE -->
       <div id="page-customer" class="page-view d-none">
         <div class="data-card">
-          <div class="page-title"><span>USER LIST</span></div>
+          <div class="page-title"><span data-i18n="customer_list_title">قائمة العملاء</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="userTable">
               <thead>
-                <tr><th>#</th><th>Name</th><th>Email</th><th>Country Code</th><th>Mobile</th><th>password</th><th>Current_Status</th><th>Wallet Balance</th><th>Status</th><th>Action</th></tr>
+                <tr><th>#</th><th>الاسم</th><th>الإيميل</th><th>كود الدولة</th><th>الهاتف</th><th>كلمة المرور</th><th data-i18n="status">الحالة</th><th>المحفظة</th><th data-i18n="action">الإجراء</th></tr>
               </thead>
               <tbody id="userTableBody"></tbody>
             </table>
@@ -713,11 +708,11 @@
       <!-- 12. PENDING ORDER MODULE -->
       <div id="page-pending-order" class="page-view d-none">
         <div class="data-card">
-          <div class="page-title"><span>PENDING ORDER LIST</span></div>
+          <div class="page-title"><span data-i18n="pending_orders_title">الطلبات المعلقة</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="pendingTable">
               <thead>
-                <tr><th>#</th><th>Date</th><th>Order ID</th><th>Delivery Boy Name</th><th>Assign Status</th><th>Delivery Status</th><th>Status</th><th>Preview</th><th>Assign?</th><th>Action</th></tr>
+                <tr><th>#</th><th>التاريخ</th><th>رقم الطلب</th><th>اسم السائق</th><th>حالة الإسناد</th><th>حالة التوصيل</th><th data-i18n="status">الحالة</th><th>معاينة</th><th>إسناد</th><th data-i18n="action">الإجراء</th></tr>
               </thead>
               <tbody id="pendingTableBody"></tbody>
             </table>
@@ -728,11 +723,11 @@
       <!-- 13. COMPLETE ORDER MODULE -->
       <div id="page-complete-order" class="page-view d-none">
         <div class="data-card">
-          <div class="page-title"><span>COMPLETE ORDER LIST</span></div>
+          <div class="page-title"><span data-i18n="complete_orders_title">الطلبات المكتملة</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="completeTable">
               <thead>
-                <tr><th>#</th><th>Date</th><th>Order ID</th><th>Customer Name</th><th>Delivery Boy Name</th><th>Total Amount</th><th>Customer Sign</th><th>Status</th><th>Preview</th></tr>
+                <tr><th>#</th><th>التاريخ</th><th>رقم الطلب</th><th>اسم العميل</th><th>اسم السائق</th><th>المجموع</th><th>توقيع العميل</th><th data-i18n="status">الحالة</th><th>معاينة</th></tr>
               </thead>
               <tbody id="completeTableBody"></tbody>
             </table>
@@ -745,13 +740,13 @@
         <div id="coupon-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>COUPON LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('coupon', 'add')"><i class="fa-solid fa-plus"></i> Add Coupon</button>
+              <span data-i18n="coupon_list_title">أكواد الخصم</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('coupon', 'add')"><i class="fa-solid fa-plus"></i> إضافة كوبون جديد</button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="couponTable">
                 <thead>
-                  <tr><th>#</th><th>Coupon Image</th><th>Coupon Code</th><th>Coupon Title</th><th>Min Order Amount</th><th>Discount Value</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr>
+                  <tr><th>#</th><th>الصورة</th><th>الكود</th><th>العنوان</th><th>الحد الأدنى</th><th>الخصم</th><th>الانهاء</th><th data-i18n="status">الحالة</th><th data-i18n="action">الإجراء</th></tr>
                 </thead>
                 <tbody id="couponTableBody"></tbody>
               </table>
@@ -762,18 +757,18 @@
           <div class="data-card">
             <div class="page-title">
               <span>ADD COUPON</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('coupon', 'list')">Coupon List</button>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('coupon', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitCoupon(event)">
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label fw-bold">COUPON CODE</label><input type="text" id="cp_code_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">COUPON TITLE</label><input type="text" id="cp_title_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">DISCOUNT VALUE</label><input type="number" id="cp_val_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">MIN ORDER AMOUNT</label><input type="number" id="cp_min_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">EXPIRY DATE</label><input type="date" id="cp_date_input" class="form-control" required></div>
-                <div class="col-md-6"><label class="form-label fw-bold">COUPON IMAGE URL</label><input type="text" id="cp_img_input" class="form-control"></div>
-                <div class="col-md-12"><label class="form-label fw-bold">COUPON DESCRIPTION</label><textarea id="cp_desc_input" class="form-control" rows="3"></textarea></div>
-                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Coupon</button></div>
+                <div class="col-md-6"><label class="form-label fw-bold">كود الخصم</label><input type="text" id="cp_code_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">عنوان الكوبون</label><input type="text" id="cp_title_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">قيمة الخصم</label><input type="number" id="cp_val_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">الحد الأدنى للطلب</label><input type="number" id="cp_min_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">تاريخ الانتهاء</label><input type="date" id="cp_date_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">صورة الكوبون</label><input type="text" id="cp_img_input" class="form-control"></div>
+                <div class="col-md-12"><label class="form-label fw-bold">وصف الكوبون</label><textarea id="cp_desc_input" class="form-control" rows="3"></textarea></div>
+                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ الكوبون</button></div>
               </div>
             </form>
           </div>
@@ -786,7 +781,7 @@
           <div class="page-title"><span>ORDER RATE LIST</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="rateTable">
-              <thead><tr><th>#</th><th>Customer Name</th><th>Rate Star</th><th>Comment</th><th>Action</th></tr></thead>
+              <thead><tr><th>#</th><th>اسم العميل</th><th>التقييم</th><th>التعليق</th><th data-i18n="action">الإجراء</th></tr></thead>
               <tbody id="rateTableBody"></tbody>
             </table>
           </div>
@@ -795,7 +790,7 @@
           <div class="page-title"><span>FEEDBACK LIST</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="feedbackTable">
-              <thead><tr><th>#</th><th>Mobile</th><th>Rate Star</th><th>Feedback Text</th><th>Action</th></tr></thead>
+              <thead><tr><th>#</th><th>الهاتف</th><th>التقييم</th><th>نص الشكوى/الملاحظة</th><th data-i18n="action">الإجراء</th></tr></thead>
               <tbody id="feedbackTableBody"></tbody>
             </table>
           </div>
@@ -807,12 +802,12 @@
         <div id="country-code-list-view">
           <div class="data-card">
             <div class="page-title">
-              <span>COUNTRY CODE LIST</span>
-              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('country-code', 'add')"><i class="fa-solid fa-plus"></i> Add Country Code</button>
+              <span data-i18n="cc_list_title">قائمة أكواد الدول المعتمدة</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('country-code', 'add')"><i class="fa-solid fa-plus"></i> <span data-i18n="add_cc">إضافة كود دولة</span></button>
             </div>
             <div class="table-responsive">
               <table class="table table-custom align-middle" id="ccTable">
-                <thead><tr><th>#</th><th>Country Code</th><th>Status</th><th>Action</th></tr></thead>
+                <thead><tr><th>#</th><th>كود الدولة (Country Code)</th><th data-i18n="status">الحالة</th><th data-i18n="action">الإجراء</th></tr></thead>
                 <tbody id="ccTableBody"></tbody>
               </table>
             </div>
@@ -821,15 +816,15 @@
         <div id="country-code-add-view" class="d-none">
           <div class="data-card">
             <div class="page-title">
-              <span>ADD COUNTRY CODE</span>
-              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('country-code', 'list')">Country Code List</button>
+              <span data-i18n="add_cc_title">إضافة كود دولة جديد</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('country-code', 'list')" data-i18n="back_list">القائمة</button>
             </div>
             <form onsubmit="submitCountryCode(event)">
               <div class="mb-3">
-                <label class="form-label fw-bold">LINK COUNTRY CODE (e.g. +966)</label>
+                <label class="form-label fw-bold">كود الدولة (مثل: +966 أو +972)</label>
                 <input type="text" id="cc_code_input" class="form-control" required placeholder="+966">
               </div>
-              <button type="submit" class="btn btn-primary-dark">Add Country Code</button>
+              <button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ كود الدولة</button>
             </form>
           </div>
         </div>
@@ -838,10 +833,10 @@
       <!-- 17. PAYMENT GATEWAY MODULE -->
       <div id="page-payment-gateway" class="page-view d-none">
         <div class="data-card">
-          <div class="page-title"><span>PAYMENT GATEWAY LIST</span></div>
+          <div class="page-title"><span data-i18n="gw_list_title">بوابات الدفع الإلكترونية</span></div>
           <div class="table-responsive">
             <table class="table table-custom align-middle" id="gwTable">
-              <thead><tr><th>#</th><th>Payment Gateway Name</th><th>Image</th><th>credintals Title</th><th>credintals Value</th><th>Current Status</th><th>Action</th></tr></thead>
+              <thead><tr><th>#</th><th>البوابة</th><th>الصورة</th><th>عنوان المفتاح</th><th>قيمة المفتاح</th><th data-i18n="status">الحالة الحالية</th><th data-i18n="action">الإجراء</th></tr></thead>
               <tbody id="gwTableBody"></tbody>
             </table>
           </div>
@@ -851,20 +846,20 @@
       <!-- 18. SETTING MODULE -->
       <div id="page-setting" class="page-view d-none">
         <div class="data-card">
-          <div class="page-title"><span>UPDATE SETTING</span></div>
+          <div class="page-title"><span data-i18n="setting_title">إعدادات النظام العامة</span></div>
           <form onsubmit="submitSetting(event)">
             <div class="row g-3">
               <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL APP ID</label><input type="text" id="s_one_key" class="form-control"></div>
               <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL REST API KEY</label><input type="text" id="s_one_hash" class="form-control"></div>
               <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL APP ID</label><input type="text" id="s_r_key" class="form-control"></div>
               <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL REST API KEY</label><input type="text" id="s_r_hash" class="form-control"></div>
-              <div class="col-md-3"><label class="form-label fw-bold">CURRENCY</label><input type="text" id="s_currency" class="form-control" value="$"></div>
-              <div class="col-md-3"><label class="form-label fw-bold">MIN ORDER PRICE</label><input type="number" id="s_o_min" class="form-control" value="10"></div>
-              <div class="col-md-3"><label class="form-label fw-bold">TAX %</label><input type="number" id="s_tax" class="form-control" value="5"></div>
-              <div class="col-md-3"><label class="form-label fw-bold">TIMEZONE</label><input type="text" id="s_timezone" class="form-control" value="Asia/Riyadh"></div>
-              <div class="col-md-6"><label class="form-label fw-bold">WEBSITE TITLE</label><input type="text" id="s_title" class="form-control" value="Azumaa Delivery"></div>
-              <div class="col-md-6"><label class="form-label fw-bold">LOGO URL</label><input type="text" id="s_logo" class="form-control"></div>
-              <div class="col-md-12 text-end mt-4"><button type="submit" class="btn btn-primary-dark">Save Settings</button></div>
+              <div class="col-md-3"><label class="form-label fw-bold">العملة</label><input type="text" id="s_currency" class="form-control" value="$"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">الحد الأدنى للطلب</label><input type="number" id="s_o_min" class="form-control" value="10"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">نسبة الضريبة %</label><input type="number" id="s_tax" class="form-control" value="5"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">المنطقة الزمنية</label><input type="text" id="s_timezone" class="form-control" value="Asia/Riyadh"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">عنوان الموقع</label><input type="text" id="s_title" class="form-control" value="Azumaa Delivery"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">شعار الموقع (Logo URL)</label><input type="text" id="s_logo" class="form-control"></div>
+              <div class="col-md-12 text-end mt-4"><button type="submit" class="btn btn-primary-dark" data-i18n="save_btn">حفظ الإعدادات</button></div>
             </div>
           </form>
         </div>
@@ -873,17 +868,17 @@
       <!-- 19. PROFILE MODULE -->
       <div id="page-profile" class="page-view d-none">
         <div class="data-card style-form-card" style="max-width: 550px;">
-          <div class="page-title"><span>UPDATE PROFILE</span></div>
+          <div class="page-title"><span data-i18n="profile_title">تحديث الملف الشخصي</span></div>
           <form onsubmit="submitProfile(event)">
             <div class="mb-3">
-              <label class="form-label fw-bold">USERNAME</label>
+              <label class="form-label fw-bold" data-i18n="username">اسم المستخدم</label>
               <input type="text" id="prof_user" class="form-control" value="admin" required>
             </div>
             <div class="mb-4">
-              <label class="form-label fw-bold">PASSWORD</label>
-              <input type="password" id="prof_pass" class="form-control" required placeholder="Enter new password">
+              <label class="form-label fw-bold" data-i18n="password">كلمة المرور الجديدة</label>
+              <input type="password" id="prof_pass" class="form-control" required placeholder="أدخل كلمة المرور الجديدة">
             </div>
-            <button type="submit" class="btn btn-primary-dark w-100">Update Profile</button>
+            <button type="submit" class="btn btn-primary-dark w-100" data-i18n="save_btn">تحديث البيانات</button>
           </form>
         </div>
       </div>
@@ -910,11 +905,172 @@
   <script>
     const API = '/admin';
     let sharedModalInstance = null;
+    let currentLang = localStorage.getItem('azumaa_lang') || 'ar';
+
+    // i18n Translations Dictionary (Arabic & English)
+    const translations = {
+      ar: {
+        login_sub: 'تسجيل الدخول للوحة التحكم الداكنة',
+        username: 'اسم المستخدم (Username)',
+        password: 'كلمة المرور (Password)',
+        login_btn: 'تسجيل الدخول',
+        nav_dashboard: 'لوحة القيادة',
+        nav_category: 'الأقسام الرئيسية',
+        nav_subcategory: 'الأقسام الفرعية',
+        nav_product: 'قائمة المنتجات',
+        nav_area: 'المناطق والتوصيل',
+        nav_timeslot: 'فترات التوصيل',
+        nav_delivery_boy: 'سائقي التوصيل',
+        nav_banner: 'البنرات الإعلانية',
+        nav_home_section: 'أقسام الرئيسية',
+        nav_notification: 'الإشعارات الترويجية',
+        nav_customer: 'إدارة العملاء',
+        nav_pending_order: 'الطلبات المعلقة',
+        nav_complete_order: 'الطلبات المكتملة',
+        nav_coupon: 'كوبونات الخصم',
+        nav_ratings: 'التقييمات والشكاوى',
+        nav_country_code: 'أكواد الدول',
+        nav_payment_gateway: 'بوابات الدفع',
+        nav_setting: 'إعدادات النظام',
+        nav_profile: 'الملف الشخصي',
+        nav_logout: 'تسجيل الخروج',
+        logout_btn: 'خروج',
+        save_btn: 'حفظ البيانات',
+        back_list: 'رجوع للقائمة',
+        status: 'الحالة',
+        action: 'الإجراء',
+        image: 'الصورة',
+        cat_name: 'اسم القسم',
+        subcat_name: 'القسم الفرعي',
+        prod_name: 'اسم المنتج',
+        select_cat: 'اختر القسم الرئيسي',
+        cat_list_title: 'قائمة الأقسام الرئيسية',
+        add_new_cat: 'إضافة قسم جديد',
+        add_cat_title: 'إضافة قسم جديد',
+        subcat_list_title: 'قائمة الأقسام الفرعية',
+        add_subcat: 'إضافة قسم فرعي',
+        add_subcat_title: 'إضافة قسم فرعي جديد',
+        product_list_title: 'قائمة المنتجات',
+        add_product: 'إضافة منتج جديد',
+        add_prod_title: 'إضافة منتج جديد',
+        area_list_title: 'قائمة المناطق وتكلفة التوصيل',
+        add_area: 'إضافة منطقة جديدة',
+        add_area_title: 'إضافة منطقة جديدة',
+        timeslot_list_title: 'فترات التوصيل المتاحة',
+        add_ts: 'إضافة فترة جديدة',
+        add_ts_title: 'إضافة فترة توصيل جديدة',
+        rider_list_title: 'قائمة سائقي التوصيل',
+        add_rider: 'إضافة سائق جديد',
+        add_rider_title: 'إضافة سائق توصيل جديد',
+        banner_list_title: 'قائمة البنرات الإعلانية',
+        add_banner_title: 'إضافة بنر جديد',
+        customer_list_title: 'قائمة العملاء المسجلين',
+        pending_orders_title: 'الطلبات المعلقة',
+        complete_orders_title: 'الطلبات المكتملة',
+        coupon_list_title: 'أكواد الخصم',
+        cc_list_title: 'قائمة أكواد الدول المعتمدة',
+        add_cc: 'إضافة كود دولة',
+        add_cc_title: 'إضافة كود دولة جديد',
+        gw_list_title: 'بوابات الدفع الإلكترونية',
+        setting_title: 'إعدادات النظام العامة',
+        profile_title: 'تحديث بيانات الحساب الشخصي'
+      },
+      en: {
+        login_sub: 'Login to Dark Admin Panel',
+        username: 'Username',
+        password: 'Password',
+        login_btn: 'Sign In',
+        nav_dashboard: 'Dashboard',
+        nav_category: 'Categories',
+        nav_subcategory: 'Sub Categories',
+        nav_product: 'Products',
+        nav_area: 'Areas',
+        nav_timeslot: 'Timeslots',
+        nav_delivery_boy: 'Delivery Boys',
+        nav_banner: 'Banners',
+        nav_home_section: 'Home Sections',
+        nav_notification: 'Notifications',
+        nav_customer: 'Customers',
+        nav_pending_order: 'Pending Orders',
+        nav_complete_order: 'Complete Orders',
+        nav_coupon: 'Coupons',
+        nav_ratings: 'Ratings & Feedback',
+        nav_country_code: 'Country Codes',
+        nav_payment_gateway: 'Payment Gateways',
+        nav_setting: 'Settings',
+        nav_profile: 'Update Profile',
+        nav_logout: 'Logout',
+        logout_btn: 'Logout',
+        save_btn: 'Save Data',
+        back_list: 'Back to List',
+        status: 'Status',
+        action: 'Action',
+        image: 'Image',
+        cat_name: 'Category Name',
+        subcat_name: 'SubCategory Name',
+        prod_name: 'Product Name',
+        select_cat: 'Select Category',
+        cat_list_title: 'Category List',
+        add_new_cat: 'Add New Category',
+        add_cat_title: 'Add Category',
+        subcat_list_title: 'SubCategory List',
+        add_subcat: 'Add SubCategory',
+        add_subcat_title: 'Add SubCategory',
+        product_list_title: 'Product List',
+        add_product: 'Add Product',
+        add_prod_title: 'Add Product',
+        area_list_title: 'Area List',
+        add_area: 'Add Area',
+        add_area_title: 'Add Area',
+        timeslot_list_title: 'Timeslot List',
+        add_ts: 'Add Timeslot',
+        add_ts_title: 'Add Timeslot',
+        rider_list_title: 'Delivery Boy List',
+        add_rider: 'Add Delivery Boy',
+        add_rider_title: 'Add Delivery Boy',
+        banner_list_title: 'Banner List',
+        add_banner_title: 'Add Banner',
+        customer_list_title: 'Registered Customers List',
+        pending_orders_title: 'Pending Orders List',
+        complete_orders_title: 'Completed Orders List',
+        coupon_list_title: 'Coupons List',
+        cc_list_title: 'Country Code List',
+        add_cc: 'Add Country Code',
+        add_cc_title: 'Add Country Code',
+        gw_list_title: 'Payment Gateway List',
+        setting_title: 'General System Settings',
+        profile_title: 'Update Profile Credentials'
+      }
+    };
 
     document.addEventListener('DOMContentLoaded', () => {
       sharedModalInstance = new bootstrap.Modal(document.getElementById('sharedModal'));
+      document.getElementById('langSelector').value = currentLang;
+      applyLanguage(currentLang);
       loadDashboard();
     });
+
+    // Dynamic Language Switcher Function
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('azumaa_lang', lang);
+      applyLanguage(lang);
+    }
+
+    function applyLanguage(lang) {
+      const wrapper = document.getElementById('appWrapper');
+      wrapper.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', lang);
+
+      const dict = translations[lang] || translations.ar;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerText = dict[key];
+        }
+      });
+    }
 
     // Login Form Submit
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -957,8 +1113,10 @@
         if (link) link.classList.add('active');
       }
 
-      // Update Header Title
-      document.getElementById('headerTitle').innerText = pageId.toUpperCase().replace('-', ' ');
+      // Update Header Title based on language
+      const dict = translations[currentLang] || translations.ar;
+      const navKey = `nav_${pageId.replace('-', '_')}`;
+      document.getElementById('headerTitle').innerText = dict[navKey] || pageId.toUpperCase().replace('-', ' ');
 
       // Default to List view for subview pages
       showSubView(pageId, 'list');
@@ -1037,7 +1195,7 @@
     function box(title, val, icon, color) {
       return `
         <div class="col-md-3">
-          <div class="stat-box" style="border-right: 4px solid ${color}">
+          <div class="stat-box" style="border-inline-start: 4px solid ${color}">
             <div class="d-flex justify-content-between align-items-center">
               <div><div class="stat-title">${title}</div><div class="stat-value">${val}</div></div>
               <i class="fa-solid ${icon} fs-2" style="color:${color}"></i>
@@ -1642,7 +1800,7 @@
             <td>${i + 1}</td>
             <td class="fw-bold text-white">${c.ccode}</td>
             <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-danger'}">${c.status == 1 ? 'Active' : 'Deactive'}</span></td>
-            <td><button class="btn btn-sm btn-outline-secondary" onclick="toggleCcStatus(${c.id}, ${c.status == 1 ? 0 : 1})">Toggle Status</button></td>
+            <td><button class="btn btn-sm btn-outline-secondary text-white" onclick="toggleCcStatus(${c.id}, ${c.status == 1 ? 0 : 1})">تبديل الحالة</button></td>
           </tr>
         `;
       });
@@ -1761,7 +1919,7 @@
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ title, currency, timezone, o_min, tax, user_onesignal_app_id, user_onesignal_rest_key, rider_onesignal_app_id, rider_onesignal_rest_key })
       });
-      alert('UPDATE SETTING Saved successfully!');
+      alert('Settings Saved successfully!');
     }
 
     // 19. PROFILE
@@ -1779,7 +1937,7 @@
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ username, password })
       });
-      alert('UPDATE PROFILE Updated successfully!');
+      alert('Profile updated successfully!');
     }
 
     // Universal Helper: Delete Item

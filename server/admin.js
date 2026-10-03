@@ -86,10 +86,9 @@ router.get('/stats', async (req, res) => {
 });
 
 // ----------------------------------------------------
-// 3. CUSTOMER MANAGEMENT (إدارة العملاء)
+// 3. CUSTOMER MANAGEMENT
 // ----------------------------------------------------
 
-// List Customers
 router.get('/customers', async (req, res) => {
   try {
     const { rows } = await db.query('SELECT * FROM "user" ORDER BY id DESC');
@@ -99,7 +98,6 @@ router.get('/customers', async (req, res) => {
   }
 });
 
-// Toggle Customer Active/Deactive
 router.post('/customers/status', async (req, res) => {
   const { id, status } = req.body;
   try {
@@ -110,7 +108,6 @@ router.post('/customers/status', async (req, res) => {
   }
 });
 
-// Delete Customer
 router.post('/customers/delete', async (req, res) => {
   const { id } = req.body;
   try {
@@ -121,7 +118,6 @@ router.post('/customers/delete', async (req, res) => {
   }
 });
 
-// Add Wallet Balance to Customer
 router.post('/customers/add-balance', async (req, res) => {
   const { id, amount } = req.body;
   try {
@@ -133,7 +129,6 @@ router.post('/customers/add-balance', async (req, res) => {
   }
 });
 
-// View Customer Addresses
 router.get('/customers/addresses', async (req, res) => {
   const { uid } = req.query;
   try {
@@ -145,10 +140,9 @@ router.get('/customers/addresses', async (req, res) => {
 });
 
 // ----------------------------------------------------
-// 4. ORDER MANAGEMENT (إدارة الطلبات)
+// 4. ORDER MANAGEMENT
 // ----------------------------------------------------
 
-// List Orders (Pending / Completed / All)
 router.get('/orders', async (req, res) => {
   const { status } = req.query;
   try {
@@ -167,7 +161,6 @@ router.get('/orders', async (req, res) => {
   }
 });
 
-// Assign / Reassign Rider to Order
 router.post('/orders/assign', async (req, res) => {
   const { id, rid } = req.body;
   try {
@@ -178,7 +171,6 @@ router.post('/orders/assign', async (req, res) => {
   }
 });
 
-// Delete Order
 router.post('/orders/delete', async (req, res) => {
   const { id } = req.body;
   try {
@@ -190,10 +182,9 @@ router.post('/orders/delete', async (req, res) => {
 });
 
 // ----------------------------------------------------
-// 5. CATALOG MANAGEMENT (الأقسام والمنتجات)
+// 5. CATALOG MANAGEMENT
 // ----------------------------------------------------
 
-// Categories
 router.get('/categories', async (req, res) => {
   try {
     const { rows } = await db.query(`
@@ -229,7 +220,6 @@ router.post('/categories/delete', async (req, res) => {
   }
 });
 
-// Sub Categories
 router.get('/subcategories', async (req, res) => {
   try {
     const { rows } = await db.query(`
@@ -264,7 +254,6 @@ router.post('/subcategories/delete', async (req, res) => {
   }
 });
 
-// Products
 router.get('/products', async (req, res) => {
   try {
     const { rows } = await db.query(`
@@ -281,13 +270,13 @@ router.get('/products', async (req, res) => {
 });
 
 router.post('/products/add', async (req, res) => {
-  const { pname, sname, cid, sid, psdesc, pgms, pprice, stock, pimg, prel, discount } = req.body;
+  const { pname, sname, cid, sid, psdesc, pgms, pprice, stock, pimg, discount } = req.body;
   try {
     const date = new Date().toISOString();
     await db.query(
-      `INSERT INTO product (pname, sname, cid, sid, psdesc, pgms, pprice, fprice, status, stock, pimg, prel, date, discount, popular, mqty)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $7, 1, $8, $9, $10, $11, $12, 1, 5)`,
-      [pname, sname || 'Azumaa Store', cid, sid, psdesc || '', pgms, pprice, stock || 100, pimg || 'website/thump.png', prel || '', date, discount || 0]
+      `INSERT INTO product (pname, sname, cid, sid, psdesc, pgms, pprice, fprice, status, stock, pimg, date, discount, popular, mqty)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $7, 1, $8, $9, $10, $11, 1, 5)`,
+      [pname, sname || 'Azumaa Store', cid, sid, psdesc || '', pgms, pprice, stock || 100, pimg || 'website/thump.png', date, discount || 0]
     );
     res.json({ success: true, message: "Product added successfully" });
   } catch (err) {
@@ -306,7 +295,7 @@ router.post('/products/delete', async (req, res) => {
 });
 
 // ----------------------------------------------------
-// 6. DELIVERY BOY MANAGEMENT (إدارة السائقين)
+// 6. DELIVERY BOY MANAGEMENT
 // ----------------------------------------------------
 
 router.get('/riders', async (req, res) => {
@@ -355,7 +344,6 @@ router.post('/riders/delete', async (req, res) => {
 // 7. AREA & TIMESLOT MANAGEMENT
 // ----------------------------------------------------
 
-// Area
 router.get('/areas', async (req, res) => {
   try {
     const { rows } = await db.query('SELECT * FROM area_db ORDER BY id DESC');
@@ -368,7 +356,7 @@ router.get('/areas', async (req, res) => {
 router.post('/areas/add', async (req, res) => {
   const { name, dcharge, status } = req.body;
   try {
-    await db.query('INSERT INTO area_db (name, dcharge, status) VALUES ($1, $2, $3)', [name, dcharge, status || 'Active']);
+    await db.query('INSERT INTO area_db (name, dcharge, status) VALUES ($1, $2, $3)', [name, dcharge, status || 'Published']);
     res.json({ success: true, message: "Area added successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -385,7 +373,6 @@ router.post('/areas/delete', async (req, res) => {
   }
 });
 
-// Timeslot
 router.get('/timeslots', async (req, res) => {
   try {
     const { rows } = await db.query('SELECT * FROM timeslot ORDER BY id ASC');
@@ -419,7 +406,6 @@ router.post('/timeslots/delete', async (req, res) => {
 // 8. MARKETING (Banners, Coupons, Home Section)
 // ----------------------------------------------------
 
-// Banners
 router.get('/banners', async (req, res) => {
   try {
     const { rows } = await db.query('SELECT b.*, c.catname FROM banner b LEFT JOIN category c ON b.cid = c.id ORDER BY b.id DESC');
@@ -449,7 +435,6 @@ router.post('/banners/delete', async (req, res) => {
   }
 });
 
-// Coupons
 router.get('/coupons', async (req, res) => {
   try {
     const { rows } = await db.query('SELECT * FROM coupon ORDER BY id DESC');
@@ -482,7 +467,6 @@ router.post('/coupons/delete', async (req, res) => {
   }
 });
 
-// Home Sections
 router.get('/home-sections', async (req, res) => {
   try {
     const { rows } = await db.query('SELECT h.*, c.catname, s.name as subcat_name FROM home h LEFT JOIN category c ON h.cid = c.id LEFT JOIN subcategory s ON h.sid = s.id ORDER BY h.id ASC');
@@ -550,10 +534,17 @@ router.get('/ratings', async (req, res) => {
 // 10. SYSTEM SETTINGS, COUNTRY CODES & PAYMENT GATEWAYS
 // ----------------------------------------------------
 
-// Country Codes
+// Country Codes (Handles both "code" and "country_code" table names seamlessly!)
 router.get('/country-codes', async (req, res) => {
   try {
-    const { rows } = await db.query('SELECT * FROM country_code ORDER BY id ASC');
+    let rows;
+    try {
+      const res1 = await db.query('SELECT * FROM code ORDER BY id ASC');
+      rows = res1.rows;
+    } catch (e1) {
+      const res2 = await db.query('SELECT * FROM country_code ORDER BY id ASC');
+      rows = res2.rows;
+    }
     res.json({ success: true, codes: rows });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -563,7 +554,11 @@ router.get('/country-codes', async (req, res) => {
 router.post('/country-codes/add', async (req, res) => {
   const { ccode, status } = req.body;
   try {
-    await db.query('INSERT INTO country_code (ccode, status) VALUES ($1, $2)', [ccode, status || 1]);
+    try {
+      await db.query('INSERT INTO code (ccode, status) VALUES ($1, $2)', [ccode, status || 1]);
+    } catch (e1) {
+      await db.query('INSERT INTO country_code (ccode, status) VALUES ($1, $2)', [ccode, status || 1]);
+    }
     res.json({ success: true, message: "Country Code added successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -573,8 +568,26 @@ router.post('/country-codes/add', async (req, res) => {
 router.post('/country-codes/status', async (req, res) => {
   const { id, status } = req.body;
   try {
-    await db.query('UPDATE country_code SET status = $1 WHERE id = $2', [status, id]);
+    try {
+      await db.query('UPDATE code SET status = $1 WHERE id = $2', [status, id]);
+    } catch (e1) {
+      await db.query('UPDATE country_code SET status = $1 WHERE id = $2', [status, id]);
+    }
     res.json({ success: true, message: "Country Code status updated" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post('/country-codes/delete', async (req, res) => {
+  const { id } = req.body;
+  try {
+    try {
+      await db.query('DELETE FROM code WHERE id = $1', [id]);
+    } catch (e1) {
+      await db.query('DELETE FROM country_code WHERE id = $1', [id]);
+    }
+    res.json({ success: true, message: "Country Code deleted successfully" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
