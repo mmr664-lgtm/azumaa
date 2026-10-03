@@ -3,91 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>عزومة Azumaa Delivery - لوحة التحكم Admin Panel</title>
+  <title>عزومة Azumaa Delivery - لوحة التحكم الإدارية</title>
+  <!-- Bootstrap 5 RTL -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Cairo Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-dark: #0f172a;
-      --card-bg: #1e293b;
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --accent: #10b981;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
+      --sidebar-bg: linear-gradient(180deg, #ff5e62 0%, #ff9966 100%);
+      --body-bg: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-main: #2c3e50;
+      --text-muted: #7f8c8d;
+      --primary-color: #ff5e62;
     }
+    
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text);
+      background-color: var(--body-bg);
+      color: var(--text-main);
       min-height: 100vh;
+      margin: 0;
     }
+
+    /* Sidebar Styling */
     .sidebar {
-      background-color: var(--card-bg);
-      border-left: 1px solid rgba(255,255,255,0.08);
+      background: var(--sidebar-bg);
       min-height: 100vh;
-      padding: 1.5rem 1rem;
+      color: #ffffff;
+      padding: 1rem 0;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
     }
-    .nav-link {
-      color: var(--text-muted);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.5rem;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
-    .nav-link:hover, .nav-link.active {
-      background-color: var(--primary);
-      color: #fff;
-    }
-    .stat-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: transform 0.3s ease;
-    }
-    .stat-card:hover {
-      transform: translateY(-4px);
-    }
-    .stat-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
+
+    .sidebar-brand {
+      padding: 1rem 1.5rem;
+      font-size: 1.4rem;
+      font-weight: 800;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      margin-bottom: 1rem;
     }
-    .table-dark-custom {
-      background-color: var(--card-bg);
-      color: var(--text);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .table-dark-custom th {
-      background-color: rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 1rem;
-    }
-    .table-dark-custom td {
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      padding: 1rem;
-      vertical-align: middle;
-    }
-    .badge-status {
-      padding: 0.5em 0.8em;
-      border-radius: 8px;
-      font-weight: 600;
 
+    .sidebar .nav-link {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 0;
+      transition: all 0.2s ease;
     }
+
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding-right: 2rem;
+      font-weight: 700;
+    }
+
+    /* Main Container */
+    .main-content {
+      padding: 2rem;
+    }
+
+    /* Card & Table Styling matching PHP DataTables */
+    .data-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      border: 1px solid #e9ecef;
+    }
+
+    .data-table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .table-custom {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .table-custom th {
+      background-color: #f8f9fa;
+      color: #495057;
+      font-weight: 700;
+      padding: 1rem;
+      border-bottom: 2px solid #dee2e6;
+      font-size: 0.9rem;
+    }
+
+    .table-custom td {
+      padding: 0.9rem 1rem;
+      vertical-align: middle;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.9rem;
+    }
+
+    /* Stat Cards */
+    .stat-box {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border-right: 5px solid #ff5e62;
+      transition: transform 0.2s;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-3px);
+    }
+
+    .stat-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #2c3e50;
+    }
+
+    /* Custom Action Buttons */
+    .btn-action-edit {
+      background: transparent;
+      border: 1px solid #007bff;
+      color: #007bff;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+    .btn-action-edit:hover { background: #007bff; color: #fff; }
+
+    .btn-action-delete {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+    }
+    .btn-action-delete:hover { background: #c0392b; }
+
+    .btn-action-cyan {
+      background: #17a2b8;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 12px;
+    }
+
+    .btn-action-green {
+      background: #20c997;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 12px;
+    }
+
+    /* Login Modal Overlay */
     #loginOverlay {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(10px);
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -99,22 +197,22 @@
 
   <!-- Login Modal Overlay -->
   <div id="loginOverlay">
-    <div class="card bg-dark border-secondary text-white p-4 style-modal" style="width: 400px; border-radius: 20px;">
+    <div class="card shadow-lg border-0 p-4 style-modal" style="width: 420px; border-radius: 16px; background: #fff;">
       <div class="text-center mb-4">
-        <i class="fa-solid fa-utensils text-primary display-4 mb-2"></i>
-        <h3 class="fw-bold">عزومة Azumaa Admin</h3>
-        <p class="text-muted small">تسجيل الدخول للوحة التحكم</p>
+        <i class="fa-solid fa-store text-danger display-4 mb-2"></i>
+        <h3 class="fw-bold text-dark">لوحة تحكم عزومة Azumaa</h3>
+        <p class="text-muted small">يرجى تسجيل الدخول لمتابعة العمل</p>
       </div>
       <form id="loginForm">
         <div class="mb-3">
-          <label class="form-label">اسم المستخدم</label>
-          <input type="text" id="adminUser" class="form-control bg-secondary text-white border-0" value="admin" required>
+          <label class="form-label fw-bold">اسم المستخدم (Username)</label>
+          <input type="text" id="adminUser" class="form-control" value="admin" required>
         </div>
         <div class="mb-4">
-          <label class="form-label">كلمة المرور</label>
-          <input type="password" id="adminPass" class="form-control bg-secondary text-white border-0" value="admin@123" required>
+          <label class="form-label fw-bold">كلمة المرور (Password)</label>
+          <input type="password" id="adminPass" class="form-control" value="1234567aA" required>
         </div>
-        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">تسجيل الدخول</button>
+        <button type="submit" class="btn btn-danger w-100 py-2 fw-bold" style="background: #ff5e62; border:none;">تسجيل الدخول</button>
       </form>
     </div>
   </div>
@@ -123,149 +221,540 @@
   <div class="container-fluid">
     <div class="row">
 
-      <!-- Sidebar -->
+      <!-- Left Sidebar -->
       <div class="col-md-3 col-lg-2 sidebar">
-        <div class="d-flex align-items-center mb-4 px-2">
-          <i class="fa-solid fa-bolt text-primary fs-3 me-2"></i>
-          <h4 class="fw-bold mb-0 me-2">عزومة Azumaa</h4>
+        <div class="sidebar-brand">
+          <i class="fa-solid fa-utensils"></i>
+          <span>عزومة Admin</span>
         </div>
         <nav class="nav flex-column">
-          <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie me-2"></i> الرئيسية</a>
-          <a class="nav-link" href="#" onclick="showTab('orders')"><i class="fa-solid fa-box me-2"></i> الطلبات</a>
-          <a class="nav-link" href="#" onclick="showTab('products')"><i class="fa-solid fa-bag-shopping me-2"></i> المنتجات</a>
-          <a class="nav-link" href="#" onclick="showTab('riders')"><i class="fa-solid fa-motorcycle me-2"></i> السائقين</a>
-          <a class="nav-link" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket me-2 text-danger"></i> خروج</a>
+          <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> لوحة القيادة</a>
+          <a class="nav-link" href="#" onclick="showTab('customers')"><i class="fa-solid fa-users"></i> إدارة العملاء</a>
+          <a class="nav-link" href="#" onclick="showTab('pending-orders')"><i class="fa-solid fa-clock-rotate-left"></i> الطلبات المعلقة</a>
+          <a class="nav-link" href="#" onclick="showTab('completed-orders')"><i class="fa-solid fa-circle-check"></i> الطلبات المكتملة</a>
+          <a class="nav-link" href="#" onclick="showTab('categories')"><i class="fa-solid fa-list-check"></i> الأقسام الرئيسية</a>
+          <a class="nav-link" href="#" onclick="showTab('subcategories')"><i class="fa-solid fa-layer-group"></i> الأقسام الفرعية</a>
+          <a class="nav-link" href="#" onclick="showTab('products')"><i class="fa-solid fa-basket-shopping"></i> قائمة المنتجات</a>
+          <a class="nav-link" href="#" onclick="showTab('riders')"><i class="fa-solid fa-motorcycle"></i> إدارة السائقين</a>
+          <a class="nav-link" href="#" onclick="showTab('areas')"><i class="fa-solid fa-map-location-dot"></i> المناطق والتوصيل</a>
+          <a class="nav-link" href="#" onclick="showTab('timeslots')"><i class="fa-solid fa-business-time"></i> فترات التوصيل</a>
+          <a class="nav-link" href="#" onclick="showTab('banners')"><i class="fa-solid fa-image"></i> البنرات الإعلانية</a>
+          <a class="nav-link" href="#" onclick="showTab('coupons')"><i class="fa-solid fa-ticket"></i> أكواد الخصم (الكوبونات)</a>
+          <a class="nav-link" href="#" onclick="showTab('home-sections')"><i class="fa-solid fa-table-cells-large"></i> أقسام الرئيسية</a>
+          <a class="nav-link" href="#" onclick="showTab('notifications')"><i class="fa-solid fa-bell"></i> الإشعارات الترويجية</a>
+          <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> التقييمات والشكاوى</a>
+          <a class="nav-link" href="#" onclick="showTab('country-codes')"><i class="fa-solid fa-globe"></i> أكواد الدول</a>
+          <a class="nav-link" href="#" onclick="showTab('payment-gateways')"><i class="fa-solid fa-credit-card"></i> بوابات الدفع</a>
+          <a class="nav-link" href="#" onclick="showTab('settings')"><i class="fa-solid fa-gears"></i> إعدادات النظام</a>
+          <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> الملف الشخصي</a>
+          <a class="nav-link text-warning mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</a>
         </nav>
       </div>
 
-      <!-- Main Content Area -->
-      <div class="col-md-9 col-lg-10 p-4">
+      <!-- Right Main Content Area -->
+      <div class="col-md-9 col-lg-10 main-content">
 
-        <!-- Dashboard Tab -->
-        <div id="dashboardTab" class="tab-content">
-          <h3 class="fw-bold mb-4">نظرة عامة على النظام</h3>
-          <div class="row g-4 mb-4">
-            <div class="col-md-3">
-              <div class="stat-card">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-muted small">إجمالي الطلبات</span>
-                    <h3 id="statOrders" class="fw-bold mb-0 mt-1">0</h3>
-                  </div>
-                  <div class="stat-icon bg-primary bg-opacity-20 text-primary">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                  </div>
-                </div>
-              </div>
+        <!-- Header Topbar -->
+        <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
+          <h4 class="fw-bold m-0 text-dark" id="pageTitle">لوحة القيادة الإحصائية</h4>
+          <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-danger p-2" style="background:#ff5e62 !important;">المشرف العام (Super Admin)</span>
+            <button class="btn btn-outline-secondary btn-sm" onclick="logout()"><i class="fa-solid fa-sign-out"></i> خروج</button>
+          </div>
+        </div>
+
+        <!-- TAB 1: DASHBOARD (14 STAT CARDS) -->
+        <div id="tab-dashboard" class="tab-page">
+          <div class="row g-3 mb-4" id="statsGrid">
+            <!-- Dynamically populated stat cards -->
+          </div>
+        </div>
+
+        <!-- TAB 2: CUSTOMERS -->
+        <div id="tab-customers" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">قائمة العملاء المسجلين (USER LIST)</h5>
+              <input type="text" class="form-control style-search" style="width:250px" placeholder="بحث عن عميل..." onkeyup="filterTable(this, 'customersTable')">
             </div>
-            <div class="col-md-3">
-              <div class="stat-card">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-muted small">المستخدمين</span>
-                    <h3 id="statUsers" class="fw-bold mb-0 mt-1">0</h3>
-                  </div>
-                  <div class="stat-icon bg-success bg-opacity-20 text-success">
-                    <i class="fa-solid fa-users"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="stat-card">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-muted small">السائقين</span>
-                    <h3 id="statRiders" class="fw-bold mb-0 mt-1">0</h3>
-                  </div>
-                  <div class="stat-icon bg-warning bg-opacity-20 text-warning">
-                    <i class="fa-solid fa-motorcycle"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="stat-card">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span class="text-muted small">الإيرادات الإجمالية</span>
-                    <h3 id="statRevenue" class="fw-bold mb-0 mt-1">0</h3>
-                  </div>
-                  <div class="stat-icon bg-info bg-opacity-20 text-info">
-                    <i class="fa-solid fa-wallet"></i>
-                  </div>
-                </div>
-              </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="customersTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>الاسم</th>
+                    <th>الإيميل</th>
+                    <th>كود الدولة</th>
+                    <th>رقم الهاتف</th>
+                    <th>كلمة المرور</th>
+                    <th>الحالة الحالية</th>
+                    <th>رصيد المحفظة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="customersTableBody"></tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <!-- Orders Tab -->
-        <div id="ordersTab" class="tab-content d-none">
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <h3 class="fw-bold mb-0">إدارة الطلبات</h3>
-          </div>
-          <div class="table-dark-custom">
-            <table class="table table-dark table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>رقم الطلب</th>
-                  <th>تاريخ الطلب</th>
-                  <th>الإجمالي</th>
-                  <th>طريقة الدفع</th>
-                  <th>الحالة</th>
-                </tr>
-              </thead>
-              <tbody id="ordersTableBody">
-                <tr><td colspan="5" class="text-center text-muted">جاري تحميل الطلبات...</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Products Tab -->
-        <div id="productsTab" class="tab-content d-none">
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <h3 class="fw-bold mb-0">إدارة المنتجات</h3>
-          </div>
-          <div class="table-dark-custom">
-            <table class="table table-dark table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>اسم المنتج</th>
-                  <th>المتجر</th>
-                  <th>المخزون</th>
-                  <th>الحالة</th>
-                </tr>
-              </thead>
-              <tbody id="productsTableBody">
-                <tr><td colspan="5" class="text-center text-muted">جاري تحميل المنتجات...</td></tr>
-              </tbody>
-            </table>
+        <!-- TAB 3: PENDING ORDERS -->
+        <div id="tab-pending-orders" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">الطلبات المعلقة (PENDING ORDERS)</h5>
+              <input type="text" class="form-control" style="width:250px" placeholder="بحث برقم الطلب..." onkeyup="filterTable(this, 'pendingOrdersTable')">
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="pendingOrdersTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>التاريخ</th>
+                    <th>رقم الطلب</th>
+                    <th>اسم السائق</th>
+                    <th>حالة الإسناد</th>
+                    <th>حالة التوصيل</th>
+                    <th>حالة الطلب</th>
+                    <th>معاينة</th>
+                    <th>إسناد سائق</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="pendingOrdersTableBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
-        <!-- Riders Tab -->
-        <div id="ridersTab" class="tab-content d-none">
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <h3 class="fw-bold mb-0">إدارة السائقين</h3>
+        <!-- TAB 4: COMPLETED ORDERS -->
+        <div id="tab-completed-orders" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">الطلبات المكتملة (COMPLETED ORDERS)</h5>
+              <input type="text" class="form-control" style="width:250px" placeholder="بحث..." onkeyup="filterTable(this, 'completedOrdersTable')">
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="completedOrdersTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>التاريخ</th>
+                    <th>رقم الطلب</th>
+                    <th>اسم العميل</th>
+                    <th>اسم السائق</th>
+                    <th>إجمالي الفاتورة</th>
+                    <th>توقيع العميل</th>
+                    <th>حالة الطلب</th>
+                    <th>معاينة</th>
+                  </tr>
+                </thead>
+                <tbody id="completedOrdersTableBody"></tbody>
+              </table>
+            </div>
           </div>
-          <div class="table-dark-custom">
-            <table class="table table-dark table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>اسم السائق</th>
-                  <th>رقم الهاتف</th>
-                  <th>البريد الإلكتروني</th>
-                  <th>الحالة</th>
-                </tr>
-              </thead>
-              <tbody id="ridersTableBody">
-                <tr><td colspan="5" class="text-center text-muted">جاري تحميل السائقين...</td></tr>
-              </tbody>
-            </table>
+        </div>
+
+        <!-- TAB 5: CATEGORIES -->
+        <div id="tab-categories" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">الأقسام الرئيسية (CATEGORIES)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddCategoryModal()"><i class="fa-solid fa-plus"></i> إضافة قسم جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="categoriesTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>اسم القسم</th>
+                    <th>صورة القسم</th>
+                    <th>عدد الأقسام الفرعية</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="categoriesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: SUBCATEGORIES -->
+        <div id="tab-subcategories" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">الأقسام الفرعية (SUB CATEGORIES)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddSubCategoryModal()"><i class="fa-solid fa-plus"></i> إضافة قسم فرعي</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="subcategoriesTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>القسم الرئيسي</th>
+                    <th>اسم القسم الفرعي</th>
+                    <th>الصورة</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="subcategoriesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 7: PRODUCTS -->
+        <div id="tab-products" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">قائمة المنتجات (PRODUCTS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddProductModal()"><i class="fa-solid fa-plus"></i> إضافة منتج جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="productsTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>اسم المنتج</th>
+                    <th>القسم</th>
+                    <th>السعر والتفريعات</th>
+                    <th>المخزون</th>
+                    <th>الخصم</th>
+                    <th>الصورة</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="productsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 8: RIDERS (DELIVERY BOYS) -->
+        <div id="tab-riders" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">إدارة سائقي التوصيل (DELIVERY BOYS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddRiderModal()"><i class="fa-solid fa-plus"></i> إضافة سائق جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="ridersTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>الاسم</th>
+                    <th>الهاتف</th>
+                    <th>الإيميل</th>
+                    <th>المنطقة</th>
+                    <th>الحالة</th>
+                    <th>طلبات مرفوضة</th>
+                    <th>مقبولة</th>
+                    <th>مكتملة</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="ridersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 9: AREAS -->
+        <div id="tab-areas" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">إدارة المناطق وسعر التوصيل (AREAS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddAreaModal()"><i class="fa-solid fa-plus"></i> إضافة منطقة جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="areasTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>اسم المنطقة</th>
+                    <th>رسوم التوصيل</th>
+                    <th>الحالة</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="areasTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 10: TIMESLOTS -->
+        <div id="tab-timeslots" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">فترات التوصيل (TIMESLOTS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddTimeslotModal()"><i class="fa-solid fa-plus"></i> إضافة فترة توصيل</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="timeslotsTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>من وقت (Min Time)</th>
+                    <th>إلى وقت (Max Time)</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="timeslotsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 11: BANNERS -->
+        <div id="tab-banners" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">البنرات الإعلانية (BANNERS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddBannerModal()"><i class="fa-solid fa-plus"></i> إضافة بنر جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="bannersTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>معاينة الصورة</th>
+                    <th>القسم المرتبط</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="bannersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 12: COUPONS -->
+        <div id="tab-coupons" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">أكواد الخصم (COUPONS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddCouponModal()"><i class="fa-solid fa-plus"></i> إضافة كوبون جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="couponsTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>الصورة</th>
+                    <th>كود الخصم</th>
+                    <th>عنوان الكوبون</th>
+                    <th>قيمة الخصم</th>
+                    <th>الحد الأدنى للطلب</th>
+                    <th>تاريخ الانتهاء</th>
+                    <th>الحالة</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="couponsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 13: HOME SECTIONS -->
+        <div id="tab-home-sections" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">أقسام الشاشة الرئيسية (HOME SECTIONS)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddHomeSectionModal()"><i class="fa-solid fa-plus"></i> إضافة قسم رئيسي جديد</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="homeSectionsTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>العنوان</th>
+                    <th>القسم الرئيسي</th>
+                    <th>القسم الفرعي</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="homeSectionsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 14: NOTIFICATIONS -->
+        <div id="tab-notifications" class="tab-page d-none">
+          <div class="data-card mb-4">
+            <h5 class="fw-bold mb-3">إرسال إشعار ترويجي جديد (PUSH NOTIFICATION)</h5>
+            <form id="sendNotificationForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">عنوان الإشعار</label>
+                  <input type="text" id="notiTitle" class="form-control" required placeholder="مثال: خصم 50% بمناسبة اليوم الوطني!">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">رابط الصورة (اختياري)</label>
+                  <input type="text" id="notiImg" class="form-control" placeholder="https://...">
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label fw-bold">نص الإشعار</label>
+                  <textarea id="notiMsg" class="form-control" rows="3" required placeholder="اكتب نص الإشعار هنا..."></textarea>
+                </div>
+                <div class="col-md-12 text-end">
+                  <button type="submit" class="btn btn-danger style-btn" style="background:#ff5e62"><i class="fa-solid fa-paper-plane me-1"></i> إرسال الإشعار الآن</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="data-card">
+            <h5 class="fw-bold mb-3">سجل الإشعارات المراد إرسالها</h5>
+            <div class="table-responsive">
+              <table class="table table-custom" id="notificationsTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>العنوان</th>
+                    <th>النص</th>
+                    <th>التاريخ</th>
+                  </tr>
+                </thead>
+                <tbody id="notificationsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 15: RATINGS & FEEDBACK -->
+        <div id="tab-ratings" class="tab-page d-none">
+          <div class="data-card">
+            <h5 class="fw-bold mb-3">تقييمات العملاء للطلبات (CUSTOMER RATINGS)</h5>
+            <div class="table-responsive">
+              <table class="table table-custom" id="ratingsTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>اسم العميل</th>
+                    <th>رقم الطلب</th>
+                    <th>التقييم</th>
+                    <th>التعليق</th>
+                  </tr>
+                </thead>
+                <tbody id="ratingsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 16: COUNTRY CODES -->
+        <div id="tab-country-codes" class="tab-page d-none">
+          <div class="data-card">
+            <div class="data-table-header">
+              <h5 class="fw-bold">أكواد الدول المعتمدة (COUNTRY CODES)</h5>
+              <button class="btn btn-danger btn-sm" style="background:#ff5e62" onclick="showAddCountryCodeModal()"><i class="fa-solid fa-plus"></i> إضافة كود دولة</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom" id="countryCodesTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>كود الدولة</th>
+                    <th>الحالة</th>
+                    <th>إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="countryCodesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 17: PAYMENT GATEWAYS -->
+        <div id="tab-payment-gateways" class="tab-page d-none">
+          <div class="data-card">
+            <h5 class="fw-bold mb-4">بوابات الدفع الإلكتروني (PAYMENT GATEWAYS LIST)</h5>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="paymentGatewaysTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>اسم بوابة الدفع</th>
+                    <th>الصورة</th>
+                    <th>عنوان المفتاح Credentials Title</th>
+                    <th>قيمة المفتاح Credentials Value</th>
+                    <th>الحالة الحالية</th>
+                    <th>إجراء Edit</th>
+                  </tr>
+                </thead>
+                <tbody id="paymentGatewaysTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 18: SYSTEM SETTINGS -->
+        <div id="tab-settings" class="tab-page d-none">
+          <div class="data-card">
+            <h5 class="fw-bold mb-4">إعدادات النظام العامة (GENERAL SETTINGS)</h5>
+            <form id="settingsForm">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label fw-bold">اسم التطبيق/الموقع</label>
+                  <input type="text" id="set_title" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label fw-bold">العملة (Currency)</label>
+                  <input type="text" id="set_currency" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label fw-bold">المنطقة الزمنية (Timezone)</label>
+                  <input type="text" id="set_timezone" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">الحد الأدنى للطلب (Min Order)</label>
+                  <input type="number" id="set_o_min" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">نسبة الضريبة (Tax %)</label>
+                  <input type="number" id="set_tax" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">OneSignal Key (User App)</label>
+                  <input type="text" id="set_one_key" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">OneSignal Hash/Rest Key (User App)</label>
+                  <input type="text" id="set_one_hash" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">OneSignal Key (Rider App)</label>
+                  <input type="text" id="set_r_key" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">OneSignal Hash/Rest Key (Rider App)</label>
+                  <input type="text" id="set_r_hash" class="form-control">
+                </div>
+                <div class="col-md-12 text-end mt-4">
+                  <button type="submit" class="btn btn-danger style-btn px-4" style="background:#ff5e62">حفظ الإعدادات</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 19: ADMIN PROFILE -->
+        <div id="tab-profile" class="tab-page d-none">
+          <div class="data-card style-form-card" style="max-width: 500px;">
+            <h5 class="fw-bold mb-4">تغيير بيانات المدير (ADMIN PROFILE)</h5>
+            <form id="profileForm">
+              <div class="mb-3">
+                <label class="form-label fw-bold">اسم المستخدم الحالي</label>
+                <input type="text" id="profUser" class="form-control" required>
+              </div>
+              <div class="mb-4">
+                <label class="form-label fw-bold">كلمة المرور الجديدة</label>
+                <input type="password" id="profPass" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-danger w-100 style-btn" style="background:#ff5e62">تحديث كلمة المرور</button>
+            </form>
           </div>
         </div>
 
@@ -273,114 +762,1177 @@
     </div>
   </div>
 
+  <!-- Shared Bootstrap Modals -->
+  <div class="modal fade" id="actionModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="actionModalTitle">نموذج</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="actionModalBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
   <script>
+    const API_BASE = '/admin';
+    let modalInstance = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      modalInstance = new bootstrap.Modal(document.getElementById('actionModal'));
+      loadDashboard();
+    });
+
+    // Login Handle
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const username = document.getElementById('adminUser').value;
       const password = document.getElementById('adminPass').value;
-      const res = await fetch('/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json();
-      if (data.success) {
-        document.getElementById('loginOverlay').style.display = 'none';
-        loadDashboard();
-      } else {
-        alert(data.message);
+
+      try {
+        const res = await fetch(`${API_BASE}/login`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('loginOverlay').style.display = 'none';
+          loadDashboard();
+        } else {
+          alert(data.message || 'خطأ في بيانات الدخول');
+        }
+      } catch (err) {
+        alert('تعذر الاتصال بالخادم: ' + err.message);
       }
     });
-
-    function showTab(tab) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
-      document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-      if (tab === 'dashboard') {
-        document.getElementById('dashboardTab').classList.remove('d-none');
-        loadDashboard();
-      } else if (tab === 'orders') {
-        document.getElementById('ordersTab').classList.remove('d-none');
-        loadOrders();
-      } else if (tab === 'products') {
-        document.getElementById('productsTab').classList.remove('d-none');
-        loadProducts();
-      } else if (tab === 'riders') {
-        document.getElementById('ridersTab').classList.remove('d-none');
-        loadRiders();
-      }
-    }
-
-    async function loadDashboard() {
-      const res = await fetch('/admin/stats');
-      const data = await res.json();
-      if (data.success) {
-        document.getElementById('statOrders').innerText = data.stats.totalOrders;
-        document.getElementById('statUsers').innerText = data.stats.totalUsers;
-        document.getElementById('statRiders').innerText = data.stats.totalRiders;
-        document.getElementById('statRevenue').innerText = data.stats.totalRevenue;
-      }
-    }
-
-    async function loadOrders() {
-      const res = await fetch('/admin/orders');
-      const data = await res.json();
-      const tbody = document.getElementById('ordersTableBody');
-      if (data.success && data.orders.length > 0) {
-        tbody.innerHTML = data.orders.map(o => `
-          <tr>
-            <td>${o.oid || '#' + o.id}</td>
-            <td>${o.order_date || '-'}</td>
-            <td>${o.total}</td>
-            <td>${o.p_method || 'Cash'}</td>
-            <td><span class="badge bg-primary badge-status">${o.status}</span></td>
-          </tr>
-        `).join('');
-      } else {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">لا توجد طلبات مسجلة</td></tr>`;
-      }
-    }
-
-    async function loadProducts() {
-      const res = await fetch('/admin/products');
-      const data = await res.json();
-      const tbody = document.getElementById('productsTableBody');
-      if (data.success && data.products.length > 0) {
-        tbody.innerHTML = data.products.map(p => `
-          <tr>
-            <td>${p.id}</td>
-            <td>${p.pname}</td>
-            <td>${p.sname || 'Azumaa Store'}</td>
-            <td>${p.stock}</td>
-            <td><span class="badge ${p.status == 1 ? 'bg-success' : 'bg-danger'}">${p.status == 1 ? 'نشط' : 'معطل'}</span></td>
-          </tr>
-        `).join('');
-      } else {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">لا توجد منتجات</td></tr>`;
-      }
-    }
-
-    async function loadRiders() {
-      const res = await fetch('/admin/riders');
-      const data = await res.json();
-      const tbody = document.getElementById('ridersTableBody');
-      if (data.success && data.riders.length > 0) {
-        tbody.innerHTML = data.riders.map(r => `
-          <tr>
-            <td>${r.id}</td>
-            <td>${r.name}</td>
-            <td>${r.mobile}</td>
-            <td>${r.email}</td>
-            <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'متاح' : 'غير מتاح'}</span></td>
-          </tr>
-        `).join('');
-      } else {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">لا يوجد سائقين</td></tr>`;
-      }
-    }
 
     function logout() {
       document.getElementById('loginOverlay').style.display = 'flex';
     }
+
+    // Tab Switcher
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-page').forEach(el => el.classList.add('d-none'));
+      document.querySelectorAll('.sidebar .nav-link').forEach(el => el.classList.remove('active'));
+
+      const targetTab = document.getElementById(`tab-${tabName}`);
+      if (targetTab) targetTab.classList.remove('d-none');
+
+      // Highlight active nav
+      event.target.closest('.nav-link').classList.add('active');
+
+      // Update Title & Load Data
+      switch (tabName) {
+        case 'dashboard':
+          document.getElementById('pageTitle').innerText = 'لوحة القيادة الإحصائية';
+          loadDashboard();
+          break;
+        case 'customers':
+          document.getElementById('pageTitle').innerText = 'إدارة العملاء والمحفظة';
+          loadCustomers();
+          break;
+        case 'pending-orders':
+          document.getElementById('pageTitle').innerText = 'الطلبات المعلقة';
+          loadOrders('Pending', 'pendingOrdersTableBody');
+          break;
+        case 'completed-orders':
+          document.getElementById('pageTitle').innerText = 'الطلبات المكتملة';
+          loadOrders('Completed', 'completedOrdersTableBody');
+          break;
+        case 'categories':
+          document.getElementById('pageTitle').innerText = 'إدارة الأقسام الرئيسية';
+          loadCategories();
+          break;
+        case 'subcategories':
+          document.getElementById('pageTitle').innerText = 'إدارة الأقسام الفرعية';
+          loadSubcategories();
+          break;
+        case 'products':
+          document.getElementById('pageTitle').innerText = 'إدارة المنتجات والمخزون';
+          loadProducts();
+          break;
+        case 'riders':
+          document.getElementById('pageTitle').innerText = 'إدارة سائقي التوصيل';
+          loadRiders();
+          break;
+        case 'areas':
+          document.getElementById('pageTitle').innerText = 'إدارة المناطق وتكلفة التوصيل';
+          loadAreas();
+          break;
+        case 'timeslots':
+          document.getElementById('pageTitle').innerText = 'فترات التوصيل المتاحة';
+          loadTimeslots();
+          break;
+        case 'banners':
+          document.getElementById('pageTitle').innerText = 'البنرات الإعلانية';
+          loadBanners();
+          break;
+        case 'coupons':
+          document.getElementById('pageTitle').innerText = 'كوبونات الخصم';
+          loadCoupons();
+          break;
+        case 'home-sections':
+          document.getElementById('pageTitle').innerText = 'أقسام الواجهة الرئيسية';
+          loadHomeSections();
+          break;
+        case 'notifications':
+          document.getElementById('pageTitle').innerText = 'إرسال الإشعارات الترويجية';
+          loadNotifications();
+          break;
+        case 'ratings':
+          document.getElementById('pageTitle').innerText = 'تقييمات العملاء للطلبات';
+          loadRatings();
+          break;
+        case 'country-codes':
+          document.getElementById('pageTitle').innerText = 'أكواد الدول المعتمدة';
+          loadCountryCodes();
+          break;
+        case 'payment-gateways':
+          document.getElementById('pageTitle').innerText = 'بوابات الدفع الإلكترونية';
+          loadPaymentGateways();
+          break;
+        case 'settings':
+          document.getElementById('pageTitle').innerText = 'إعدادات النظام العامة';
+          loadSettings();
+          break;
+        case 'profile':
+          document.getElementById('pageTitle').innerText = 'تغيير بيانات الحساب الشخصي';
+          break;
+      }
+    }
+
+    // Helper: Table Search Filter
+    function filterTable(input, tableId) {
+      const term = input.value.toLowerCase();
+      const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+      rows.forEach(r => {
+        r.style.display = r.innerText.toLowerCase().includes(term) ? '' : 'none';
+      });
+    }
+
+    // 1. DASHBOARD LOAD (14 STAT CARDS)
+    async function loadDashboard() {
+      try {
+        const res = await fetch(`${API_BASE}/stats`);
+        const data = await res.json();
+        if (!data.success) return;
+
+        const s = data.stats;
+        const grid = document.getElementById('statsGrid');
+        grid.innerHTML = `
+          ${renderStatBox('إجمالي الأقسام', s.totalCategories, 'fa-list', '#ff5e62')}
+          ${renderStatBox('إجمالي الأقسام الفرعية', s.totalSubCategories, 'fa-layer-group', '#20c997')}
+          ${renderStatBox('إجمالي المنتجات', s.totalProducts, 'fa-basket-shopping', '#007bff')}
+          ${renderStatBox('إجمالي المناطق', s.totalAreas, 'fa-map-marked-alt', '#fd7e14')}
+          ${renderStatBox('إجمالي فترات التوصيل', s.totalTimeslots, 'fa-clock', '#6f42c1')}
+          ${renderStatBox('إجمالي البنرات', s.totalBanners, 'fa-image', '#e83e8c')}
+          ${renderStatBox('إجمالي العملاء', s.totalCustomers, 'fa-users', '#17a2b8')}
+          ${renderStatBox('الطلبات المعلقة', s.pendingOrders, 'fa-hourglass-half', '#ffc107')}
+          ${renderStatBox('الطلبات المكتملة', s.completedOrders, 'fa-circle-check', '#28a745')}
+          ${renderStatBox('الطلبات الملغاة', s.cancelledOrders, 'fa-ban', '#dc3545')}
+          ${renderStatBox('تقييمات العملاء', s.customerRatings, 'fa-star', '#ffc107')}
+          ${renderStatBox('إجمالي التعليقات', s.totalFeedbacks, 'fa-comments', '#6c757d')}
+          ${renderStatBox('إجمالي المبيعات', s.totalSales.toFixed(2) + ' $', 'fa-dollar-sign', '#28a745')}
+          ${renderStatBox('إجمالي السائقين', s.totalRiders, 'fa-motorcycle', '#343a40')}
+        `;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderStatBox(title, value, icon, color) {
+      return `
+        <div class="col-md-3">
+          <div class="stat-box" style="border-right-color: ${color}">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-title">${title}</div>
+                <div class="stat-value">${value}</div>
+              </div>
+              <i class="fa-solid ${icon} fs-2" style="color:${color}"></i>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. CUSTOMERS LOAD
+    async function loadCustomers() {
+      const res = await fetch(`${API_BASE}/customers`);
+      const data = await res.json();
+      const tbody = document.getElementById('customersTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.customers.forEach((c, idx) => {
+        const isDeactive = c.status == 0;
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${c.name}</td>
+            <td>${c.email}</td>
+            <td>${c.ccode || '+91'}</td>
+            <td>${c.mobile}</td>
+            <td>${c.password || '***'}</td>
+            <td><span class="badge ${isDeactive ? 'bg-danger' : 'bg-success'}">${isDeactive ? 'Deactive' : 'Active'}</span></td>
+            <td class="fw-bold text-success">${c.wallet || 0} $</td>
+            <td>
+              <button class="btn btn-sm ${isDeactive ? 'btn-success' : 'btn-warning'} me-1" onclick="toggleCustomerStatus(${c.id}, ${isDeactive ? 1 : 0})">${isDeactive ? 'تفعيل' : 'Make Deactive'}</button>
+              <button class="btn-action-green me-1" onclick="showAddBalanceModal(${c.id}, '${c.name}')"><i class="fa-solid fa-plus"></i> Add Balance</button>
+              <button class="btn-action-cyan me-1" onclick="viewUserAddresses(${c.id})"><i class="fa-solid fa-location-dot"></i> العناوين</button>
+              <button class="btn-action-delete" onclick="deleteCustomer(${c.id})"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    async function toggleCustomerStatus(id, status) {
+      await fetch(`${API_BASE}/customers/status`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, status })
+      });
+      loadCustomers();
+    }
+
+    async function deleteCustomer(id) {
+      if (confirm('هل أنت تأكد من حذف العميل؟')) {
+        await fetch(`${API_BASE}/customers/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadCustomers();
+      }
+    }
+
+    function showAddBalanceModal(id, name) {
+      document.getElementById('actionModalTitle').innerText = `إضافة رصيد محفظة للعميل: ${name}`;
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddBalance(event, ${id})">
+          <div class="mb-3">
+            <label class="form-label fw-bold">القيمة المراد إضافتها (Wallet Amount)</label>
+            <input type="number" step="0.01" id="balanceAmt" class="form-control" required placeholder="مثال: 50.00">
+          </div>
+          <button type="submit" class="btn btn-success w-100 fw-bold">إضافة الرصيد الآن</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddBalance(e, id) {
+      e.preventDefault();
+      const amount = document.getElementById('balanceAmt').value;
+      await fetch(`${API_BASE}/customers/add-balance`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, amount })
+      });
+      modalInstance.hide();
+      loadCustomers();
+    }
+
+    async function viewUserAddresses(uid) {
+      const res = await fetch(`${API_BASE}/customers/addresses?uid=${uid}`);
+      const data = await res.json();
+      document.getElementById('actionModalTitle').innerText = 'عناوين العميل المسجلة';
+      let html = '<ul class="list-group">';
+      if (data.addresses && data.addresses.length > 0) {
+        data.addresses.forEach(a => {
+          html += `<li class="list-group-item"><strong>${a.type || 'منزل'}:</strong> ${a.hno}, ${a.society}, ${a.area} (الرمز البريدي: ${a.pincode})</li>`;
+        });
+      } else {
+        html += '<li class="list-group-item text-muted">لا توجد عناوين مسجلة بعد</li>';
+      }
+      html += '</ul>';
+      document.getElementById('actionModalBody').innerHTML = html;
+      modalInstance.show();
+    }
+
+    // 3. ORDERS LOAD
+    async function loadOrders(status, tbodyId) {
+      const res = await fetch(`${API_BASE}/orders?status=${status || ''}`);
+      const data = await res.json();
+      const tbody = document.getElementById(tbodyId);
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.orders.forEach((o, idx) => {
+        if (status === 'Completed') {
+          tbody.innerHTML += `
+            <tr>
+              <td>${idx + 1}</td>
+              <td>${o.odate || ''}</td>
+              <td class="fw-bold">#${o.id}</td>
+              <td>${o.name || 'عميل'}</td>
+              <td>${o.rider_name || 'غير مسند'}</td>
+              <td class="fw-bold text-success">${o.total} $</td>
+              <td>${o.sign ? `<img src="${o.sign}" width="50" class="rounded">` : '<span class="text-muted">لا يوجد</span>'}</td>
+              <td><span class="badge bg-success">Completed</span></td>
+              <td><button class="btn-action-cyan" onclick="previewOrder('${o.id}')">Preview</button></td>
+            </tr>
+          `;
+        } else {
+          tbody.innerHTML += `
+            <tr>
+              <td>${idx + 1}</td>
+              <td>${o.odate || ''}</td>
+              <td class="fw-bold">#${o.id}</td>
+              <td>${o.rider_name || '<span class="text-muted">Not Assign</span>'}</td>
+              <td><span class="badge bg-secondary">${o.a_status == 1 ? 'Assigned' : 'Not Assign'}</span></td>
+              <td><span class="badge bg-info">${o.status}</span></td>
+              <td><span class="badge bg-warning">${o.status}</span></td>
+              <td><button class="btn-action-cyan" onclick="previewOrder('${o.id}')">Preview</button></td>
+              <td><button class="btn btn-sm btn-primary" onclick="showAssignRiderModal(${o.id})">Assign Delivery Boy</button></td>
+              <td><button class="btn-action-delete" onclick="deleteOrder(${o.id})">Delete</button></td>
+            </tr>
+          `;
+        }
+      });
+    }
+
+    async function showAssignRiderModal(orderId) {
+      const res = await fetch(`${API_BASE}/riders`);
+      const data = await res.json();
+      let options = data.riders.map(r => `<option value="${r.id}">${r.name} (${r.mobile})</option>`).join('');
+
+      document.getElementById('actionModalTitle').innerText = `إسناد الطلب #${orderId} لسائق`;
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAssignRider(event, ${orderId})">
+          <div class="mb-3">
+            <label class="form-label fw-bold">اختر السائق</label>
+            <select id="riderSelect" class="form-select">${options}</select>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 fw-bold">تأكيد الإسناد</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAssignRider(e, orderId) {
+      e.preventDefault();
+      const rid = document.getElementById('riderSelect').value;
+      await fetch(`${API_BASE}/orders/assign`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id: orderId, rid })
+      });
+      modalInstance.hide();
+      loadOrders('Pending', 'pendingOrdersTableBody');
+    }
+
+    async function deleteOrder(id) {
+      if (confirm('هل تريد حذف الطلب؟')) {
+        await fetch(`${API_BASE}/orders/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadOrders('Pending', 'pendingOrdersTableBody');
+      }
+    }
+
+    function previewOrder(orderId) {
+      alert(`معاينة الطلب رقم #${orderId}`);
+    }
+
+    // 4. CATEGORIES
+    async function loadCategories() {
+      const res = await fetch(`${API_BASE}/categories`);
+      const data = await res.json();
+      const tbody = document.getElementById('categoriesTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.categories.forEach((c, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${c.catname}</td>
+            <td><img src="${c.catimg}" width="40" height="40" class="rounded"></td>
+            <td><span class="badge bg-secondary">${c.subcat_count || 0} أجزاء</span></td>
+            <td><button class="btn-action-delete" onclick="deleteCategory(${c.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddCategoryModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة قسم جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddCategory(event)">
+          <div class="mb-3">
+            <label class="form-label fw-bold">اسم القسم</label>
+            <input type="text" id="catName" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">رابط صورة القسم</label>
+            <input type="text" id="catImg" class="form-control" placeholder="https://...">
+          </div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ القسم</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddCategory(e) {
+      e.preventDefault();
+      const catname = document.getElementById('catName').value;
+      const catimg = document.getElementById('catImg').value;
+      await fetch(`${API_BASE}/categories/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ catname, catimg })
+      });
+      modalInstance.hide();
+      loadCategories();
+    }
+
+    async function deleteCategory(id) {
+      if (confirm('حذف القسم؟')) {
+        await fetch(`${API_BASE}/categories/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadCategories();
+      }
+    }
+
+    // 5. SUBCATEGORIES
+    async function loadSubcategories() {
+      const res = await fetch(`${API_BASE}/subcategories`);
+      const data = await res.json();
+      const tbody = document.getElementById('subcategoriesTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.subcategories.forEach((s, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${s.catname || 'قسم'}</td>
+            <td class="fw-bold">${s.name}</td>
+            <td><img src="${s.img}" width="40" height="40" class="rounded"></td>
+            <td><button class="btn-action-delete" onclick="deleteSubcategory(${s.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function showAddSubCategoryModal() {
+      const res = await fetch(`${API_BASE}/categories`);
+      const data = await res.json();
+      let options = data.categories.map(c => `<option value="${c.id}">${c.catname}</option>`).join('');
+
+      document.getElementById('actionModalTitle').innerText = 'إضافة قسم فرعي جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddSubcategory(event)">
+          <div class="mb-3">
+            <label class="form-label fw-bold">القسم الرئيسي</label>
+            <select id="subCatMain" class="form-select">${options}</select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">اسم القسم الفرعي</label>
+            <input type="text" id="subCatName" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">رابط الصورة</label>
+            <input type="text" id="subCatImg" class="form-control" placeholder="https://...">
+          </div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ القسم الفرعي</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddSubcategory(e) {
+      e.preventDefault();
+      const cat_id = document.getElementById('subCatMain').value;
+      const name = document.getElementById('subCatName').value;
+      const img = document.getElementById('subCatImg').value;
+      await fetch(`${API_BASE}/subcategories/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ cat_id, name, img })
+      });
+      modalInstance.hide();
+      loadSubcategories();
+    }
+
+    async function deleteSubcategory(id) {
+      if (confirm('حذف؟')) {
+        await fetch(`${API_BASE}/subcategories/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadSubcategories();
+      }
+    }
+
+    // 6. PRODUCTS
+    async function loadProducts() {
+      const res = await fetch(`${API_BASE}/products`);
+      const data = await res.json();
+      const tbody = document.getElementById('productsTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.products.forEach((p, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${p.pname}</td>
+            <td>${p.catname || 'قسم'}</td>
+            <td>${p.pprice} $</td>
+            <td><span class="badge bg-info">${p.stock} قطعة</span></td>
+            <td><span class="badge bg-danger">${p.discount || 0}%</span></td>
+            <td><img src="${p.pimg}" width="40" height="40" class="rounded"></td>
+            <td><button class="btn-action-delete" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function showAddProductModal() {
+      const catsRes = await fetch(`${API_BASE}/categories`);
+      const cats = await catsRes.json();
+      let catOpts = cats.categories.map(c => `<option value="${c.id}">${c.catname}</option>`).join('');
+
+      document.getElementById('actionModalTitle').innerText = 'إضافة منتج جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddProduct(event)">
+          <div class="mb-2"><label class="form-label fw-bold">اسم المنتج</label><input type="text" id="prodName" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">القسم الرئيسي</label><select id="prodCat" class="form-select">${catOpts}</select></div>
+          <div class="mb-2"><label class="form-label fw-bold">الوصف القصيرة</label><input type="text" id="prodDesc" class="form-control"></div>
+          <div class="mb-2"><label class="form-label fw-bold">الأحجام (مثال: 1kg$;2kg)</label><input type="text" id="prodGms" class="form-control" value="1kg"></div>
+          <div class="mb-2"><label class="form-label fw-bold">الأسعار (مثال: 10$;20)</label><input type="text" id="prodPrice" class="form-control" value="10"></div>
+          <div class="mb-2"><label class="form-label fw-bold">الكمية المتوفرة بالمخزون</label><input type="number" id="prodStock" class="form-control" value="100"></div>
+          <div class="mb-2"><label class="form-label fw-bold">رابط الصورة الرئيسية</label><input type="text" id="prodImg" class="form-control" placeholder="https://..."></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold mt-2" style="background:#ff5e62">حفظ المنتج</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddProduct(e) {
+      e.preventDefault();
+      const pname = document.getElementById('prodName').value;
+      const cid = document.getElementById('prodCat').value;
+      const psdesc = document.getElementById('prodDesc').value;
+      const pgms = document.getElementById('prodGms').value;
+      const pprice = document.getElementById('prodPrice').value;
+      const stock = document.getElementById('prodStock').value;
+      const pimg = document.getElementById('prodImg').value;
+
+      await fetch(`${API_BASE}/products/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ pname, cid, sid: 1, psdesc, pgms, pprice, stock, pimg })
+      });
+      modalInstance.hide();
+      loadProducts();
+    }
+
+    async function deleteProduct(id) {
+      if (confirm('حذف المنتج؟')) {
+        await fetch(`${API_BASE}/products/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadProducts();
+      }
+    }
+
+    // 7. RIDERS
+    async function loadRiders() {
+      const res = await fetch(`${API_BASE}/riders`);
+      const data = await res.json();
+      const tbody = document.getElementById('ridersTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.riders.forEach((r, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${r.name}</td>
+            <td>${r.mobile}</td>
+            <td>${r.email}</td>
+            <td>${r.area_name || 'الرئيسية'}</td>
+            <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'On' : 'Off'}</span></td>
+            <td><span class="badge bg-danger">${r.reject || 0}</span></td>
+            <td><span class="badge bg-info">${r.accept || 0}</span></td>
+            <td><span class="badge bg-success">${r.complete || 0}</span></td>
+            <td><button class="btn-action-delete" onclick="deleteRider(${r.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddRiderModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة سائق جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddRider(event)">
+          <div class="mb-2"><label class="form-label fw-bold">الاسم</label><input type="text" id="rName" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">رقم الهاتف</label><input type="text" id="rMobile" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">الإيميل</label><input type="email" id="rEmail" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">كلمة المرور</label><input type="password" id="rPass" class="form-control" required></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold mt-2" style="background:#ff5e62">حفظ السائق</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddRider(e) {
+      e.preventDefault();
+      const name = document.getElementById('rName').value;
+      const mobile = document.getElementById('rMobile').value;
+      const email = document.getElementById('rEmail').value;
+      const password = document.getElementById('rPass').value;
+
+      await fetch(`${API_BASE}/riders/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, mobile, email, password })
+      });
+      modalInstance.hide();
+      loadRiders();
+    }
+
+    async function deleteRider(id) {
+      if (confirm('حذف السائق؟')) {
+        await fetch(`${API_BASE}/riders/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadRiders();
+      }
+    }
+
+    // 8. AREAS
+    async function loadAreas() {
+      const res = await fetch(`${API_BASE}/areas`);
+      const data = await res.json();
+      const tbody = document.getElementById('areasTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.areas.forEach((a, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${a.name}</td>
+            <td class="fw-bold text-success">${a.dcharge} $</td>
+            <td><span class="badge bg-success">${a.status}</span></td>
+            <td><button class="btn-action-delete" onclick="deleteArea(${a.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddAreaModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة منطقة جديدة';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddArea(event)">
+          <div class="mb-3"><label class="form-label fw-bold">اسم المنطقة</label><input type="text" id="areaName" class="form-control" required></div>
+          <div class="mb-3"><label class="form-label fw-bold">رسوم التوصيل (أرقام فقط)</label><input type="number" step="0.01" id="areaCharge" class="form-control" required></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ المنطقة</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddArea(e) {
+      e.preventDefault();
+      const name = document.getElementById('areaName').value;
+      const dcharge = document.getElementById('areaCharge').value;
+      await fetch(`${API_BASE}/areas/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, dcharge })
+      });
+      modalInstance.hide();
+      loadAreas();
+    }
+
+    async function deleteArea(id) {
+      if (confirm('حذف؟')) {
+        await fetch(`${API_BASE}/areas/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadAreas();
+      }
+    }
+
+    // 9. TIMESLOTS
+    async function loadTimeslots() {
+      const res = await fetch(`${API_BASE}/timeslots`);
+      const data = await res.json();
+      const tbody = document.getElementById('timeslotsTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.timeslots.forEach((t, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${t.min_time}</td>
+            <td class="fw-bold">${t.max_time}</td>
+            <td><button class="btn-action-delete" onclick="deleteTimeslot(${t.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddTimeslotModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة فترة توصيل';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddTimeslot(event)">
+          <div class="mb-3"><label class="form-label fw-bold">وقت البداية (Min Time e.g. 09:00)</label><input type="text" id="tsMin" class="form-control" required></div>
+          <div class="mb-3"><label class="form-label fw-bold">وقت النهاية (Max Time e.g. 10:30)</label><input type="text" id="tsMax" class="form-control" required></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ الفترة</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddTimeslot(e) {
+      e.preventDefault();
+      const min_time = document.getElementById('tsMin').value;
+      const max_time = document.getElementById('tsMax').value;
+      await fetch(`${API_BASE}/timeslots/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ min_time, max_time })
+      });
+      modalInstance.hide();
+      loadTimeslots();
+    }
+
+    async function deleteTimeslot(id) {
+      if (confirm('حذف؟')) {
+        await fetch(`${API_BASE}/timeslots/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadTimeslots();
+      }
+    }
+
+    // 10. BANNERS
+    async function loadBanners() {
+      const res = await fetch(`${API_BASE}/banners`);
+      const data = await res.json();
+      const tbody = document.getElementById('bannersTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.banners.forEach((b, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><img src="${b.bimg}" height="50" class="rounded"></td>
+            <td>${b.catname || 'عام'}</td>
+            <td><button class="btn-action-delete" onclick="deleteBanner(${b.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddBannerModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة بنر جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddBanner(event)">
+          <div class="mb-3"><label class="form-label fw-bold">رابط صورة البنر</label><input type="text" id="banImg" class="form-control" required></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ البنر</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddBanner(e) {
+      e.preventDefault();
+      const bimg = document.getElementById('banImg').value;
+      await fetch(`${API_BASE}/banners/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ bimg })
+      });
+      modalInstance.hide();
+      loadBanners();
+    }
+
+    async function deleteBanner(id) {
+      if (confirm('حذف البنر؟')) {
+        await fetch(`${API_BASE}/banners/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadBanners();
+      }
+    }
+
+    // 11. COUPONS
+    async function loadCoupons() {
+      const res = await fetch(`${API_BASE}/coupons`);
+      const data = await res.json();
+      const tbody = document.getElementById('couponsTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.coupons.forEach((c, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><img src="${c.c_img}" width="40" height="40" class="rounded"></td>
+            <td class="fw-bold text-primary">${c.c_code}</td>
+            <td>${c.c_title}</td>
+            <td class="fw-bold text-success">${c.c_value} $</td>
+            <td>${c.min_amt} $</td>
+            <td>${c.cdate}</td>
+            <td><span class="badge bg-success">${c.status}</span></td>
+            <td><button class="btn-action-delete" onclick="deleteCoupon(${c.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddCouponModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة كوبون خصم جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddCoupon(event)">
+          <div class="mb-2"><label class="form-label fw-bold">كود الخصم</label><input type="text" id="cpCode" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">عنوان الكوبون</label><input type="text" id="cpTitle" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">قيمة الخصم</label><input type="number" id="cpValue" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">الحد الأدنى للطلب</label><input type="number" id="cpMin" class="form-control" required></div>
+          <div class="mb-2"><label class="form-label fw-bold">تاريخ الانتهاء</label><input type="date" id="cpDate" class="form-control" required></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold mt-2" style="background:#ff5e62">حفظ الكوبون</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddCoupon(e) {
+      e.preventDefault();
+      const c_code = document.getElementById('cpCode').value;
+      const c_title = document.getElementById('cpTitle').value;
+      const c_value = document.getElementById('cpValue').value;
+      const min_amt = document.getElementById('cpMin').value;
+      const cdate = document.getElementById('cpDate').value;
+
+      await fetch(`${API_BASE}/coupons/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ c_code, c_title, c_value, min_amt, cdate })
+      });
+      modalInstance.hide();
+      loadCoupons();
+    }
+
+    async function deleteCoupon(id) {
+      if (confirm('حذف الكوبون؟')) {
+        await fetch(`${API_BASE}/coupons/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadCoupons();
+      }
+    }
+
+    // 12. HOME SECTIONS
+    async function loadHomeSections() {
+      const res = await fetch(`${API_BASE}/home-sections`);
+      const data = await res.json();
+      const tbody = document.getElementById('homeSectionsTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.sections.forEach((s, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${s.title}</td>
+            <td>${s.catname || 'قسم'}</td>
+            <td>${s.subcat_name || 'قسم فرعي'}</td>
+            <td><button class="btn-action-delete" onclick="deleteHomeSection(${s.id})"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function showAddHomeSectionModal() {
+      const catsRes = await fetch(`${API_BASE}/categories`);
+      const cats = await catsRes.json();
+      let catOpts = cats.categories.map(c => `<option value="${c.id}">${c.catname}</option>`).join('');
+
+      document.getElementById('actionModalTitle').innerText = 'إضافة قسم واجهة رئيسية';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddHomeSection(event)">
+          <div class="mb-3"><label class="form-label fw-bold">العنوان (مثل: الأكثر شائعة)</label><input type="text" id="hsTitle" class="form-control" required></div>
+          <div class="mb-3"><label class="form-label fw-bold">القسم الرئيسي</label><select id="hsCat" class="form-select">${catOpts}</select></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ القسم</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddHomeSection(e) {
+      e.preventDefault();
+      const title = document.getElementById('hsTitle').value;
+      const cid = document.getElementById('hsCat').value;
+
+      await fetch(`${API_BASE}/home-sections/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, cid, sid: 1 })
+      });
+      modalInstance.hide();
+      loadHomeSections();
+    }
+
+    async function deleteHomeSection(id) {
+      if (confirm('حذف؟')) {
+        await fetch(`${API_BASE}/home-sections/delete`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ id })
+        });
+        loadHomeSections();
+      }
+    }
+
+    // 13. NOTIFICATIONS
+    async function loadNotifications() {
+      const res = await fetch(`${API_BASE}/notifications`);
+      const data = await res.json();
+      const tbody = document.getElementById('notificationsTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.notifications.forEach((n, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${n.title}</td>
+            <td>${n.msg}</td>
+            <td>${n.date}</td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById('sendNotificationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('notiTitle').value;
+      const msg = document.getElementById('notiMsg').value;
+      const img = document.getElementById('notiImg').value;
+
+      await fetch(`${API_BASE}/notifications/send`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, msg, img })
+      });
+      alert('تم إرسال الإشعار بنجاح!');
+      document.getElementById('sendNotificationForm').reset();
+      loadNotifications();
+    });
+
+    // 14. RATINGS
+    async function loadRatings() {
+      const res = await fetch(`${API_BASE}/ratings`);
+      const data = await res.json();
+      const tbody = document.getElementById('ratingsTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.ratings.forEach((r, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${r.user_name || 'عميل'}</td>
+            <td>#${r.oid || ''}</td>
+            <td class="text-warning"><i class="fa-solid fa-star"></i> ${r.total_star || 5}</td>
+            <td>${r.review || 'ممتاز'}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // 15. COUNTRY CODES
+    async function loadCountryCodes() {
+      const res = await fetch(`${API_BASE}/country-codes`);
+      const data = await res.json();
+      const tbody = document.getElementById('countryCodesTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.codes.forEach((c, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${c.ccode}</td>
+            <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-danger'}">${c.status == 1 ? 'Active' : 'Deactive'}</span></td>
+            <td><button class="btn btn-sm btn-outline-secondary" onclick="toggleCountryCodeStatus(${c.id}, ${c.status == 1 ? 0 : 1})">تبديل الحالة</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showAddCountryCodeModal() {
+      document.getElementById('actionModalTitle').innerText = 'إضافة كود دولة جديد';
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitAddCountryCode(event)">
+          <div class="mb-3"><label class="form-label fw-bold">كود الدولة (مثال: +966 أو +972)</label><input type="text" id="ccCode" class="form-control" required></div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold" style="background:#ff5e62">حفظ الكود</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitAddCountryCode(e) {
+      e.preventDefault();
+      const ccode = document.getElementById('ccCode').value;
+      await fetch(`${API_BASE}/country-codes/add`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ ccode })
+      });
+      modalInstance.hide();
+      loadCountryCodes();
+    }
+
+    async function toggleCountryCodeStatus(id, status) {
+      await fetch(`${API_BASE}/country-codes/status`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, status })
+      });
+      loadCountryCodes();
+    }
+
+    // 16. PAYMENT GATEWAYS
+    async function loadPaymentGateways() {
+      const res = await fetch(`${API_BASE}/payment-gateways`);
+      const data = await res.json();
+      const tbody = document.getElementById('paymentGatewaysTableBody');
+      tbody.innerHTML = '';
+      if (!data.success) return;
+
+      data.gateways.forEach((g, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="fw-bold">${g.title || g.name}</td>
+            <td><img src="${g.img}" height="35" class="rounded"></td>
+            <td>${g.cred_title || '-'}</td>
+            <td class="text-truncate" style="max-width:150px">${g.cred_value || '-'}</td>
+            <td><span class="badge ${g.status == 1 ? 'bg-success' : 'bg-secondary'}">${g.status == 1 ? 'Active' : 'Deactive'}</span></td>
+            <td><button class="btn-action-edit" onclick="showEditGatewayModal(${g.id}, '${g.title || g.name}', '${g.cred_title || ''}', '${g.cred_value || ''}', ${g.status})"><i class="fa-solid fa-pen-to-square"></i> Edit</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function showEditGatewayModal(id, title, credTitle, credValue, status) {
+      document.getElementById('actionModalTitle').innerText = `تعديل بوابة الدفع: ${title}`;
+      document.getElementById('actionModalBody').innerHTML = `
+        <form onsubmit="submitEditGateway(event, ${id})">
+          <div class="mb-3"><label class="form-label fw-bold">عنوان المفتاح Credential Title</label><input type="text" id="gwTitle" class="form-control" value="${credTitle}"></div>
+          <div class="mb-3"><label class="form-label fw-bold">قيمة المفتاح Credential Value</label><input type="text" id="gwVal" class="form-control" value="${credValue}"></div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">الحالة</label>
+            <select id="gwStatus" class="form-select">
+              <option value="1" ${status == 1 ? 'selected' : ''}>Active</option>
+              <option value="0" ${status == 0 ? 'selected' : ''}>Deactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 fw-bold">تحديث البيانات</button>
+        </form>
+      `;
+      modalInstance.show();
+    }
+
+    async function submitEditGateway(e, id) {
+      e.preventDefault();
+      const title = document.getElementById('gwTitle').value;
+      const cred_value = document.getElementById('gwVal').value;
+      const status = document.getElementById('gwStatus').value;
+
+      await fetch(`${API_BASE}/payment-gateways/update`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, title, cred_value, status })
+      });
+      modalInstance.hide();
+      loadPaymentGateways();
+    }
+
+    // 17. SYSTEM SETTINGS
+    async function loadSettings() {
+      const res = await fetch(`${API_BASE}/settings`);
+      const data = await res.json();
+      if (!data.success) return;
+      const s = data.settings;
+
+      document.getElementById('set_title').value = s.title || 'Azumaa Delivery';
+      document.getElementById('set_currency').value = s.currency || '$';
+      document.getElementById('set_timezone').value = s.timezone || 'Asia/Riyadh';
+      document.getElementById('set_o_min').value = s.o_min || 10;
+      document.getElementById('set_tax').value = s.tax || 5;
+      document.getElementById('set_one_key').value = s.one_key || '';
+      document.getElementById('set_one_hash').value = s.one_hash || '';
+      document.getElementById('set_r_key').value = s.r_key || '';
+      document.getElementById('set_r_hash').value = s.r_hash || '';
+    }
+
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('set_title').value;
+      const currency = document.getElementById('set_currency').value;
+      const timezone = document.getElementById('set_timezone').value;
+      const o_min = document.getElementById('set_o_min').value;
+      const tax = document.getElementById('set_tax').value;
+      const user_onesignal_app_id = document.getElementById('set_one_key').value;
+      const user_onesignal_rest_key = document.getElementById('set_one_hash').value;
+      const rider_onesignal_app_id = document.getElementById('set_r_key').value;
+      const rider_onesignal_rest_key = document.getElementById('set_r_hash').value;
+
+      await fetch(`${API_BASE}/settings/update`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, currency, timezone, o_min, tax, user_onesignal_app_id, user_onesignal_rest_key, rider_onesignal_app_id, rider_onesignal_rest_key })
+      });
+      alert('تم حفظ إعدادات النظام بنجاح!');
+    });
+
+    // 18. ADMIN PROFILE FORM
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('profUser').value;
+      const password = document.getElementById('profPass').value;
+
+      await fetch(`${API_BASE}/profile`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ username, password })
+      });
+      alert('تم تحديث اسم المستخدم وكلمة المرور للمدير بنجاح!');
+    });
   </script>
 </body>
 </html>
