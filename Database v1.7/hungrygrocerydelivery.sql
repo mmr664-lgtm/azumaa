@@ -347,7 +347,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `one_key`, `one_hash`, `r_key`, `r_hash`, `currency`, `privacy_policy`, `about_us`, `contact_us`, `o_min`, `timezone`, `tax`, `logo`, `favicon`, `title`, `terms`, `maintaince`, `signupcredit`, `refercredit`) VALUES
-(1, 'XXXX', 'XXXX', 'XXXX', 'XXXX', '₹', '<p>XXXXXXXXX</p>\r\n', '<p>XXXXXXXXX</p>\r\n', '<p>XXXXXXXXX</p>\r\n', 100, 'Asia/Kolkata', 5, 'website/thump_1597913295.png', 'website/thump_1597913294.png', 'Hungry Grocery v1.5.2', '<p>XXXXXXXXX</p>\r\n', 0, 5, 5);
+(1, 'XXXX', 'XXXX', 'XXXX', 'XXXX', '₹', '<p>XXXXXXXXX</p>\r\n', '<p>XXXXXXXXX</p>\r\n', '<p>XXXXXXXXX</p>\r\n', 100, 'Asia/Kolkata', 5, 'website/thump_1597913295.png', 'website/thump_1597913294.png', 'azumaa v1.5.2', '<p>XXXXXXXXX</p>\r\n', 0, 5, 5);
 
 -- --------------------------------------------------------
 

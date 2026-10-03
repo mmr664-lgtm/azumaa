@@ -58,10 +58,10 @@ def convert_mysql_to_postgres(mysql_sql_path, postgres_sql_path):
 
     with open(postgres_sql_path, 'w', encoding='utf-8') as f:
         f.write("-- Supabase PostgreSQL Migration File\n")
-        f.write("-- Converted from MySQL hungrygrocerydelivery.sql\n\n")
+        f.write("-- Converted from MySQL azumaadelivery.sql\n\n")
         f.write(final_sql)
 
     print("Updated supabase_schema.sql successfully.")
 
 if __name__ == '__main__':
-    convert_mysql_to_postgres('d:/azumaa/Database v1.7/hungrygrocerydelivery.sql', 'd:/azumaa/Database v1.7/supabase_schema.sql')
+    convert_mysql_to_postgres('d:/azumaa/Database v1.7/azumaadelivery.sql', 'd:/azumaa/Database v1.7/supabase_schema.sql')

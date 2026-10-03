@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClient {
     static Retrofit retrofit = null;
 
-    public static String baseUrl = "http://hungrygrocerydelivery.cscodetech.com/";
+    public static String baseUrl = "http://azumaadelivery.cscodetech.com/";
 
     public static final String APPEND_URL = "/rapi/";
 
