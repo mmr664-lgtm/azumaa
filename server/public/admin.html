@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم عزومة Azumaa Admin Panel</title>
+  <title>لوحة تحكم عزومة Azumaa Admin Panel - Dark Theme</title>
   <!-- Bootstrap 5 RTL -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- FontAwesome 6 -->
@@ -13,84 +13,133 @@
 
   <style>
     :root {
-      --sidebar-gradient: linear-gradient(180deg, #ff5e62 0%, #ff9966 100%);
-      --bg-body: #f4f6f9;
-      --card-border: #e9ecef;
-      --primary-orange: #ff5e62;
+      --bg-dark: #0f172a;        /* Main dark background */
+      --card-bg: #1e293b;        /* Card & table background */
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;        /* Indigo accent */
+      --primary-hover: #4f46e5;
+      --accent-green: #10b981;   /* Emerald green */
+      --accent-red: #ef4444;     /* Crimson red */
+      --accent-cyan: #06b6d4;    /* Cyan teal */
+      --accent-amber: #f59e0b;   /* Amber yellow */
+      --text-main: #f8fafc;      /* White text */
+      --text-muted: #94a3b8;     /* Muted slate text */
+      --input-bg: #0f172a;       /* Input background */
+      --input-border: rgba(255, 255, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: var(--bg-body);
-      color: #333333;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
       margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Flex Layout - Clean RTL Flow with Zero Overlap */
+    .app-wrapper {
+      display: flex;
+      width: 100vw;
       min-height: 100vh;
     }
 
     /* Sidebar Styling */
     .sidebar {
-      background: var(--sidebar-gradient);
-      min-height: 100vh;
-      color: #ffffff;
-      padding-top: 1rem;
-      padding-bottom: 2rem;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      width: 260px;
+      min-width: 260px;
+      background-color: var(--card-bg);
+      border-left: 1px solid var(--card-border);
+      height: 100vh;
       position: sticky;
       top: 0;
-      height: 100vh;
       overflow-y: auto;
+      flex-shrink: 0;
+      padding: 1.25rem 0.75rem;
+      z-index: 100;
     }
 
     .sidebar-brand {
-      padding: 1rem 1.5rem;
-      font-size: 1.35rem;
+      padding: 0.75rem 1rem;
+      font-size: 1.3rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.25);
+      color: var(--text-main);
+      border-bottom: 1px solid var(--card-border);
       margin-bottom: 1rem;
     }
 
+    .sidebar-brand i {
+      color: var(--primary);
+    }
+
     .sidebar .nav-link {
-      color: rgba(255, 255, 255, 0.95);
+      color: var(--text-muted);
       font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.75rem 1.5rem;
+      font-size: 0.92rem;
+      padding: 0.75rem 1rem;
       display: flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.2s ease-in-out;
+      border-radius: 10px;
+      margin-bottom: 0.35rem;
+      transition: all 0.2s ease;
     }
 
-    .sidebar .nav-link:hover, .sidebar .nav-link.active {
-      background: rgba(255, 255, 255, 0.25);
+    .sidebar .nav-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    .sidebar .nav-link.active {
+      background: var(--primary);
       color: #ffffff;
-      padding-right: 2rem;
-      font-weight: 800;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     }
 
-    /* Main Container & DataCards */
+    /* Main Content Area */
     .main-content {
-      padding: 1.8rem;
+      flex-grow: 1;
+      min-width: 0;
+      padding: 2rem;
+      background-color: var(--bg-dark);
     }
 
-    .data-card {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-      margin-bottom: 2rem;
+    /* Top Header */
+    .top-header {
+      background-color: var(--card-bg);
       border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
     }
 
-    .page-header-title {
-      font-size: 1.25rem;
+    /* Cards & Container */
+    .data-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-title {
+      font-size: 1.2rem;
       font-weight: 800;
-      color: #2c3e50;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 2px solid #e9ecef;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--card-border);
       padding-bottom: 0.75rem;
       margin-bottom: 1.5rem;
       display: flex;
@@ -98,117 +147,145 @@
       align-items: center;
     }
 
-    /* DataTables Layout Controls */
-    .dt-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .dt-search input {
-      border-radius: 4px;
-      border: 1px solid #ced4da;
-      padding: 0.4rem 0.75rem;
-    }
-
-    /* Table Styling matching PHP Screens */
+    /* Tables in Dark Mode */
     .table-custom {
       width: 100%;
+      color: var(--text-main);
       border-collapse: separate;
       border-spacing: 0;
     }
 
     .table-custom th {
-      background-color: #f8f9fa;
-      color: #495057;
+      background-color: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
       font-weight: 700;
-      padding: 0.85rem;
-      border-bottom: 2px solid #dee2e6;
+      padding: 1rem;
+      border-bottom: 1px solid var(--card-border);
       font-size: 0.88rem;
     }
 
     .table-custom td {
-      padding: 0.8rem 0.85rem;
+      padding: 0.9rem 1rem;
       vertical-align: middle;
-      border-bottom: 1px solid #e9ecef;
-      font-size: 0.88rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
     }
 
-    /* Stat Cards matching Screen 1 & 15 */
-    .stat-box {
-      background: #ffffff;
+    .table-custom tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Form Controls in Dark Mode */
+    .form-control, .form-select {
+      background-color: var(--input-bg);
+      color: var(--text-main);
+      border: 1px solid var(--input-border);
       border-radius: 10px;
-      padding: 1.25rem;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-      border-right: 5px solid #ff5e62;
-      transition: transform 0.2s;
+      padding: 0.65rem 1rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+      background-color: var(--input-bg);
+      color: var(--text-main);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+    }
+
+    .form-label {
+      color: var(--text-main);
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Stat Cards matching Dark Theme */
+    .stat-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.35rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
     }
 
     .stat-box:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
     .stat-title {
       font-size: 0.85rem;
-      color: #7f8c8d;
+      color: var(--text-muted);
       font-weight: 600;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.3rem;
     }
 
     .stat-value {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      color: #2c3e50;
+      color: var(--text-main);
     }
 
-    /* Buttons matching PHP Screenshots */
-    .btn-php-submit {
-      background: #007bff;
-      color: #fff;
-      font-weight: 700;
-      padding: 0.5rem 1.5rem;
-      border: none;
-      border-radius: 4px;
+    /* Dark Modals */
+    .modal-content {
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
     }
-    .btn-php-submit:hover { background: #0056b3; }
+
+    .modal-header {
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .btn-close {
+      filter: invert(1);
+    }
+
+    /* Action Buttons */
+    .btn-primary-dark {
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.25rem;
+      font-weight: 700;
+    }
+    .btn-primary-dark:hover { background-color: var(--primary-hover); }
 
     .btn-action-edit {
       background: transparent;
-      border: 1px solid #007bff;
-      color: #007bff;
-      border-radius: 4px;
-      padding: 3px 7px;
-      font-size: 0.82rem;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
     }
-    .btn-action-edit:hover { background: #007bff; color: #fff; }
+    .btn-action-edit:hover { background: var(--primary); color: #fff; }
 
     .btn-action-delete {
-      background: #e74c3c;
+      background: var(--accent-red);
       color: #fff;
       border: none;
-      border-radius: 4px;
-      padding: 3px 8px;
-      font-size: 0.82rem;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
     }
-    .btn-action-delete:hover { background: #c0392b; }
+    .btn-action-delete:hover { opacity: 0.9; }
 
-    .btn-action-cyan {
-      background: #17a2b8;
+    .btn-action-green {
+      background: var(--accent-green);
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 4px 10px;
       font-size: 0.85rem;
     }
 
-    .btn-action-green {
-      background: #20c997;
+    .btn-action-cyan {
+      background: var(--accent-cyan);
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 4px 10px;
       font-size: 0.85rem;
     }
@@ -217,8 +294,8 @@
     #loginOverlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(5px);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(8px);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -228,13 +305,13 @@
 </head>
 <body>
 
-  <!-- Login Modal Overlay -->
+  <!-- Login Modal Overlay (Dark Theme) -->
   <div id="loginOverlay">
-    <div class="card shadow-lg border-0 p-4" style="width: 420px; border-radius: 14px; background: #fff;">
+    <div class="card p-4 shadow-lg style-modal" style="width: 420px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--card-border);">
       <div class="text-center mb-4">
-        <i class="fa-solid fa-utensils text-danger display-4 mb-2"></i>
-        <h3 class="fw-bold text-dark">لوحة تحكم عزومة Azumaa</h3>
-        <p class="text-muted small">سجل الدخول لإدارة النظام الكامل</p>
+        <i class="fa-solid fa-utensils text-primary display-4 mb-2"></i>
+        <h3 class="fw-bold text-white">عزومة Azumaa Admin</h3>
+        <p class="text-muted small">تسجيل الدخول للوحة التحكم الداكنة</p>
       </div>
       <form id="loginForm">
         <div class="mb-3">
@@ -245,717 +322,581 @@
           <label class="form-label fw-bold">كلمة المرور (Password)</label>
           <input type="password" id="adminPass" class="form-control" value="1234567aA" required>
         </div>
-        <button type="submit" class="btn btn-danger w-100 py-2 fw-bold" style="background: #ff5e62; border:none;">تسجيل الدخول</button>
+        <button type="submit" class="btn btn-primary-dark w-100 py-2.5 fw-bold">تسجيل الدخول</button>
       </form>
     </div>
   </div>
 
-  <!-- Main Container -->
-  <div class="container-fluid">
-    <div class="row">
+  <!-- App Main Wrapper -->
+  <div class="app-wrapper" dir="rtl">
 
-      <!-- Left Sidebar (PHP Style) -->
-      <div class="col-md-3 col-lg-2 sidebar">
-        <div class="sidebar-brand">
-          <i class="fa-solid fa-store"></i>
-          <span>عزومة Azumaa</span>
+    <!-- Right Sidebar (Dark Theme RTL) -->
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fa-solid fa-bolt"></i>
+        <span>عزومة Azumaa</span>
+      </div>
+      <nav class="nav flex-column">
+        <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+        <a class="nav-link" href="#" onclick="showTab('category')"><i class="fa-solid fa-list-check"></i> Category</a>
+        <a class="nav-link" href="#" onclick="showTab('subcategory')"><i class="fa-solid fa-layer-group"></i> Sub Category</a>
+        <a class="nav-link" href="#" onclick="showTab('product')"><i class="fa-solid fa-basket-shopping"></i> Product</a>
+        <a class="nav-link" href="#" onclick="showTab('area')"><i class="fa-solid fa-map-location-dot"></i> Area</a>
+        <a class="nav-link" href="#" onclick="showTab('timeslot')"><i class="fa-solid fa-clock"></i> Timeslot</a>
+        <a class="nav-link" href="#" onclick="showTab('delivery-boy')"><i class="fa-solid fa-motorcycle"></i> Delivery Boy</a>
+        <a class="nav-link" href="#" onclick="showTab('banner')"><i class="fa-solid fa-image"></i> Banner</a>
+        <a class="nav-link" href="#" onclick="showTab('home-section')"><i class="fa-solid fa-table-cells-large"></i> Home Section</a>
+        <a class="nav-link" href="#" onclick="showTab('notification')"><i class="fa-solid fa-bell"></i> Notification</a>
+        <a class="nav-link" href="#" onclick="showTab('customer')"><i class="fa-solid fa-users"></i> Customer</a>
+        <a class="nav-link" href="#" onclick="showTab('pending-order')"><i class="fa-solid fa-box-open"></i> Pending Order</a>
+        <a class="nav-link" href="#" onclick="showTab('complete-order')"><i class="fa-solid fa-circle-check"></i> Complete Order</a>
+        <a class="nav-link" href="#" onclick="showTab('coupon')"><i class="fa-solid fa-ticket"></i> Coupon</a>
+        <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> Ratings & Feedback</a>
+        <a class="nav-link" href="#" onclick="showTab('country-code')"><i class="fa-solid fa-globe"></i> Country Code</a>
+        <a class="nav-link" href="#" onclick="showTab('payment-gateway')"><i class="fa-solid fa-credit-card"></i> Payment Gateway</a>
+        <a class="nav-link" href="#" onclick="showTab('setting')"><i class="fa-solid fa-gears"></i> Setting</a>
+        <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> Update Profile</a>
+        <a class="nav-link text-danger mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</a>
+      </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+      <!-- Top Header Bar -->
+      <div class="top-header">
+        <h4 class="fw-bold m-0 text-white" id="headerTitle">DASHBOARD OVERVIEW</h4>
+        <div class="d-flex align-items-center gap-3">
+          <span class="badge bg-primary px-3 py-2 fw-bold" style="border-radius: 8px;">Super Admin</span>
+          <button class="btn btn-outline-secondary btn-sm text-white border-secondary" onclick="logout()"><i class="fa-solid fa-sign-out"></i> خروج</button>
         </div>
-        <nav class="nav flex-column">
-          <a class="nav-link active" href="#" onclick="showTab('dashboard')"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-          <a class="nav-link" href="#" onclick="showTab('category')"><i class="fa-solid fa-list-check"></i> Category</a>
-          <a class="nav-link" href="#" onclick="showTab('subcategory')"><i class="fa-solid fa-layer-group"></i> Sub Category</a>
-          <a class="nav-link" href="#" onclick="showTab('product')"><i class="fa-solid fa-basket-shopping"></i> Product</a>
-          <a class="nav-link" href="#" onclick="showTab('area')"><i class="fa-solid fa-map-location-dot"></i> Area</a>
-          <a class="nav-link" href="#" onclick="showTab('timeslot')"><i class="fa-solid fa-clock"></i> Timeslot</a>
-          <a class="nav-link" href="#" onclick="showTab('delivery-boy')"><i class="fa-solid fa-motorcycle"></i> Delivery Boy</a>
-          <a class="nav-link" href="#" onclick="showTab('banner')"><i class="fa-solid fa-image"></i> Banner</a>
-          <a class="nav-link" href="#" onclick="showTab('home-section')"><i class="fa-solid fa-table-cells-large"></i> Home Section</a>
-          <a class="nav-link" href="#" onclick="showTab('notification')"><i class="fa-solid fa-bell"></i> Notification</a>
-          <a class="nav-link" href="#" onclick="showTab('customer')"><i class="fa-solid fa-users"></i> Customer</a>
-          <a class="nav-link" href="#" onclick="showTab('pending-order')"><i class="fa-solid fa-box-open"></i> Pending Order</a>
-          <a class="nav-link" href="#" onclick="showTab('complete-order')"><i class="fa-solid fa-circle-check"></i> Complete Order</a>
-          <a class="nav-link" href="#" onclick="showTab('coupon')"><i class="fa-solid fa-ticket"></i> Coupon</a>
-          <a class="nav-link" href="#" onclick="showTab('ratings')"><i class="fa-solid fa-star"></i> Ratings & Feedback</a>
-          <a class="nav-link" href="#" onclick="showTab('country-code')"><i class="fa-solid fa-globe"></i> Country Code</a>
-          <a class="nav-link" href="#" onclick="showTab('payment-gateway')"><i class="fa-solid fa-credit-card"></i> Payment Gateway</a>
-          <a class="nav-link" href="#" onclick="showTab('setting')"><i class="fa-solid fa-gears"></i> Setting</a>
-          <a class="nav-link" href="#" onclick="showTab('profile')"><i class="fa-solid fa-user-gear"></i> Update Profile</a>
-          <a class="nav-link text-warning mt-3" href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-        </nav>
       </div>
 
-      <!-- Right Main Content Area -->
-      <div class="col-md-9 col-lg-10 main-content">
+      <!-- 1. DASHBOARD -->
+      <div id="page-dashboard" class="page-view">
+        <div class="row g-3 mb-4" id="statsCardsGrid"></div>
+      </div>
 
-        <!-- Header Topbar -->
-        <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
-          <h4 class="fw-bold m-0 text-dark" id="headerTitle">DASHBOARD OVERVIEW</h4>
-          <div class="d-flex align-items-center gap-3">
-            <span class="badge bg-danger p-2" style="background:#ff5e62 !important;">Super Admin</span>
-            <button class="btn btn-outline-secondary btn-sm" onclick="logout()"><i class="fa-solid fa-sign-out"></i> Logout</button>
-          </div>
-        </div>
-
-        <!-- 1. DASHBOARD (SCREENS 1 & 15) -->
-        <div id="page-dashboard" class="page-view">
-          <div class="row g-3 mb-4" id="statsCardsGrid"></div>
-        </div>
-
-        <!-- 2. CATEGORY MODULE (SCREENS 7, 8, 9) -->
-        <div id="page-category" class="page-view d-none">
-          <!-- View 1: List -->
-          <div id="category-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>CATEGORY LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('category', 'add')"><i class="fa-solid fa-plus"></i> Add New Category</button>
-              </div>
-              <div class="dt-controls">
-                <div>Show <select class="form-select-sm d-inline-block style-select" style="width:70px"><option>10</option><option>25</option><option>50</option></select> entries</div>
-                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'categoryTable')"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="categoryTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Category Name</th><th>Person Image</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="categoryTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 7) -->
-          <div id="category-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD CATEGORY</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('category', 'list')">Category List</button>
-              </div>
-              <form onsubmit="submitCategory(event)">
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Category Name</label>
-                  <input type="text" id="cat_name_input" class="form-control" required placeholder="Enter Category Name">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Category Image (URL or Path)</label>
-                  <input type="text" id="cat_img_input" class="form-control" required placeholder="https://... or images/cat.png">
-                </div>
-                <button type="submit" class="btn btn-php-submit">Add Category</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. SUBCATEGORY MODULE (SCREENS 33 & 34) -->
-        <div id="page-subcategory" class="page-view d-none">
-          <!-- View 1: List (Screen 34) -->
-          <div id="subcategory-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>SUBCATEGORY LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('subcategory', 'add')"><i class="fa-solid fa-plus"></i> Add Sub Category</button>
-              </div>
-              <div class="dt-controls">
-                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'subcatTable')"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="subcatTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Category Name</th><th>SubCategory Name</th><th>SubCategory Image</th><th>Total Product</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="subcatTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 33) -->
-          <div id="subcategory-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD SUB CATEGORY</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('subcategory', 'list')">SubCategory List</button>
-              </div>
-              <form onsubmit="submitSubcategory(event)">
-                <div class="mb-3">
-                  <label class="form-label fw-bold">SELECT A CATEGORY</label>
-                  <select id="subcat_cat_select" class="form-select" required></select>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">SUBCATEGORY NAME</label>
-                  <input type="text" id="subcat_name_input" class="form-control" required placeholder="Enter Subcategory Name">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">SUBCATEGORY IMAGE</label>
-                  <input type="text" id="subcat_img_input" class="form-control" required placeholder="https://...">
-                </div>
-                <button type="submit" class="btn btn-php-submit">Add SubCategory</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. PRODUCT MODULE (SCREENS 28 & 29) -->
-        <div id="page-product" class="page-view d-none">
-          <!-- View 1: List (Screen 29) -->
-          <div id="product-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>PRODUCT LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('product', 'add')"><i class="fa-solid fa-plus"></i> Add Product</button>
-              </div>
-              <div class="dt-controls">
-                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'productTable')"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="productTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Product Name</th><th>Category Name</th><th>SubCategory Name</th><th>Product Description</th><th>Price</th><th>Stock</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="productTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 28) -->
-          <div id="product-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD PRODUCT</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('product', 'list')">Product List</button>
-              </div>
-              <form onsubmit="submitProduct(event)">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">PRODUCT NAME</label>
-                    <input type="text" id="p_name" class="form-control" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">SELLER NAME</label>
-                    <input type="text" id="p_sname" class="form-control" value="Azumaa Store">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">SELECT CATEGORY</label>
-                    <select id="p_cat" class="form-select" required></select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">SELECT SUBCATEGORY</label>
-                    <select id="p_subcat" class="form-select" required></select>
-                  </div>
-                  <div class="col-md-12">
-                    <label class="form-label fw-bold">SHORT DESCRIPTION</label>
-                    <textarea id="p_desc" class="form-control" rows="2"></textarea>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">PRODUCT PRICE (Types e.g. 1kg$;2kg)</label>
-                    <input type="text" id="p_gms" class="form-control" value="1kg" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">PRODUCT PRICE (Prices e.g. 10$;20)</label>
-                    <input type="text" id="p_price" class="form-control" value="10" required>
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-bold">STOCK QUANTITY</label>
-                    <input type="number" id="p_stock" class="form-control" value="100" required>
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-bold">DISCOUNT %</label>
-                    <input type="number" id="p_discount" class="form-control" value="0">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label fw-bold">MAIN IMAGE URL</label>
-                    <input type="text" id="p_img" class="form-control" required placeholder="https://...">
-                  </div>
-                  <div class="col-md-12 text-end mt-3">
-                    <button type="submit" class="btn btn-php-submit">Add Product</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. AREA MODULE (SCREENS 2 & 4) -->
-        <div id="page-area" class="page-view d-none">
-          <!-- View 1: List (Screen 4) -->
-          <div id="area-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>AREA LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('area', 'add')"><i class="fa-solid fa-plus"></i> Add Area</button>
-              </div>
-              <div class="dt-controls">
-                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'areaTable')"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="areaTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Area Name</th><th>Delivery Charge</th><th>Status</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="areaTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 2) -->
-          <div id="area-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD AREA</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('area', 'list')">Area List</button>
-              </div>
-              <form onsubmit="submitArea(event)">
-                <div class="mb-3">
-                  <label class="form-label fw-bold">AREA NAME</label>
-                  <input type="text" id="area_name_input" class="form-control" required placeholder="Enter Area Name">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">DELIVERY CHARGE (NUMBERS ONLY)</label>
-                  <input type="number" step="0.01" id="area_charge_input" class="form-control" required placeholder="Enter Delivery Charge">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">STATUS</label>
-                  <select id="area_status_input" class="form-select">
-                    <option value="Published">Published</option>
-                    <option value="Unpublished">Unpublished</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-php-submit">Add Area</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. TIMESLOT MODULE (SCREENS 35 & 36) -->
-        <div id="page-timeslot" class="page-view d-none">
-          <!-- View 1: List (Screen 36) -->
-          <div id="timeslot-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>TIMESLOT LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('timeslot', 'add')"><i class="fa-solid fa-plus"></i> Add Timeslot</button>
-              </div>
-              <div class="dt-controls">
-                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'timeslotTable')"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="timeslotTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Timeslot Min Time</th><th>Timeslot Max Time</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="timeslotTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 35) -->
-          <div id="timeslot-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD TIMESLOT</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('timeslot', 'list')">Timeslot List</button>
-              </div>
-              <form onsubmit="submitTimeslot(event)">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">MIN TIME (e.g. 09:00)</label>
-                    <input type="text" id="ts_min_input" class="form-control" required placeholder="09:00">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">MAX TIME (e.g. 10:30)</label>
-                    <input type="text" id="ts_max_input" class="form-control" required placeholder="10:30">
-                  </div>
-                  <div class="col-md-12 text-end">
-                    <button type="submit" class="btn btn-php-submit">Add Timeslot</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 7. DELIVERY BOY MODULE (SCREENS 16 & 17) -->
-        <div id="page-delivery-boy" class="page-view d-none">
-          <!-- View 1: List (Screen 17) -->
-          <div id="delivery-boy-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>DELIVERY BOY LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('delivery-boy', 'add')"><i class="fa-solid fa-plus"></i> Add Delivery Boy</button>
-              </div>
-              <div class="dt-controls">
-                <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-                <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'riderTable')"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="riderTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Name</th><th>Mobile</th><th>Email</th><th>Status</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="riderTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 16) -->
-          <div id="delivery-boy-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD DELIVERY BOY</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('delivery-boy', 'list')">Delivery Boy List</button>
-              </div>
-              <form onsubmit="submitRider(event)">
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">DELIVERY BOY NAME</label>
-                    <input type="text" id="r_name_input" class="form-control" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">DELIVERY BOY MOBILE (NUMBERS ONLY)</label>
-                    <input type="text" id="r_mobile_input" class="form-control" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">DELIVERY BOY EMAIL</label>
-                    <input type="email" id="r_email_input" class="form-control" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">DELIVERY BOY PASSWORD</label>
-                    <input type="password" id="r_pass_input" class="form-control" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">DELIVERY BOY AREA</label>
-                    <select id="r_area_select" class="form-select"></select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-bold">DELIVERY BOY ADDRESS</label>
-                    <input type="text" id="r_address_input" class="form-control">
-                  </div>
-                  <div class="col-md-12 text-end">
-                    <button type="submit" class="btn btn-php-submit">Add Delivery Boy</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 8. BANNER MODULE -->
-        <div id="page-banner" class="page-view d-none">
-          <div class="data-card mb-4">
-            <div class="page-header-title"><span>ADD BANNER</span></div>
-            <form onsubmit="submitBanner(event)">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">BANNER IMAGE URL</label>
-                  <input type="text" id="b_img_input" class="form-control" required placeholder="https://...">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold">SELECT CATEGORY (OPTIONAL)</label>
-                  <select id="b_cat_select" class="form-select"></select>
-                </div>
-                <div class="col-md-12 text-end">
-                  <button type="submit" class="btn btn-php-submit">Add Banner</button>
-                </div>
-              </div>
-            </form>
-          </div>
+      <!-- 2. CATEGORY MODULE -->
+      <div id="page-category" class="page-view d-none">
+        <div id="category-list-view">
           <div class="data-card">
-            <div class="page-header-title"><span>BANNER LIST</span></div>
+            <div class="page-title">
+              <span>CATEGORY LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('category', 'add')"><i class="fa-solid fa-plus"></i> Add New Category</button>
+            </div>
+            <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap gap-2">
+              <div>إظهار <select class="form-select-sm d-inline-block style-select" style="width:70px"><option>10</option><option>25</option></select> مدخلات</div>
+              <div>بحث: <input type="text" class="form-control-sm d-inline-block" style="width:200px" onkeyup="filterTable(this, 'categoryTable')"></div>
+            </div>
             <div class="table-responsive">
-              <table class="table table-custom align-middle" id="bannerTable">
-                <thead><tr><th>Sr No.</th><th>Banner Image</th><th>Category Name</th><th>Action</th></tr></thead>
-                <tbody id="bannerTableBody"></tbody>
+              <table class="table table-custom align-middle" id="categoryTable">
+                <thead><tr><th>#</th><th>Category Name</th><th>Person Image</th><th>Action</th></tr></thead>
+                <tbody id="categoryTableBody"></tbody>
               </table>
             </div>
           </div>
         </div>
-
-        <!-- 9. HOME SECTION MODULE (SCREENS 19 & 20) -->
-        <div id="page-home-section" class="page-view d-none">
-          <!-- View 1: List (Screen 20) -->
-          <div id="home-section-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>HOME SECTION LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('home-section', 'add')"><i class="fa-solid fa-plus"></i> Add Home Section</button>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="homeSectionTable">
-                  <thead><tr><th>Sr No.</th><th>Title</th><th>Category Name</th><th>SubCategory Name</th><th>Status</th><th>Action</th></tr></thead>
-                  <tbody id="homeSectionTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 19) -->
-          <div id="home-section-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD HOME SECTION</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('home-section', 'list')">Home Section List</button>
-              </div>
-              <form onsubmit="submitHomeSection(event)">
-                <div class="mb-3"><label class="form-label fw-bold">SECTION TITLE</label><input type="text" id="hs_title_input" class="form-control" required placeholder="e.g. Popular Products"></div>
-                <div class="mb-3"><label class="form-label fw-bold">SELECT CATEGORY</label><select id="hs_cat_select" class="form-select" required></select></div>
-                <div class="mb-3"><label class="form-label fw-bold">SELECT SUBCATEGORY</label><select id="hs_subcat_select" class="form-select" required></select></div>
-                <button type="submit" class="btn btn-php-submit">Add Home Section</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 10. NOTIFICATION MODULE (SCREENS 22 & 23) -->
-        <div id="page-notification" class="page-view d-none">
-          <!-- View 1: List (Screen 23) -->
-          <div id="notification-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>NOTIFICATION LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('notification', 'add')"><i class="fa-solid fa-plus"></i> Add Notification</button>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="notificationTable">
-                  <thead><tr><th>Sr No.</th><th>Title</th><th>Message</th><th>Date</th><th>Action</th></tr></thead>
-                  <tbody id="notificationTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 22) -->
-          <div id="notification-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD NOTIFICATION</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('notification', 'list')">Notification List</button>
-              </div>
-              <form onsubmit="submitNotification(event)">
-                <div class="mb-3"><label class="form-label fw-bold">TITLE</label><input type="text" id="n_title_input" class="form-control" required placeholder="Enter Title"></div>
-                <div class="mb-3"><label class="form-label fw-bold">MESSAGE</label><textarea id="n_msg_input" class="form-control" rows="3" required placeholder="Enter Message"></textarea></div>
-                <div class="mb-3"><label class="form-label fw-bold">IMAGE URL (OPTIONAL)</label><input type="text" id="n_img_input" class="form-control" placeholder="https://..."></div>
-                <button type="submit" class="btn btn-php-submit">Send Notification</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 11. CUSTOMER MODULE (SCREENS 37 & 38) -->
-        <div id="page-customer" class="page-view d-none">
+        <div id="category-add-view" class="d-none">
           <div class="data-card">
-            <div class="page-header-title"><span>USER LIST</span></div>
-            <div class="dt-controls">
-              <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-              <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'userTable')"></div>
+            <div class="page-title">
+              <span>ADD CATEGORY</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('category', 'list')">Category List</button>
             </div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="userTable">
-                <thead>
-                  <tr><th>Sr No.</th><th>Name</th><th>Email</th><th>Country Code</th><th>Mobile</th><th>password</th><th>Current_Status</th><th>Wallet Balance</th><th>Status</th><th>Action</th></tr>
-                </thead>
-                <tbody id="userTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- 12. PENDING ORDER MODULE (SCREENS 5 & 10 & 24) -->
-        <div id="page-pending-order" class="page-view d-none">
-          <div class="data-card">
-            <div class="page-header-title"><span>PENDING ORDER LIST</span></div>
-            <div class="dt-controls">
-              <div>Show <select class="form-select-sm d-inline-block" style="width:70px"><option>10</option></select> entries</div>
-              <div class="dt-search">Search: <input type="text" onkeyup="filterTable(this, 'pendingTable')"></div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="pendingTable">
-                <thead>
-                  <tr><th>Sr No.</th><th>Date</th><th>Order ID</th><th>Delivery Boy Name</th><th>Delivery Boy Assign Status</th><th>Delivery Boy Delivery Status</th><th>Status</th><th>Preview</th><th>Assign?</th><th>Action</th></tr>
-                </thead>
-                <tbody id="pendingTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- 13. COMPLETE ORDER MODULE -->
-        <div id="page-complete-order" class="page-view d-none">
-          <div class="data-card">
-            <div class="page-header-title"><span>COMPLETE ORDER LIST</span></div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="completeTable">
-                <thead>
-                  <tr><th>Sr No.</th><th>Date</th><th>Order ID</th><th>Customer Name</th><th>Delivery Boy Name</th><th>Total Amount</th><th>Customer Sign</th><th>Status</th><th>Preview</th></tr>
-                </thead>
-                <tbody id="completeTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- 14. COUPON MODULE (SCREENS 6 & 21) -->
-        <div id="page-coupon" class="page-view d-none">
-          <!-- View 1: List (Screen 21) -->
-          <div id="coupon-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>COUPON LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('coupon', 'add')"><i class="fa-solid fa-plus"></i> Add Coupon</button>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="couponTable">
-                  <thead>
-                    <tr><th>Sr No.</th><th>Coupon Image</th><th>Coupon Code</th><th>Coupon Title</th><th>Min Order Amount</th><th>Discount Value</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr>
-                  </thead>
-                  <tbody id="couponTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 6) -->
-          <div id="coupon-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD COUPON</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('coupon', 'list')">Coupon List</button>
-              </div>
-              <form onsubmit="submitCoupon(event)">
-                <div class="row g-3">
-                  <div class="col-md-6"><label class="form-label fw-bold">COUPON CODE</label><input type="text" id="cp_code_input" class="form-control" required placeholder="e.g. AZUMAA50"></div>
-                  <div class="col-md-6"><label class="form-label fw-bold">COUPON TITLE</label><input type="text" id="cp_title_input" class="form-control" required placeholder="Title"></div>
-                  <div class="col-md-6"><label class="form-label fw-bold">DISCOUNT VALUE</label><input type="number" id="cp_val_input" class="form-control" required placeholder="10"></div>
-                  <div class="col-md-6"><label class="form-label fw-bold">MIN ORDER AMOUNT</label><input type="number" id="cp_min_input" class="form-control" required placeholder="50"></div>
-                  <div class="col-md-6"><label class="form-label fw-bold">EXPIRY DATE</label><input type="date" id="cp_date_input" class="form-control" required></div>
-                  <div class="col-md-6"><label class="form-label fw-bold">COUPON IMAGE URL</label><input type="text" id="cp_img_input" class="form-control" placeholder="https://..."></div>
-                  <div class="col-md-12"><label class="form-label fw-bold">COUPON DESCRIPTION</label><textarea id="cp_desc_input" class="form-control" rows="3"></textarea></div>
-                  <div class="col-md-12 text-end"><button type="submit" class="btn btn-php-submit">Add Coupon</button></div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 15. RATINGS & FEEDBACK (SCREENS 14 & 18) -->
-        <div id="page-ratings" class="page-view d-none">
-          <div class="data-card mb-4">
-            <div class="page-header-title"><span>ORDER RATE LIST (Screen 14)</span></div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="rateTable">
-                <thead><tr><th>Sr No.</th><th>Customer Name</th><th>Rate Star</th><th>Comment</th><th>Action</th></tr></thead>
-                <tbody id="rateTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="data-card">
-            <div class="page-header-title"><span>FEEDBACK LIST (Screen 18)</span></div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="feedbackTable">
-                <thead><tr><th>Sr No.</th><th>Mobile</th><th>Rate Star</th><th>Feedback Text</th><th>Action</th></tr></thead>
-                <tbody id="feedbackTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- 16. COUNTRY CODE MODULE (SCREENS 12 & 13) -->
-        <div id="page-country-code" class="page-view d-none">
-          <!-- View 1: List (Screen 13) -->
-          <div id="country-code-list-view">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>COUNTRY CODE LIST</span>
-                <button class="btn btn-sm btn-primary" onclick="showSubView('country-code', 'add')"><i class="fa-solid fa-plus"></i> Add Country Code</button>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-custom align-middle" id="ccTable">
-                  <thead><tr><th>Sr No.</th><th>Country Code</th><th>Status</th><th>Action</th></tr></thead>
-                  <tbody id="ccTableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- View 2: Add Form (Screen 12) -->
-          <div id="country-code-add-view" class="d-none">
-            <div class="data-card">
-              <div class="page-header-title">
-                <span>ADD COUNTRY CODE</span>
-                <button class="btn btn-sm btn-secondary" onclick="showSubView('country-code', 'list')">Country Code List</button>
-              </div>
-              <form onsubmit="submitCountryCode(event)">
-                <div class="mb-3">
-                  <label class="form-label fw-bold">LINK COUNTRY CODE (e.g. +966, +91)</label>
-                  <input type="text" id="cc_code_input" class="form-control" required placeholder="+966">
-                </div>
-                <button type="submit" class="btn btn-php-submit">Add Country Code</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- 17. PAYMENT GATEWAY MODULE (SCREENS 26 & 27) -->
-        <div id="page-payment-gateway" class="page-view d-none">
-          <div class="data-card">
-            <div class="page-header-title"><span>PAYMENT GATEWAY LIST</span></div>
-            <div class="table-responsive">
-              <table class="table table-custom align-middle" id="gwTable">
-                <thead><tr><th>Sr No.</th><th>Payment Gateway Name</th><th>Pay.Gateway Image</th><th>credintals Title</th><th>credintals Value</th><th>Current Status</th><th>Action</th></tr></thead>
-                <tbody id="gwTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- 18. SETTING MODULE (SCREEN 32) -->
-        <div id="page-setting" class="page-view d-none">
-          <div class="data-card">
-            <div class="page-header-title"><span>UPDATE SETTING</span></div>
-            <form onsubmit="submitSetting(event)">
-              <div class="row g-3">
-                <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL APP ID</label><input type="text" id="s_one_key" class="form-control"></div>
-                <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL REST API KEY</label><input type="text" id="s_one_hash" class="form-control"></div>
-                <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL APP ID</label><input type="text" id="s_r_key" class="form-control"></div>
-                <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL REST API KEY</label><input type="text" id="s_r_hash" class="form-control"></div>
-                <div class="col-md-3"><label class="form-label fw-bold">CURRENCY</label><input type="text" id="s_currency" class="form-control" value="$"></div>
-                <div class="col-md-3"><label class="form-label fw-bold">MIN ORDER PRICE</label><input type="number" id="s_o_min" class="form-control" value="10"></div>
-                <div class="col-md-3"><label class="form-label fw-bold">TAX %</label><input type="number" id="s_tax" class="form-control" value="5"></div>
-                <div class="col-md-3"><label class="form-label fw-bold">TIMEZONE</label><input type="text" id="s_timezone" class="form-control" value="Asia/Riyadh"></div>
-                <div class="col-md-6"><label class="form-label fw-bold">WEBSITE TITLE</label><input type="text" id="s_title" class="form-control" value="Azumaa Delivery"></div>
-                <div class="col-md-6"><label class="form-label fw-bold">LOGO URL</label><input type="text" id="s_logo" class="form-control" placeholder="https://..."></div>
-                <div class="col-md-12 text-end mt-4"><button type="submit" class="btn btn-php-submit">Save Settings</button></div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- 19. PROFILE MODULE (SCREENS 30 & 31) -->
-        <div id="page-profile" class="page-view d-none">
-          <div class="data-card style-form-card" style="max-width: 550px;">
-            <div class="page-header-title"><span>UPDATE PROFILE</span></div>
-            <form onsubmit="submitProfile(event)">
+            <form onsubmit="submitCategory(event)">
               <div class="mb-3">
-                <label class="form-label fw-bold">USERNAME</label>
-                <input type="text" id="prof_user" class="form-control" value="admin" required>
+                <label class="form-label fw-bold">Category Name</label>
+                <input type="text" id="cat_name_input" class="form-control" required placeholder="Enter Category Name">
               </div>
-              <div class="mb-4">
-                <label class="form-label fw-bold">PASSWORD</label>
-                <input type="password" id="prof_pass" class="form-control" required placeholder="Enter new password">
+              <div class="mb-3">
+                <label class="form-label fw-bold">Category Image (URL or Path)</label>
+                <input type="text" id="cat_img_input" class="form-control" required placeholder="https://... or images/cat.png">
               </div>
-              <button type="submit" class="btn btn-php-submit">Update Profile</button>
+              <button type="submit" class="btn btn-primary-dark">Add Category</button>
             </form>
           </div>
         </div>
-
       </div>
+
+      <!-- 3. SUBCATEGORY MODULE -->
+      <div id="page-subcategory" class="page-view d-none">
+        <div id="subcategory-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>SUBCATEGORY LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('subcategory', 'add')"><i class="fa-solid fa-plus"></i> Add Sub Category</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="subcatTable">
+                <thead><tr><th>#</th><th>Category Name</th><th>SubCategory Name</th><th>Image</th><th>Total Product</th><th>Action</th></tr></thead>
+                <tbody id="subcatTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="subcategory-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD SUB CATEGORY</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('subcategory', 'list')">SubCategory List</button>
+            </div>
+            <form onsubmit="submitSubcategory(event)">
+              <div class="mb-3">
+                <label class="form-label fw-bold">SELECT A CATEGORY</label>
+                <select id="subcat_cat_select" class="form-select" required></select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">SUBCATEGORY NAME</label>
+                <input type="text" id="subcat_name_input" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">SUBCATEGORY IMAGE</label>
+                <input type="text" id="subcat_img_input" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary-dark">Add SubCategory</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. PRODUCT MODULE -->
+      <div id="page-product" class="page-view d-none">
+        <div id="product-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>PRODUCT LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('product', 'add')"><i class="fa-solid fa-plus"></i> Add Product</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="productTable">
+                <thead><tr><th>#</th><th>Product Name</th><th>Category</th><th>SubCategory</th><th>Description</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
+                <tbody id="productTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="product-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD PRODUCT</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('product', 'list')">Product List</button>
+            </div>
+            <form onsubmit="submitProduct(event)">
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold">PRODUCT NAME</label><input type="text" id="p_name" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">SELLER NAME</label><input type="text" id="p_sname" class="form-control" value="Azumaa Store"></div>
+                <div class="col-md-6"><label class="form-label fw-bold">SELECT CATEGORY</label><select id="p_cat" class="form-select" required></select></div>
+                <div class="col-md-6"><label class="form-label fw-bold">SELECT SUBCATEGORY</label><select id="p_subcat" class="form-select" required></select></div>
+                <div class="col-md-12"><label class="form-label fw-bold">SHORT DESCRIPTION</label><textarea id="p_desc" class="form-control" rows="2"></textarea></div>
+                <div class="col-md-6"><label class="form-label fw-bold">PRICE TYPES (e.g. 1kg$;2kg)</label><input type="text" id="p_gms" class="form-control" value="1kg" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">PRICES (e.g. 10$;20)</label><input type="text" id="p_price" class="form-control" value="10" required></div>
+                <div class="col-md-4"><label class="form-label fw-bold">STOCK QUANTITY</label><input type="number" id="p_stock" class="form-control" value="100" required></div>
+                <div class="col-md-4"><label class="form-label fw-bold">DISCOUNT %</label><input type="number" id="p_discount" class="form-control" value="0"></div>
+                <div class="col-md-4"><label class="form-label fw-bold">MAIN IMAGE URL</label><input type="text" id="p_img" class="form-control" required></div>
+                <div class="col-md-12 text-end mt-3"><button type="submit" class="btn btn-primary-dark">Add Product</button></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. AREA MODULE -->
+      <div id="page-area" class="page-view d-none">
+        <div id="area-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>AREA LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('area', 'add')"><i class="fa-solid fa-plus"></i> Add Area</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="areaTable">
+                <thead><tr><th>#</th><th>Area Name</th><th>Delivery Charge</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="areaTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="area-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD AREA</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('area', 'list')">Area List</button>
+            </div>
+            <form onsubmit="submitArea(event)">
+              <div class="mb-3"><label class="form-label fw-bold">AREA NAME</label><input type="text" id="area_name_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">DELIVERY CHARGE</label><input type="number" step="0.01" id="area_charge_input" class="form-control" required></div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">STATUS</label>
+                <select id="area_status_input" class="form-select">
+                  <option value="Published">Published</option>
+                  <option value="Unpublished">Unpublished</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary-dark">Add Area</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. TIMESLOT MODULE -->
+      <div id="page-timeslot" class="page-view d-none">
+        <div id="timeslot-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>TIMESLOT LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('timeslot', 'add')"><i class="fa-solid fa-plus"></i> Add Timeslot</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="timeslotTable">
+                <thead><tr><th>#</th><th>Timeslot Min Time</th><th>Timeslot Max Time</th><th>Action</th></tr></thead>
+                <tbody id="timeslotTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="timeslot-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD TIMESLOT</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('timeslot', 'list')">Timeslot List</button>
+            </div>
+            <form onsubmit="submitTimeslot(event)">
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold">MIN TIME (e.g. 09:00)</label><input type="text" id="ts_min_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">MAX TIME (e.g. 10:30)</label><input type="text" id="ts_max_input" class="form-control" required></div>
+                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Timeslot</button></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. DELIVERY BOY MODULE -->
+      <div id="page-delivery-boy" class="page-view d-none">
+        <div id="delivery-boy-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>DELIVERY BOY LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('delivery-boy', 'add')"><i class="fa-solid fa-plus"></i> Add Delivery Boy</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="riderTable">
+                <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Email</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="riderTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="delivery-boy-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD DELIVERY BOY</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('delivery-boy', 'list')">Delivery Boy List</button>
+            </div>
+            <form onsubmit="submitRider(event)">
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY NAME</label><input type="text" id="r_name_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY MOBILE</label><input type="text" id="r_mobile_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY EMAIL</label><input type="email" id="r_email_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY PASSWORD</label><input type="password" id="r_pass_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY AREA</label><select id="r_area_select" class="form-select"></select></div>
+                <div class="col-md-6"><label class="form-label fw-bold">DELIVERY BOY ADDRESS</label><input type="text" id="r_address_input" class="form-control"></div>
+                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Delivery Boy</button></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. BANNER MODULE -->
+      <div id="page-banner" class="page-view d-none">
+        <div class="data-card mb-4">
+          <div class="page-title"><span>ADD BANNER</span></div>
+          <form onsubmit="submitBanner(event)">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label fw-bold">BANNER IMAGE URL</label><input type="text" id="b_img_input" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label fw-bold">SELECT CATEGORY (OPTIONAL)</label><select id="b_cat_select" class="form-select"></select></div>
+              <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Banner</button></div>
+            </div>
+          </form>
+        </div>
+        <div class="data-card">
+          <div class="page-title"><span>BANNER LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="bannerTable">
+              <thead><tr><th>#</th><th>Banner Image</th><th>Category Name</th><th>Action</th></tr></thead>
+              <tbody id="bannerTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. HOME SECTION MODULE -->
+      <div id="page-home-section" class="page-view d-none">
+        <div id="home-section-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>HOME SECTION LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('home-section', 'add')"><i class="fa-solid fa-plus"></i> Add Home Section</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="homeSectionTable">
+                <thead><tr><th>#</th><th>Title</th><th>Category Name</th><th>SubCategory Name</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="homeSectionTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="home-section-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD HOME SECTION</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('home-section', 'list')">Home Section List</button>
+            </div>
+            <form onsubmit="submitHomeSection(event)">
+              <div class="mb-3"><label class="form-label fw-bold">SECTION TITLE</label><input type="text" id="hs_title_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">SELECT CATEGORY</label><select id="hs_cat_select" class="form-select" required></select></div>
+              <div class="mb-3"><label class="form-label fw-bold">SELECT SUBCATEGORY</label><select id="hs_subcat_select" class="form-select" required></select></div>
+              <button type="submit" class="btn btn-primary-dark">Add Home Section</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. NOTIFICATION MODULE -->
+      <div id="page-notification" class="page-view d-none">
+        <div id="notification-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>NOTIFICATION LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('notification', 'add')"><i class="fa-solid fa-plus"></i> Add Notification</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="notificationTable">
+                <thead><tr><th>#</th><th>Title</th><th>Message</th><th>Date</th><th>Action</th></tr></thead>
+                <tbody id="notificationTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="notification-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD NOTIFICATION</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('notification', 'list')">Notification List</button>
+            </div>
+            <form onsubmit="submitNotification(event)">
+              <div class="mb-3"><label class="form-label fw-bold">TITLE</label><input type="text" id="n_title_input" class="form-control" required></div>
+              <div class="mb-3"><label class="form-label fw-bold">MESSAGE</label><textarea id="n_msg_input" class="form-control" rows="3" required></textarea></div>
+              <div class="mb-3"><label class="form-label fw-bold">IMAGE URL (OPTIONAL)</label><input type="text" id="n_img_input" class="form-control"></div>
+              <button type="submit" class="btn btn-primary-dark">Send Notification</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. CUSTOMER MODULE -->
+      <div id="page-customer" class="page-view d-none">
+        <div class="data-card">
+          <div class="page-title"><span>USER LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="userTable">
+              <thead>
+                <tr><th>#</th><th>Name</th><th>Email</th><th>Country Code</th><th>Mobile</th><th>password</th><th>Current_Status</th><th>Wallet Balance</th><th>Status</th><th>Action</th></tr>
+              </thead>
+              <tbody id="userTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. PENDING ORDER MODULE -->
+      <div id="page-pending-order" class="page-view d-none">
+        <div class="data-card">
+          <div class="page-title"><span>PENDING ORDER LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="pendingTable">
+              <thead>
+                <tr><th>#</th><th>Date</th><th>Order ID</th><th>Delivery Boy Name</th><th>Assign Status</th><th>Delivery Status</th><th>Status</th><th>Preview</th><th>Assign?</th><th>Action</th></tr>
+              </thead>
+              <tbody id="pendingTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13. COMPLETE ORDER MODULE -->
+      <div id="page-complete-order" class="page-view d-none">
+        <div class="data-card">
+          <div class="page-title"><span>COMPLETE ORDER LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="completeTable">
+              <thead>
+                <tr><th>#</th><th>Date</th><th>Order ID</th><th>Customer Name</th><th>Delivery Boy Name</th><th>Total Amount</th><th>Customer Sign</th><th>Status</th><th>Preview</th></tr>
+              </thead>
+              <tbody id="completeTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14. COUPON MODULE -->
+      <div id="page-coupon" class="page-view d-none">
+        <div id="coupon-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>COUPON LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('coupon', 'add')"><i class="fa-solid fa-plus"></i> Add Coupon</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="couponTable">
+                <thead>
+                  <tr><th>#</th><th>Coupon Image</th><th>Coupon Code</th><th>Coupon Title</th><th>Min Order Amount</th><th>Discount Value</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody id="couponTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="coupon-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD COUPON</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('coupon', 'list')">Coupon List</button>
+            </div>
+            <form onsubmit="submitCoupon(event)">
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label fw-bold">COUPON CODE</label><input type="text" id="cp_code_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">COUPON TITLE</label><input type="text" id="cp_title_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">DISCOUNT VALUE</label><input type="number" id="cp_val_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">MIN ORDER AMOUNT</label><input type="number" id="cp_min_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">EXPIRY DATE</label><input type="date" id="cp_date_input" class="form-control" required></div>
+                <div class="col-md-6"><label class="form-label fw-bold">COUPON IMAGE URL</label><input type="text" id="cp_img_input" class="form-control"></div>
+                <div class="col-md-12"><label class="form-label fw-bold">COUPON DESCRIPTION</label><textarea id="cp_desc_input" class="form-control" rows="3"></textarea></div>
+                <div class="col-md-12 text-end"><button type="submit" class="btn btn-primary-dark">Add Coupon</button></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15. RATINGS & FEEDBACK -->
+      <div id="page-ratings" class="page-view d-none">
+        <div class="data-card mb-4">
+          <div class="page-title"><span>ORDER RATE LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="rateTable">
+              <thead><tr><th>#</th><th>Customer Name</th><th>Rate Star</th><th>Comment</th><th>Action</th></tr></thead>
+              <tbody id="rateTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="page-title"><span>FEEDBACK LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="feedbackTable">
+              <thead><tr><th>#</th><th>Mobile</th><th>Rate Star</th><th>Feedback Text</th><th>Action</th></tr></thead>
+              <tbody id="feedbackTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16. COUNTRY CODE MODULE -->
+      <div id="page-country-code" class="page-view d-none">
+        <div id="country-code-list-view">
+          <div class="data-card">
+            <div class="page-title">
+              <span>COUNTRY CODE LIST</span>
+              <button class="btn btn-primary-dark btn-sm" onclick="showSubView('country-code', 'add')"><i class="fa-solid fa-plus"></i> Add Country Code</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-custom align-middle" id="ccTable">
+                <thead><tr><th>#</th><th>Country Code</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="ccTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="country-code-add-view" class="d-none">
+          <div class="data-card">
+            <div class="page-title">
+              <span>ADD COUNTRY CODE</span>
+              <button class="btn btn-outline-secondary btn-sm text-white" onclick="showSubView('country-code', 'list')">Country Code List</button>
+            </div>
+            <form onsubmit="submitCountryCode(event)">
+              <div class="mb-3">
+                <label class="form-label fw-bold">LINK COUNTRY CODE (e.g. +966)</label>
+                <input type="text" id="cc_code_input" class="form-control" required placeholder="+966">
+              </div>
+              <button type="submit" class="btn btn-primary-dark">Add Country Code</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17. PAYMENT GATEWAY MODULE -->
+      <div id="page-payment-gateway" class="page-view d-none">
+        <div class="data-card">
+          <div class="page-title"><span>PAYMENT GATEWAY LIST</span></div>
+          <div class="table-responsive">
+            <table class="table table-custom align-middle" id="gwTable">
+              <thead><tr><th>#</th><th>Payment Gateway Name</th><th>Image</th><th>credintals Title</th><th>credintals Value</th><th>Current Status</th><th>Action</th></tr></thead>
+              <tbody id="gwTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18. SETTING MODULE -->
+      <div id="page-setting" class="page-view d-none">
+        <div class="data-card">
+          <div class="page-title"><span>UPDATE SETTING</span></div>
+          <form onsubmit="submitSetting(event)">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL APP ID</label><input type="text" id="s_one_key" class="form-control"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">USER ONESIGNAL REST API KEY</label><input type="text" id="s_one_hash" class="form-control"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL APP ID</label><input type="text" id="s_r_key" class="form-control"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">RIDER ONESIGNAL REST API KEY</label><input type="text" id="s_r_hash" class="form-control"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">CURRENCY</label><input type="text" id="s_currency" class="form-control" value="$"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">MIN ORDER PRICE</label><input type="number" id="s_o_min" class="form-control" value="10"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">TAX %</label><input type="number" id="s_tax" class="form-control" value="5"></div>
+              <div class="col-md-3"><label class="form-label fw-bold">TIMEZONE</label><input type="text" id="s_timezone" class="form-control" value="Asia/Riyadh"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">WEBSITE TITLE</label><input type="text" id="s_title" class="form-control" value="Azumaa Delivery"></div>
+              <div class="col-md-6"><label class="form-label fw-bold">LOGO URL</label><input type="text" id="s_logo" class="form-control"></div>
+              <div class="col-md-12 text-end mt-4"><button type="submit" class="btn btn-primary-dark">Save Settings</button></div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 19. PROFILE MODULE -->
+      <div id="page-profile" class="page-view d-none">
+        <div class="data-card style-form-card" style="max-width: 550px;">
+          <div class="page-title"><span>UPDATE PROFILE</span></div>
+          <form onsubmit="submitProfile(event)">
+            <div class="mb-3">
+              <label class="form-label fw-bold">USERNAME</label>
+              <input type="text" id="prof_user" class="form-control" value="admin" required>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-bold">PASSWORD</label>
+              <input type="password" id="prof_pass" class="form-control" required placeholder="Enter new password">
+            </div>
+            <button type="submit" class="btn btn-primary-dark w-100">Update Profile</button>
+          </form>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Shared Action Modal -->
+  <!-- Shared Dark Modal -->
   <div class="modal fade" id="sharedModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title fw-bold" id="sharedModalTitle">Modal</h5>
+          <h5 class="modal-title fw-bold text-white" id="sharedModalTitle">Modal</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body" id="sharedModalBody"></div>
@@ -1076,27 +1017,27 @@
       const s = data.stats;
       const grid = document.getElementById('statsCardsGrid');
       grid.innerHTML = `
-        ${box('Total Category', s.totalCategories, 'fa-list', '#ff5e62')}
-        ${box('Total Sub Category', s.totalSubCategories, 'fa-layer-group', '#20c997')}
-        ${box('Total Products', s.totalProducts, 'fa-basket-shopping', '#007bff')}
-        ${box('Total Area', s.totalAreas, 'fa-map-marked-alt', '#fd7e14')}
-        ${box('Total Timeslot', s.totalTimeslots, 'fa-clock', '#6f42c1')}
-        ${box('Total Banner', s.totalBanners, 'fa-image', '#e83e8c')}
-        ${box('Total Customer', s.totalCustomers, 'fa-users', '#17a2b8')}
-        ${box('Pending Orders', s.pendingOrders, 'fa-hourglass-half', '#ffc107')}
-        ${box('Completed Orders', s.completedOrders, 'fa-circle-check', '#28a745')}
-        ${box('Cancelled Orders', s.cancelledOrders, 'fa-ban', '#dc3545')}
-        ${box('Customer Rating', s.customerRatings, 'fa-star', '#ffc107')}
-        ${box('Total Feedback', s.totalFeedbacks, 'fa-comments', '#6c757d')}
-        ${box('Total Sales', s.totalSales.toFixed(2) + ' $', 'fa-dollar-sign', '#28a745')}
-        ${box('Total Delivery Boys', s.totalRiders, 'fa-motorcycle', '#343a40')}
+        ${box('Total Category', s.totalCategories, 'fa-list', '#6366f1')}
+        ${box('Total Sub Category', s.totalSubCategories, 'fa-layer-group', '#10b981')}
+        ${box('Total Products', s.totalProducts, 'fa-basket-shopping', '#06b6d4')}
+        ${box('Total Area', s.totalAreas, 'fa-map-marked-alt', '#f59e0b')}
+        ${box('Total Timeslot', s.totalTimeslots, 'fa-clock', '#8b5cf6')}
+        ${box('Total Banner', s.totalBanners, 'fa-image', '#ec4899')}
+        ${box('Total Customer', s.totalCustomers, 'fa-users', '#3b82f6')}
+        ${box('Pending Orders', s.pendingOrders, 'fa-hourglass-half', '#eab308')}
+        ${box('Completed Orders', s.completedOrders, 'fa-circle-check', '#10b981')}
+        ${box('Cancelled Orders', s.cancelledOrders, 'fa-ban', '#ef4444')}
+        ${box('Customer Rating', s.customerRatings, 'fa-star', '#f59e0b')}
+        ${box('Total Feedback', s.totalFeedbacks, 'fa-comments', '#64748b')}
+        ${box('Total Sales', s.totalSales.toFixed(2) + ' $', 'fa-dollar-sign', '#10b981')}
+        ${box('Total Delivery Boys', s.totalRiders, 'fa-motorcycle', '#a855f7')}
       `;
     }
 
     function box(title, val, icon, color) {
       return `
         <div class="col-md-3">
-          <div class="stat-box" style="border-right-color:${color}">
+          <div class="stat-box" style="border-right: 4px solid ${color}">
             <div class="d-flex justify-content-between align-items-center">
               <div><div class="stat-title">${title}</div><div class="stat-value">${val}</div></div>
               <i class="fa-solid ${icon} fs-2" style="color:${color}"></i>
@@ -1120,13 +1061,12 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${c.catname}</td>
+            <td class="fw-bold text-white">${c.catname}</td>
             <td><img src="${c.catimg}" width="45" height="45" class="rounded"></td>
             <td><button class="btn-action-delete" onclick="deleteItem('categories', ${c.id}, loadCategories)"><i class="fa-solid fa-trash"></i></button></td>
           </tr>
         `;
       });
-      // Populate selects in other forms
       ['subcat_cat_select', 'p_cat', 'b_cat_select', 'hs_cat_select'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.innerHTML = subcatOpts;
@@ -1161,7 +1101,7 @@
           <tr>
             <td>${i + 1}</td>
             <td>${s.catname || 'Category'}</td>
-            <td class="fw-bold">${s.name}</td>
+            <td class="fw-bold text-white">${s.name}</td>
             <td><img src="${s.img}" width="40" height="40" class="rounded"></td>
             <td><span class="badge bg-secondary">1</span></td>
             <td><button class="btn-action-delete" onclick="deleteItem('subcategories', ${s.id}, loadSubcategories)"><i class="fa-solid fa-trash"></i></button></td>
@@ -1201,7 +1141,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${p.pname}</td>
+            <td class="fw-bold text-white">${p.pname}</td>
             <td>${p.catname || ''}</td>
             <td>${p.subcat_name || ''}</td>
             <td>${p.psdesc || ''}</td>
@@ -1249,7 +1189,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${a.name}</td>
+            <td class="fw-bold text-white">${a.name}</td>
             <td class="fw-bold text-success">${a.dcharge} $</td>
             <td><span class="badge bg-success">${a.status}</span></td>
             <td><button class="btn-action-delete" onclick="deleteItem('areas', ${a.id}, loadAreas)"><i class="fa-solid fa-trash"></i></button></td>
@@ -1287,8 +1227,8 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${t.min_time}</td>
-            <td class="fw-bold">${t.max_time}</td>
+            <td class="fw-bold text-white">${t.min_time}</td>
+            <td class="fw-bold text-white">${t.max_time}</td>
             <td><button class="btn-action-delete" onclick="deleteItem('timeslots', ${t.id}, loadTimeslots)"><i class="fa-solid fa-trash"></i></button></td>
           </tr>
         `;
@@ -1309,7 +1249,7 @@
       loadTimeslots();
     }
 
-    // 7. DELIVERY BOY / RIDER
+    // 7. DELIVERY BOY
     async function loadRiders() {
       const res = await fetch(`${API}/riders`);
       const data = await res.json();
@@ -1321,7 +1261,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${r.name}</td>
+            <td class="fw-bold text-white">${r.name}</td>
             <td>${r.mobile}</td>
             <td>${r.email}</td>
             <td><span class="badge ${r.status == 1 ? 'bg-success' : 'bg-danger'}">${r.status == 1 ? 'Active' : 'Deactive'}</span></td>
@@ -1394,7 +1334,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${hs.title}</td>
+            <td class="fw-bold text-white">${hs.title}</td>
             <td>${hs.catname || ''}</td>
             <td>${hs.subcat_name || ''}</td>
             <td><span class="badge bg-success">Published</span></td>
@@ -1431,7 +1371,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${n.title}</td>
+            <td class="fw-bold text-white">${n.title}</td>
             <td>${n.msg}</td>
             <td>${n.date}</td>
             <td><span class="badge bg-info">Sent</span></td>
@@ -1455,7 +1395,7 @@
       loadNotifications();
     }
 
-    // 11. CUSTOMER / USER (SCREENS 37 & 38)
+    // 11. CUSTOMER / USER
     async function loadUsers() {
       const res = await fetch(`${API}/customers`);
       const data = await res.json();
@@ -1467,7 +1407,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${u.name}</td>
+            <td class="fw-bold text-white">${u.name}</td>
             <td>${u.email}</td>
             <td>${u.ccode || '+91'}</td>
             <td>${u.mobile}</td>
@@ -1502,7 +1442,7 @@
             <label class="form-label fw-bold">Wallet Amount</label>
             <input type="number" step="0.01" id="bal_amt" class="form-control" required placeholder="50.00">
           </div>
-          <button type="submit" class="btn btn-success w-100 fw-bold">Add Balance Now</button>
+          <button type="submit" class="btn btn-primary-dark w-100">Add Balance Now</button>
         </form>
       `;
       sharedModalInstance.show();
@@ -1523,16 +1463,16 @@
     async function viewAddresses(uid) {
       const res = await fetch(`${API}/customers/addresses?uid=${uid}`);
       const data = await res.json();
-      document.getElementById('sharedModalTitle').innerText = 'USER ADDRESS LIST (Screen 38)';
-      let html = '<table class="table table-custom"><thead><tr><th>Sr No.</th><th>House No</th><th>Society</th><th>Area</th><th>Pincode</th><th>Landmark</th><th>Type</th></tr></thead><tbody>';
+      document.getElementById('sharedModalTitle').innerText = 'USER ADDRESS LIST';
+      let html = '<table class="table table-custom"><thead><tr><th>#</th><th>House No</th><th>Society</th><th>Area</th><th>Pincode</th><th>Landmark</th><th>Type</th></tr></thead><tbody>';
       if (data.addresses && data.addresses.length > 0) {
         data.addresses.forEach((a, i) => {
           html += `<tr><td>${i+1}</td><td>${a.hno}</td><td>${a.society}</td><td>${a.area}</td><td>${a.pincode}</td><td>${a.landmark||''}</td><td>${a.type}</td></tr>`;
         });
       } else {
-        html += '<tr><td colspan="7" class="text-center">No addresses found</td></tr>';
+        html += '<tr><td colspan="7" class="text-center text-muted">No addresses found</td></tr>';
       }
-      html += 'tbody></table>';
+      html += '</tbody></table>';
       document.getElementById('sharedModalBody').innerHTML = html;
       sharedModalInstance.show();
     }
@@ -1551,7 +1491,7 @@
             <tr>
               <td>${i + 1}</td>
               <td>${o.odate || ''}</td>
-              <td class="fw-bold">#${o.id}</td>
+              <td class="fw-bold text-white">#${o.id}</td>
               <td>${o.name || 'User'}</td>
               <td>${o.rider_name || 'Rider'}</td>
               <td class="fw-bold text-success">${o.total} $</td>
@@ -1565,7 +1505,7 @@
             <tr>
               <td>${i + 1}</td>
               <td>${o.odate || ''}</td>
-              <td class="fw-bold">#${o.id}</td>
+              <td class="fw-bold text-white">#${o.id}</td>
               <td>${o.rider_name || 'Not Assign'}</td>
               <td><span class="badge bg-secondary">${o.a_status == 1 ? 'Assigned' : 'Not Assign'}</span></td>
               <td><span class="badge bg-info">${o.status}</span></td>
@@ -1584,14 +1524,14 @@
       const data = await res.json();
       let opts = data.riders.map(r => `<option value="${r.id}">${r.name} (${r.mobile})</option>`).join('');
 
-      document.getElementById('sharedModalTitle').innerText = `ASSIGN DELIVERY BOY ORDER LIST (Screen 24) - Order #${orderId}`;
+      document.getElementById('sharedModalTitle').innerText = `ASSIGN DELIVERY BOY ORDER LIST - Order #${orderId}`;
       document.getElementById('sharedModalBody').innerHTML = `
         <form onsubmit="submitAssign(event, ${orderId})">
           <div class="mb-3">
             <label class="form-label fw-bold">Select Delivery Boy</label>
             <select id="assign_r_select" class="form-select">${opts}</select>
           </div>
-          <button type="submit" class="btn btn-primary w-100 fw-bold">Assign Delivery Boy Now</button>
+          <button type="submit" class="btn btn-primary-dark w-100">Assign Delivery Boy Now</button>
         </form>
       `;
       sharedModalInstance.show();
@@ -1610,13 +1550,13 @@
     }
 
     function previewOrderModal(orderId) {
-      document.getElementById('sharedModalTitle').innerText = `ORDER PREVIEW MODAL DETAIL (Screens 11 & 25) - #${orderId}`;
+      document.getElementById('sharedModalTitle').innerText = `ORDER PREVIEW MODAL DETAIL - #${orderId}`;
       document.getElementById('sharedModalBody').innerHTML = `
         <div class="p-2">
           <h5>Order #${orderId} Overview</h5>
           <p><strong>Payment Method:</strong> Cash On Delivery (COD)</p>
           <p><strong>Customer Name:</strong> Azumaa Customer</p>
-          <table class="table table-bordered mt-3">
+          <table class="table table-bordered mt-3 text-white">
             <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
             <tbody><tr><td>Sample Item</td><td>1</td><td>10 $</td><td>10 $</td></tr></tbody>
           </table>
@@ -1670,7 +1610,7 @@
       loadCoupons();
     }
 
-    // 15. RATINGS & FEEDBACK (SCREENS 14 & 18)
+    // 15. RATINGS & FEEDBACK
     async function loadRatings() {
       const res = await fetch(`${API}/ratings`);
       const data = await res.json();
@@ -1680,7 +1620,7 @@
       if (!data.success) return;
 
       (data.ratings || []).forEach((r, i) => {
-        rBody.innerHTML += `<tr><td>${i+1}</td><td class="fw-bold">${r.user_name || 'Customer'}</td><td class="text-warning"><i class="fa-solid fa-star"></i> ${r.total_star || 5}</td><td>${r.review || 'Great service'}</td><td><button class="btn-action-delete"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+        rBody.innerHTML += `<tr><td>${i+1}</td><td class="fw-bold text-white">${r.user_name || 'Customer'}</td><td class="text-warning"><i class="fa-solid fa-star"></i> ${r.total_star || 5}</td><td>${r.review || 'Great service'}</td><td><button class="btn-action-delete"><i class="fa-solid fa-trash"></i></button></td></tr>`;
       });
 
       (data.feedbacks || []).forEach((f, i) => {
@@ -1688,7 +1628,7 @@
       });
     }
 
-    // 16. COUNTRY CODE (SCREENS 12 & 13)
+    // 16. COUNTRY CODE
     async function loadCountryCodes() {
       const res = await fetch(`${API}/country-codes`);
       const data = await res.json();
@@ -1700,7 +1640,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${c.ccode}</td>
+            <td class="fw-bold text-white">${c.ccode}</td>
             <td><span class="badge ${c.status == 1 ? 'bg-success' : 'bg-danger'}">${c.status == 1 ? 'Active' : 'Deactive'}</span></td>
             <td><button class="btn btn-sm btn-outline-secondary" onclick="toggleCcStatus(${c.id}, ${c.status == 1 ? 0 : 1})">Toggle Status</button></td>
           </tr>
@@ -1729,7 +1669,7 @@
       loadCountryCodes();
     }
 
-    // 17. PAYMENT GATEWAY (SCREENS 26 & 27)
+    // 17. PAYMENT GATEWAY
     async function loadPaymentGateways() {
       const res = await fetch(`${API}/payment-gateways`);
       const data = await res.json();
@@ -1741,7 +1681,7 @@
         tbody.innerHTML += `
           <tr>
             <td>${i + 1}</td>
-            <td class="fw-bold">${g.title || g.name}</td>
+            <td class="fw-bold text-white">${g.title || g.name}</td>
             <td><img src="${g.img}" height="35" class="rounded"></td>
             <td>${g.cred_title || '-'}</td>
             <td class="text-truncate" style="max-width:140px">${g.cred_value || '-'}</td>
@@ -1753,7 +1693,7 @@
     }
 
     function editGatewayModal(id, title, credTitle, credValue, status) {
-      document.getElementById('sharedModalTitle').innerText = `EDIT PAYMENT GATEWAY (Screen 27) - ${title}`;
+      document.getElementById('sharedModalTitle').innerText = `EDIT PAYMENT GATEWAY - ${title}`;
       document.getElementById('sharedModalBody').innerHTML = `
         <form onsubmit="submitEditGw(event, ${id})">
           <div class="mb-3"><label class="form-label fw-bold">Credentials Title</label><input type="text" id="gw_title" class="form-control" value="${credTitle}"></div>
@@ -1765,7 +1705,7 @@
               <option value="0" ${status == 0 ? 'selected' : ''}>Deactive</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary w-100 fw-bold">Update Payment Gateway</button>
+          <button type="submit" class="btn btn-primary-dark w-100">Update Payment Gateway</button>
         </form>
       `;
       sharedModalInstance.show();
@@ -1786,7 +1726,7 @@
       loadPaymentGateways();
     }
 
-    // 18. SETTING (SCREEN 32)
+    // 18. SETTING
     async function loadSettings() {
       const res = await fetch(`${API}/settings`);
       const data = await res.json();
@@ -1821,10 +1761,10 @@
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ title, currency, timezone, o_min, tax, user_onesignal_app_id, user_onesignal_rest_key, rider_onesignal_app_id, rider_onesignal_rest_key })
       });
-      alert('UPDATE SETTING (Screen 32) Saved successfully!');
+      alert('UPDATE SETTING Saved successfully!');
     }
 
-    // 19. PROFILE (SCREENS 30 & 31)
+    // 19. PROFILE
     function loadProfile() {
       document.getElementById('prof_user').value = 'admin';
     }
@@ -1839,7 +1779,7 @@
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ username, password })
       });
-      alert('UPDATE PROFILE (Screens 30 & 31) Updated successfully!');
+      alert('UPDATE PROFILE Updated successfully!');
     }
 
     // Universal Helper: Delete Item
