@@ -1,6 +1,6 @@
 package com.cscodetech.freshfastfooddeliveryboy.retrofit;
 
-
+import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -9,10 +9,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClient {
     static Retrofit retrofit = null;
 
-    public static String baseUrl = "http://azumaadelivery.cscodetech.com/";
+    // UPDATED: New Vercel backend URL (replaces old PHP server)
+    public static String baseUrl = "https://azumaa.vercel.app/";
 
-    public static final String APPEND_URL = "/rapi/";
-
+    // Rider API uses api/ prefix (same backend, same api.js routes)
+    public static final String APPEND_URL = "api/";
 
     public static UserService getInterface() {
 
@@ -20,6 +21,9 @@ public class APIClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
 
         retrofit = new Retrofit.Builder()

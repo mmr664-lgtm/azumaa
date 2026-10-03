@@ -1056,4 +1056,119 @@ router.all(['/ostatus.php', '/ostatus'], async (req, res) => {
   }
 });
 
+// 30. status.php - Toggle User / Rider Active Status
+router.all(['/status.php', '/status'], async (req, res) => {
+  try {
+    const { uid, rid, status } = req.body;
+    if (uid) {
+      await db.query('UPDATE "user" SET status = $1 WHERE id = $2', [status, uid]);
+      return res.json({ ResponseCode: "200", Result: "true", ResponseMsg: "User Status Updated!" });
+    } else if (rid) {
+      await db.query('UPDATE rider SET a_status = $1 WHERE id = $2', [status, rid]);
+      return res.json({ ResponseCode: "200", Result: "true", ResponseMsg: "Rider Status Updated!" });
+    }
+    return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Something Went Wrong!" });
+  } catch (err) {
+    console.error(err);
+    return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: err.message });
+  }
+});
+
+// 31. forgot.php - Password Recovery (sends new pin via mobile)
+router.all(['/forgot.php', '/forgot'], async (req, res) => {
+  try {
+    const mobile = req.body.mobile || req.query.mobile;
+    if (!mobile) {
+      return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Something Went Wrong!" });
+    }
+    const { rows } = await db.query('SELECT * FROM "user" WHERE mobile = $1', [mobile]);
+    if (rows.length === 0) {
+      return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Mobile Number Not Found!" });
+    }
+    const user = rows[0];
+    // Generate 4-digit OTP
+    const otp = Math.floor(1000 + Math.random() * 9000);
+    await db.query('UPDATE "user" SET pin = $1 WHERE id = $2', [String(otp), user.id]);
+    return res.json({
+      pin: String(otp),
+      ResponseCode: "200",
+      Result: "true",
+      ResponseMsg: "OTP Sent Successfully!"
+    });
+  } catch (err) {
+    console.error(err);
+    return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: err.message });
+  }
+});
+
+// 32. pinmatch.php - Verify OTP / Reset Password
+router.all(['/pinmatch.php', '/pinmatch'], async (req, res) => {
+  try {
+    const { mobile, pin, password } = req.body;
+    if (!mobile || !pin) {
+      return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Something Went Wrong!" });
+    }
+    const { rows } = await db.query('SELECT * FROM "user" WHERE mobile = $1 AND pin = $2', [mobile, pin]);
+    if (rows.length === 0) {
+      return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Invalid OTP!" });
+    }
+    if (password) {
+      await db.query('UPDATE "user" SET password = $1, pin = NULL WHERE mobile = $2', [password, mobile]);
+    }
+    return res.json({
+      ResponseCode: "200",
+      Result: "true",
+      ResponseMsg: "OTP Verified Successfully!"
+    });
+  } catch (err) {
+    console.error(err);
+    return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: err.message });
+  }
+});
+
+// 33. notiset.php - Set Notification as Read by User
+router.all(['/notiset.php', '/notiset'], async (req, res) => {
+  try {
+    const { uid, nid } = req.body;
+    if (!uid || !nid) {
+      return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Something Went Wrong!" });
+    }
+    // Check if already read
+    const existing = await db.query('SELECT * FROM uread WHERE uid = $1 AND nid = $2', [uid, nid]);
+    if (existing.rows.length === 0) {
+      await db.query('INSERT INTO uread (uid, nid) VALUES ($1, $2)', [uid, nid]);
+    }
+    return res.json({
+      ResponseCode: "200",
+      Result: "true",
+      ResponseMsg: "Notification Marked as Read!"
+    });
+  } catch (err) {
+    console.error(err);
+    return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: err.message });
+  }
+});
+
+// 34. n_read.php - Same as notiset (alias)
+router.all(['/n_read.php', '/n_read'], async (req, res) => {
+  try {
+    const { uid, nid } = req.body;
+    if (!uid || !nid) {
+      return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: "Something Went Wrong!" });
+    }
+    const existing = await db.query('SELECT * FROM uread WHERE uid = $1 AND nid = $2', [uid, nid]);
+    if (existing.rows.length === 0) {
+      await db.query('INSERT INTO uread (uid, nid) VALUES ($1, $2)', [uid, nid]);
+    }
+    return res.json({
+      ResponseCode: "200",
+      Result: "true",
+      ResponseMsg: "Notification Read Successfully!"
+    });
+  } catch (err) {
+    console.error(err);
+    return res.json({ ResponseCode: "401", Result: "false", ResponseMsg: err.message });
+  }
+});
+
 module.exports = router;
